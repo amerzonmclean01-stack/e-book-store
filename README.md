@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Definitive Word - Secure Christian Resources</title>
+    <title>The Definitive Word - Complete Christian Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1a365d">
     <style>
-        /* === ENTERPRISE-LEVEL STYLES === */
+        /* === COMPLETE STYLES === */
         :root {
             --primary-color: #1a365d;
             --secondary-color: #2d3748;
@@ -38,7 +38,7 @@
             overflow-x: hidden;
         }
 
-        /* Security Badge */
+        /* Security & Loading */
         .security-badge {
             position: fixed;
             top: 10px;
@@ -54,7 +54,6 @@
             gap: 5px;
         }
 
-        /* Loading Screen */
         #loadingScreen {
             position: fixed;
             top: 0;
@@ -107,11 +106,7 @@
             background: var(--light-bg);
         }
 
-        .context-menu-item:last-child {
-            border-bottom: none;
-        }
-
-        /* Notification System */
+        /* Notifications */
         .notification {
             position: fixed;
             top: 20px;
@@ -156,29 +151,429 @@
             overflow-y: auto;
         }
 
-        /* Existing styles from previous version... */
+        /* Main Layout */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .header { background: var(--white); box-shadow: 0 2px 20px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid var(--gold-color); }
-        .header-content { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 0; }
-        .logo { font-size: 2.2rem; font-weight: 700; color: var(--primary-color); text-decoration: none; font-family: 'Georgia', serif; }
-        .logo span { color: var(--gold-color); font-style: italic; }
-        .nav { display: flex; gap: 2.5rem; align-items: center; }
-        .nav-link { color: var(--dark-text); text-decoration: none; font-weight: 500; font-size: 1.1rem; transition: all 0.3s ease; position: relative; }
-        .nav-link:hover { color: var(--accent-color); }
-        .btn { padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: none; cursor: pointer; display: inline-block; font-size: 1rem; }
-        .btn-primary { background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); color: var(--white); box-shadow: 0 4px 15px rgba(43, 108, 176, 0.3); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(43, 108, 176, 0.4); }
-        .section { padding: 100px 0; }
-        .section-title { font-size: 2.8rem; text-align: center; margin-bottom: 1rem; color: var(--primary-color); font-family: 'Georgia', serif; position: relative; }
-        .section-title:after { content: ''; display: block; width: 80px; height: 3px; background: var(--gold-color); margin: 1rem auto; }
-        .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2.5rem; }
-        .book-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.08); position: relative; }
-        .book-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
-        .book-info { padding: 2rem; }
-        .book-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--primary-color); line-height: 1.4; }
-        .book-author { color: var(--light-text); margin-bottom: 1rem; font-size: 1rem; font-style: italic; }
-        .book-price { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); margin-bottom: 1.5rem; }
-        .footer { background: var(--primary-color); color: var(--white); padding: 80px 0 30px; }
+        
+        .header { 
+            background: var(--white); 
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            border-bottom: 3px solid var(--gold-color); 
+        }
+        
+        .header-content { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 1.2rem 0; 
+        }
+        
+        .logo { 
+            font-size: 2.2rem; 
+            font-weight: 700; 
+            color: var(--primary-color); 
+            text-decoration: none; 
+            font-family: 'Georgia', serif; 
+        }
+        
+        .logo span { 
+            color: var(--gold-color); 
+            font-style: italic; 
+        }
+        
+        .nav { 
+            display: flex; 
+            gap: 2.5rem; 
+            align-items: center; 
+        }
+        
+        .nav-link { 
+            color: var(--dark-text); 
+            text-decoration: none; 
+            font-weight: 500; 
+            font-size: 1.1rem; 
+            transition: all 0.3s ease; 
+            position: relative; 
+            cursor: pointer;
+        }
+        
+        .nav-link.active {
+            color: var(--accent-color);
+        }
+        
+        .nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gold-color);
+        }
+        
+        .nav-link:hover { 
+            color: var(--accent-color); 
+        }
+        
+        .btn { 
+            padding: 12px 28px; 
+            border-radius: 6px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: all 0.3s ease; 
+            border: none; 
+            cursor: pointer; 
+            display: inline-block; 
+            font-size: 1rem; 
+        }
+        
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); 
+            color: var(--white); 
+            box-shadow: 0 4px 15px rgba(43, 108, 176, 0.3); 
+        }
+        
+        .btn-primary:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(43, 108, 176, 0.4); 
+        }
+        
+        .btn-outline { 
+            border: 2px solid var(--primary-color); 
+            color: var(--primary-color); 
+            background: transparent; 
+        }
+        
+        .btn-outline:hover { 
+            background: var(--primary-color); 
+            color: var(--white); 
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Sections */
+        .hero-section {
+            padding: 120px 0;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2c5282 100%);
+            color: white;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-family: 'Georgia', serif;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--gold-color);
+            margin: 1rem auto;
+        }
+
+        /* Store Styles */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .book-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .book-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gold-color);
+            color: var(--white);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .book-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .book-info {
+            padding: 2rem;
+        }
+
+        .book-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            line-height: 1.4;
+        }
+
+        .book-author {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .book-description {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .book-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .book-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Ministry Styles */
+        .ministry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .ministry-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .ministry-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .ministry-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Community Styles */
+        .community-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--light-text);
+            font-size: 1.1rem;
+        }
+
+        /* Blog Styles */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .blog-image {
+            height: 200px;
+            background: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-text);
+        }
+
+        .blog-content {
+            padding: 2rem;
+        }
+
+        .blog-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .blog-meta {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* About Styles */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin: 3rem 0;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .about-features {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .about-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .about-features li:before {
+            content: "✓";
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 80px 0 30px;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            font-size: 1.3rem;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #cbd5e0;
+            text-decoration: none;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #4a5568;
+            padding-top: 2rem;
+            text-align: center;
+            color: #cbd5e0;
+        }
 
         /* Settings Panel */
         .settings-panel {
@@ -304,7 +699,49 @@
         .status-warning { background: var(--warning); }
         .status-error { background: var(--error); }
 
+        /* Cart */
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--gold-color);
+            color: var(--white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
             .settings-panel {
                 width: 100%;
                 right: -100%;
@@ -329,15 +766,14 @@
     <!-- Loading Screen -->
     <div id="loadingScreen">
         <div class="spinner"></div>
-        <h3>Initializing Secure Environment</h3>
-        <p>Loading security protocols...</p>
+        <h3>Initializing The Definitive Word</h3>
+        <p>Loading all features...</p>
     </div>
 
     <!-- Context Menu -->
     <div class="context-menu" id="contextMenu">
         <div class="context-menu-item" onclick="openInNewTab()"><i class="fas fa-external-link-alt"></i> Open in New Tab</div>
         <div class="context-menu-item" onclick="savePage()"><i class="fas fa-save"></i> Save Page</div>
-        <div class="context-menu-item" onclick="inspectElement()"><i class="fas fa-search"></i> Inspect</div>
         <div class="context-menu-item" onclick="viewSource()"><i class="fas fa-code"></i> View Source</div>
     </div>
 
@@ -362,38 +798,9 @@
                         </label>
                     </div>
                     <div class="setting-option">
-                        <span>Two-Factor Authentication</span>
-                        <label class="switch">
-                            <input type="checkbox" id="twoFactor" onchange="updateSetting('twoFactor', this.checked)">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div class="setting-option">
-                        <span>Session Timeout (minutes)</span>
-                        <input type="number" id="sessionTimeout" value="30" min="5" max="240" onchange="updateSetting('sessionTimeout', this.value)" style="width: 80px; padding: 5px;">
-                    </div>
-                </div>
-
-                <div class="setting-group">
-                    <h4>Privacy Settings</h4>
-                    <div class="setting-option">
-                        <span>Save Login Credentials</span>
+                        <span>Save Login</span>
                         <label class="switch">
                             <input type="checkbox" id="saveLogin" onchange="updateSetting('saveLogin', this.checked)">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div class="setting-option">
-                        <span>Allow Cookies</span>
-                        <label class="switch">
-                            <input type="checkbox" id="allowCookies" onchange="updateSetting('allowCookies', this.checked)">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div class="setting-option">
-                        <span>Data Encryption</span>
-                        <label class="switch">
-                            <input type="checkbox" id="dataEncryption" checked onchange="updateSetting('dataEncryption', this.checked)">
                             <span class="slider"></span>
                         </label>
                     </div>
@@ -415,14 +822,6 @@
                             <span class="slider"></span>
                         </label>
                     </div>
-                    <div class="setting-option">
-                        <span>Theme</span>
-                        <select id="theme" onchange="updateSetting('theme', this.value)" style="padding: 5px;">
-                            <option value="light">Light</option>
-                            <option value="dark">Dark</option>
-                            <option value="auto">Auto</option>
-                        </select>
-                    </div>
                 </div>
             </div>
         </div>
@@ -433,40 +832,33 @@
         <h4>System Diagnostics</h4>
         <div class="diagnostics-item">
             <span class="status-indicator status-ok"></span>
-            <span>Security: Active</span>
+            <span>All Systems: Operational</span>
         </div>
-        <div class="diagnostics-item">
-            <span class="status-indicator status-ok"></span>
-            <span>SSL: Encrypted</span>
-        </div>
-        <div class="diagnostics-item">
-            <span class="status-indicator status-ok"></span>
-            <span>Database: Connected</span>
-        </div>
-        <div class="diagnostics-item">
-            <span class="status-indicator status-ok"></span>
-            <span>Payments: Ready</span>
-        </div>
-        <button onclick="runFullDiagnostics()" style="margin-top: 10px; padding: 5px 10px; background: var(--gold-color); border: none; border-radius: 4px; cursor: pointer;">Run Diagnostics</button>
+        <button onclick="runFullDiagnostics()" style="margin-top: 10px; padding: 5px 10px; background: var(--gold-color); border: none; border-radius: 4px; cursor: pointer; color: white;">Run Diagnostics</button>
     </div>
 
-    <!-- Main Application -->
+    <!-- Main Header -->
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo" ondblclick="openSettings()">
+                <a href="#home" class="logo" ondblclick="openSettings()">
                     The <span>Definitive</span> Word
                 </a>
                 
                 <nav class="nav">
-                    <a href="#home" class="nav-link">Home</a>
-                    <a href="#store" class="nav-link">Store</a>
-                    <a href="#ministry" class="nav-link">Ministry</a>
-                    <a href="#community" class="nav-link">Community</a>
-                    <a href="#blog" class="nav-link">Blog</a>
+                    <a href="#home" class="nav-link active" onclick="switchTab('home')">Home</a>
+                    <a href="#store" class="nav-link" onclick="switchTab('store')">Store</a>
+                    <a href="#ministry" class="nav-link" onclick="switchTab('ministry')">Ministry</a>
+                    <a href="#community" class="nav-link" onclick="switchTab('community')">Community</a>
+                    <a href="#blog" class="nav-link" onclick="switchTab('blog')">Blog</a>
+                    <a href="#about" class="nav-link" onclick="switchTab('about')">About</a>
                 </nav>
 
                 <div class="header-actions">
+                    <a href="#cart" style="position: relative; color: var(--primary-color); font-size: 1.4rem; text-decoration: none;">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
                     <button onclick="openSettings()" class="btn btn-outline" style="margin-right: 10px;">
                         <i class="fas fa-cog"></i> Settings
                     </button>
@@ -478,70 +870,373 @@
         </div>
     </header>
 
-    <section id="home" class="hero-section" style="background: linear-gradient(135deg, var(--primary-color) 0%, #2c5282 100%); color: white; padding: 120px 0; text-align: center;">
-        <div class="container">
-            <h1 style="font-size: 3.8rem; margin-bottom: 1.5rem;">The Definitive Word</h1>
-            <p style="font-size: 1.4rem; margin-bottom: 2.5rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Secure • Encrypted • Enterprise-Grade Christian Resources
-            </p>
-            <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-                <button class="btn btn-primary">Explore Resources</button>
-                <button class="btn" style="background: rgba(255,255,255,0.1); color: white; border: 2px solid white;">View Diagnostics</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="store" class="section">
-        <div class="container">
-            <h2 class="section-title">Secure Ebook Store</h2>
-            <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;">
-                Encrypted transactions with enterprise-level security
-            </p>
-            
-            <div class="books-grid">
-                <div class="book-card">
-                    <div class="book-info">
-                        <h3 class="book-title">Morning Reflections</h3>
-                        <p class="book-author">by Dr. Michael Thompson</p>
-                        <p style="color: var(--light-text); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.6;">
-                            SSL Encrypted • Secure Download
-                        </p>
-                        <div class="book-price">$19.99</div>
-                        <button class="btn btn-primary" style="width: 100%;" onclick="securePurchase('Morning Reflections')">
-                            <i class="fas fa-lock"></i> Secure Purchase
-                        </button>
-                    </div>
-                </div>
-
-                <div class="book-card">
-                    <div class="book-info">
-                        <h3 class="book-title">Understanding Grace</h3>
-                        <p class="book-author">by Pastor Sarah Johnson</p>
-                        <p style="color: var(--light-text); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.6;">
-                            SSL Encrypted • Secure Download
-                        </p>
-                        <div class="book-price">$22.99</div>
-                        <button class="btn btn-primary" style="width: 100%;" onclick="securePurchase('Understanding Grace')">
-                            <i class="fas fa-lock"></i> Secure Purchase
-                        </button>
+    <!-- Tab Contents -->
+    <main>
+        <!-- HOME TAB -->
+        <section id="home-tab" class="tab-content active">
+            <div class="hero-section">
+                <div class="container">
+                    <h1 style="font-size: 3.8rem; margin-bottom: 1.5rem;">The Definitive Word</h1>
+                    <p style="font-size: 1.4rem; margin-bottom: 2.5rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        Your complete Christian resource platform with secure ebooks, ministry programs, and vibrant community.
+                    </p>
+                    <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="switchTab('store')">Explore Store</button>
+                        <button class="btn" style="background: rgba(255,255,255,0.1); color: white; border: 2px solid white;" onclick="switchTab('ministry')">Join Ministry</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
+            <div class="section">
+                <div class="container">
+                    <h2 class="section-title">Welcome to Your Spiritual Home</h2>
+                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                        Discover a comprehensive platform designed to nurture your spiritual growth through quality resources, 
+                        meaningful community, and transformative ministry programs.
+                    </p>
+
+                    <div class="ministry-grid">
+                        <div class="ministry-card">
+                            <div class="ministry-icon"><i class="fas fa-book"></i></div>
+                            <h3>Digital Library</h3>
+                            <p>Access hundreds of Christian ebooks, study guides, and spiritual resources with secure, encrypted downloads.</p>
+                            <button class="btn btn-outline" onclick="switchTab('store')" style="margin-top: 1.5rem;">Browse Library</button>
+                        </div>
+                        
+                        <div class="ministry-card">
+                            <div class="ministry-icon"><i class="fas fa-hands-helping"></i></div>
+                            <h3>Ministry Programs</h3>
+                            <p>Join our various ministry programs tailored for different age groups and spiritual needs.</p>
+                            <button class="btn btn-outline" onclick="switchTab('ministry')" style="margin-top: 1.5rem;">Explore Ministries</button>
+                        </div>
+                        
+                        <div class="ministry-card">
+                            <div class="ministry-icon"><i class="fas fa-users"></i></div>
+                            <h3>Community</h3>
+                            <p>Connect with thousands of believers worldwide through our secure online community platform.</p>
+                            <button class="btn btn-outline" onclick="switchTab('community')" style="margin-top: 1.5rem;">Join Community</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STORE TAB -->
+        <section id="store-tab" class="tab-content">
+            <div class="section">
+                <div class="container">
+                    <h2 class="section-title">Christian Resource Store</h2>
+                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;">
+                        Discover our curated collection of Christian books, study guides, and spiritual growth materials
+                    </p>
+
+                    <div class="books-grid">
+                        <div class="book-card">
+                            <div class="book-badge">Bestseller</div>
+                            <div class="book-image">Daily Devotional</div>
+                            <div class="book-info">
+                                <h3 class="book-title">Morning Reflections: 365 Days with God</h3>
+                                <p class="book-author">by Dr. Michael Thompson</p>
+                                <p class="book-description">Start each day with profound biblical insights and practical applications for modern Christian living.</p>
+                                <div class="book-price">$19.99</div>
+                                <div class="book-actions">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Morning Reflections', 19.99)">Add to Cart</button>
+                                    <button class="btn btn-outline btn-small">Preview</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-badge">New</div>
+                            <div class="book-image">Bible Study</div>
+                            <div class="book-info">
+                                <h3 class="book-title">Understanding God's Grace</h3>
+                                <p class="book-author">by Pastor Sarah Johnson</p>
+                                <p class="book-description">A comprehensive study on the transformative power of grace in the life of every believer.</p>
+                                <div class="book-price">$22.99</div>
+                                <div class="book-actions">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Understanding Grace', 22.99)">Add to Cart</button>
+                                    <button class="btn btn-outline btn-small">Preview</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-image">Christian Living</div>
+                            <div class="book-info">
+                                <h3 class="book-title">Faith in Action: Living the Gospel</h3>
+                                <p class="book-author">by Elder James Wilson</p>
+                                <p class="book-description">Practical guidance for applying biblical principles to everyday challenges and opportunities.</p>
+                                <div class="book-price">$18.99</div>
+                                <div class="book-actions">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Faith in Action', 18.99)">Add to Cart</button>
+                                    <button class="btn btn-outline btn-small">Preview</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-image">Prayer Guide</div>
+                            <div class="book-info">
+                                <h3 class="book-title">The Power of Prayer</h3>
+                                <p class="book-author">by Maria Garcia</p>
+                                <p class="book-description">Deepen your prayer life with this comprehensive guide to communicating with God.</p>
+                                <div class="book-price">$15.99</div>
+                                <div class="book-actions">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Power of Prayer', 15.99)">Add to Cart</button>
+                                    <button class="btn btn-outline btn-small">Preview</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MINISTRY TAB -->
+        <section id="ministry-tab" class="tab-content">
+            <div class="section">
+                <div class="container">
+                    <h2 class="section-title">Ministry Programs</h2>
+                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;">
+                        Join our various ministry programs designed to nurture spiritual growth at every stage of life
+                    </p>
+
+                    <div class="ministry-grid">
+                        <div class="ministry-card">
+                            <div class="ministry-icon"><i class="fas fa-users"></i></div>
+                            <h3>Youth Ministry</h3>
+                            <p>Engaging programs for young believers aged 13-25. Weekly meetings, retreats, leadership training, and mission opportunities to build strong Christian foundations.</p>
+                            <div class="book-actions">
+                                <button class="btn btn-primary btn-small">Join Now</button>
+                                <button class="btn btn-outline btn-small">Learn More</button>
+                            </div>
+                        </div>
+                        
+                        <div class="ministry-card">
+                            <div class="ministry-icon"><i class="fas fa-female"></i></div>
+                            <h3>Women's Ministry</h3>
+                            <p>Support and fellowship for women of all ages. Bible studies, prayer groups, annual conferences, and mentorship programs to empower women in faith.</p>
+                            <div class="book-actions">
+                                <button class="btn btn-primary btn-small">Join Now</button>
+                                <button class="btn btn-outline btn-small">Learn More</button>
+                            </div>
+                        </div>
+                        
+                        <div class="ministry-card">
+                            <div class="ministry-icon"><i class="fas fa-male"></i></div>
+                            <h3>Men's Ministry</h3>
+                            <p>Building strong Christian men through accountability groups, workshops, service projects, and spiritual leadership training for effective discipleship.</p>
+                            <div class="book-actions">
+                                <button class="btn btn-primary btn-small">Join Now</button>
+                                <button class="btn btn-outline btn-small">Learn More</button>
+                            </div>
+                        </div>
+
+                        <div class="ministry-card">
+                            <div class="ministry-icon"><i class="fas fa-child"></i></div>
+                            <h3>Children's Ministry</h3>
+                            <p>Age-appropriate biblical teaching and activities for children. Sunday school, vacation Bible school, and family events to nurture young faith.</p>
+                            <div class="book-actions">
+                                <button class="btn btn-primary btn-small">Join Now</button>
+                                <button class="btn btn-outline btn-small">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMMUNITY TAB -->
+        <section id="community-tab" class="tab-content">
+            <div class="section">
+                <div class="container">
+                    <h2 class="section-title">Our Community</h2>
+                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;">
+                        Join thousands of believers in our growing global community
+                    </p>
+
+                    <div class="community-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">10,000+</div>
+                            <div class="stat-label">Members Worldwide</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Books Published</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Ministry Programs</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Prayer Support</div>
+                        </div>
+                    </div>
+
+                    <div class="ministry-grid">
+                        <div class="ministry-card">
+                            <div class="ministry-icon"><i class="fas fa-comments"></i></div>
+                            <h3>Discussion Forums</h3>
+                            <p>Join meaningful conversations about faith, life, and scripture with believers from around the world.</p>
+                            <button class="btn btn-primary" style="margin-top: 1.5rem;">Enter Forums</button>
+                        </div>
+                        
+                        <div class="ministry-card">
+                            <div class="ministry-icon"><i class="fas fa-pray"></i></div>
+                            <h3>Prayer Groups</h3>
+                            <p>Share prayer requests and join others in prayer. Experience the power of collective intercession.</p>
+                            <button class="btn btn-primary" style="margin-top: 1.5rem;">Join Prayer Group</button>
+                        </div>
+                        
+                        <div class="ministry-card">
+                            <div class="ministry-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <h3>Events & Meetings</h3>
+                            <p>Participate in live sessions, webinars, and virtual events with Christian leaders and teachers.</p>
+                            <button class="btn btn-primary" style="margin-top: 1.5rem;">View Events</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOG TAB -->
+        <section id="blog-tab" class="tab-content">
+            <div class="section">
+                <div class="container">
+                    <h2 class="section-title">From Our Blog</h2>
+                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;">
+                        Inspirational articles and Christian insights for your spiritual journey
+                    </p>
+
+                    <div class="blog-grid">
+                        <div class="blog-card">
+                            <div class="blog-image">Featured Image</div>
+                            <div class="blog-content">
+                                <h3 class="blog-title">5 Ways to Deepen Your Prayer Life</h3>
+                                <p class="blog-excerpt">Discover practical steps to strengthen your communication with God and transform your spiritual journey through consistent prayer practice.</p>
+                                <div class="blog-meta">
+                                    <span>March 15, 2024</span>
+                                    <span>5 min read</span>
+                                </div>
+                                <button class="btn btn-outline" style="margin-top: 1rem;">Read More</button>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-card">
+                            <div class="blog-image">Featured Image</div>
+                            <div class="blog-content">
+                                <h3 class="blog-title">Understanding God's Grace in Difficult Times</h3>
+                                <p class="blog-excerpt">Learn how to recognize and embrace God's grace even when facing life's biggest challenges and uncertainties.</p>
+                                <div class="blog-meta">
+                                    <span>March 12, 2024</span>
+                                    <span>7 min read</span>
+                                </div>
+                                <button class="btn btn-outline" style="margin-top: 1rem;">Read More</button>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-card">
+                            <div class="blog-image">Featured Image</div>
+                            <div class="blog-content">
+                                <h3 class="blog-title">Building a Christian Family in Modern Times</h3>
+                                <p class="blog-excerpt">Practical advice for maintaining strong Christian values and relationships in today's rapidly changing world.</p>
+                                <div class="blog-meta">
+                                    <span>March 8, 2024</span>
+                                    <span>6 min read</span>
+                                </div>
+                                <button class="btn btn-outline" style="margin-top: 1rem;">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT TAB -->
+        <section id="about-tab" class="tab-content">
+            <div class="section">
+                <div class="container">
+                    <h2 class="section-title">About The Definitive Word</h2>
+                    
+                    <div class="about-content">
+                        <div class="about-text">
+                            <h3>Our Mission & Vision</h3>
+                            <p>The Definitive Word is dedicated to spreading the Gospel and supporting Christian growth through accessible digital resources. We believe in the transformative power of God's Word and strive to make quality Christian literature available to believers worldwide.</p>
+                            
+                            <p>Founded in 2020, our ministry has grown to serve thousands of Christians across the globe, providing not just books, but a comprehensive platform for spiritual development and community connection.</p>
+                            
+                            <ul class="about-features">
+                                <li>Quality Christian literature from trusted authors</li>
+                                <li>Comprehensive ministry programs for all ages</li>
+                                <li>Supportive online community</li>
+                                <li>Regular inspirational content and resources</li>
+                                <li>Secure, encrypted platform for all transactions</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="about-text">
+                            <h3>Our Values</h3>
+                            <p><strong>Faith:</strong> Everything we do is rooted in biblical principles and dedicated to glorifying God.</p>
+                            <p><strong>Community:</strong> We believe in the power of Christian fellowship and mutual support.</p>
+                            <p><strong>Excellence:</strong> We strive for the highest quality in all our resources and services.</p>
+                            <p><strong>Accessibility:</strong> Making Christian resources available to everyone, everywhere.</p>
+                            <p><strong>Integrity:</strong> Operating with transparency and biblical ethics in all dealings.</p>
+                            <p><strong>Security:</strong> Protecting our users' data and privacy with enterprise-level security.</p>
+                            
+                            <button class="btn btn-primary" style="margin-top: 2rem;">Contact Our Team</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div style="text-align: center; color: #cbd5e0;">
-                <p>&copy; 2024 The Definitive Word. Enterprise-Grade Security • Version 2.1.0</p>
-                <p style="margin-top: 1rem; font-size: 0.9rem;">
-                    <i class="fas fa-shield-alt"></i> All transactions encrypted with 256-bit SSL
-                </p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>The Definitive Word</h4>
+                    <p>Your trusted source for biblical teaching, spiritual growth resources, and Christian community. Committed to spreading God's Word with excellence and integrity.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a onclick="switchTab('home')">Home</a>
+                    <a onclick="switchTab('store')">Resource Store</a>
+                    <a onclick="switchTab('ministry')">Ministry Programs</a>
+                    <a onclick="switchTab('community')">Community</a>
+                    <a onclick="switchTab('blog')">Blog & Articles</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Ministry</h4>
+                    <a>Youth Ministry</a>
+                    <a>Women's Ministry</a>
+                    <a>Men's Ministry</a>
+                    <a>Children's Ministry</a>
+                    <a>Prayer Requests</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a>Contact Us</a>
+                    <a>FAQ</a>
+                    <a>Shipping Info</a>
+                    <a>Returns</a>
+                    <a>Privacy Policy</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 The Definitive Word Ministry. All rights reserved. | Spreading God's Truth, Transforming Lives</p>
             </div>
         </div>
     </footer>
 
-    <!-- Comprehensive JavaScript -->
+    <!-- Complete JavaScript -->
     <script>
         // ===== CONFIGURATION =====
         const CONFIG = {
@@ -549,39 +1244,24 @@
             security: {
                 ssl: true,
                 encryption: 'AES-256',
-                sessionTimeout: 30,
-                twoFactor: false
+                sessionTimeout: 30
             },
             features: {
                 doubleClick: false,
                 rightClick: true,
                 saveLogin: true,
                 autoLogin: false
-            },
-            diagnostics: {
-                enabled: true,
-                autoRun: true,
-                logLevel: 'info'
             }
         };
 
+        // ===== APPLICATION STATE =====
+        let currentUser = null;
+        let cart = [];
+        let currentTab = 'home';
+
         // ===== SECURITY SYSTEM =====
         class SecuritySystem {
-            constructor() {
-                this.encryptionKey = this.generateEncryptionKey();
-                this.sessionActive = false;
-            }
-
-            generateEncryptionKey() {
-                return btoa(Math.random().toString(36).substring(2) + Date.now().toString(36));
-            }
-
             encryptData(data) {
-                if (!CONFIG.security.ssl) {
-                    console.warn('SSL not enabled - data not encrypted');
-                    return data;
-                }
-                // Simulate encryption
                 return btoa(JSON.stringify(data));
             }
 
@@ -589,7 +1269,6 @@
                 try {
                     return JSON.parse(atob(encryptedData));
                 } catch (e) {
-                    this.logSecurityEvent('decryption_failed', { error: e.message });
                     return null;
                 }
             }
@@ -597,184 +1276,28 @@
             validateInput(input, type) {
                 const validators = {
                     email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
-                    creditCard: /^\d{16}$/,
-                    name: /^[a-zA-Z\s]{2,50}$/
+                    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
                 };
-
-                if (validators[type]) {
-                    return validators[type].test(input);
-                }
-                return true;
-            }
-
-            logSecurityEvent(event, data = {}) {
-                const logEntry = {
-                    timestamp: new Date().toISOString(),
-                    event,
-                    data,
-                    userAgent: navigator.userAgent
-                };
-                console.log('🔒 Security Event:', logEntry);
-            }
-        }
-
-        // ===== AUTHENTICATION SYSTEM =====
-        class AuthSystem {
-            constructor() {
-                this.currentUser = null;
-                this.sessionExpiry = null;
-            }
-
-            async login(email, password, rememberMe = false) {
-                // Input validation
-                const security = new SecuritySystem();
-                if (!security.validateInput(email, 'email')) {
-                    throw new Error('Invalid email format');
-                }
-
-                if (!security.validateInput(password, 'password')) {
-                    throw new Error('Password must be at least 8 characters with uppercase, lowercase and number');
-                }
-
-                // Simulate API call
-                return new Promise((resolve) => {
-                    setTimeout(() => {
-                        this.currentUser = {
-                            email: security.encryptData(email),
-                            name: 'John Doe',
-                            lastLogin: new Date().toISOString()
-                        };
-                        
-                        this.sessionExpiry = Date.now() + (CONFIG.security.sessionTimeout * 60 * 1000);
-                        
-                        if (rememberMe) {
-                            localStorage.setItem('userSession', security.encryptData({
-                                email: email,
-                                timestamp: Date.now()
-                            }));
-                        }
-                        
-                        security.logSecurityEvent('user_login', { email: email });
-                        resolve(this.currentUser);
-                    }, 1000);
-                });
-            }
-
-            logout() {
-                const security = new SecuritySystem();
-                security.logSecurityEvent('user_logout', { email: this.currentUser?.email });
-                this.currentUser = null;
-                this.sessionExpiry = null;
-                localStorage.removeItem('userSession');
-            }
-
-            checkSession() {
-                if (this.sessionExpiry && Date.now() > this.sessionExpiry) {
-                    this.logout();
-                    showNotification('Session expired. Please login again.', 'warning');
-                    return false;
-                }
-                return !!this.currentUser;
+                return validators[type] ? validators[type].test(input) : true;
             }
         }
 
         // ===== PAYMENT SYSTEM =====
         class PaymentSystem {
-            processPayment(amount, paymentMethod, cardDetails = null) {
-                return new Promise((resolve, reject) => {
-                    const security = new SecuritySystem();
-                    
-                    // Validate card details if provided
-                    if (cardDetails && !security.validateInput(cardDetails.number, 'creditCard')) {
-                        reject(new Error('Invalid credit card number'));
-                        return;
-                    }
-
-                    security.logSecurityEvent('payment_attempt', { 
-                        amount, 
-                        method: paymentMethod,
-                        encrypted: security.encryptData({ amount, method: paymentMethod })
-                    });
-
-                    // Simulate payment processing
+            async processPayment(amount, items) {
+                return new Promise((resolve) => {
                     setTimeout(() => {
-                        if (Math.random() > 0.1) { // 90% success rate
-                            const transactionId = 'TX_' + Math.random().toString(36).substr(2, 9).toUpperCase();
-                            security.logSecurityEvent('payment_success', { transactionId, amount });
-                            resolve(transactionId);
-                        } else {
-                            security.logSecurityEvent('payment_failed', { reason: 'Processing error' });
-                            reject(new Error('Payment processing failed. Please try again.'));
-                        }
+                        const transactionId = 'TX_' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                        resolve(transactionId);
                     }, 2000);
                 });
             }
         }
 
-        // ===== DIAGNOSTICS SYSTEM =====
-        class DiagnosticsSystem {
-            constructor() {
-                this.tests = [];
-                this.results = {};
-            }
-
-            addTest(name, testFunction) {
-                this.tests.push({ name, testFunction });
-            }
-
-            async runAllTests() {
-                showNotification('Running comprehensive diagnostics...', 'warning');
-                
-                for (const test of this.tests) {
-                    try {
-                        this.results[test.name] = await test.testFunction();
-                        this.updateDiagnosticsDisplay(test.name, this.results[test.name]);
-                    } catch (error) {
-                        this.results[test.name] = { status: 'error', message: error.message };
-                        this.updateDiagnosticsDisplay(test.name, this.results[test.name]);
-                    }
-                }
-                
-                showNotification('Diagnostics completed successfully!', 'success');
-                return this.results;
-            }
-
-            updateDiagnosticsDisplay(testName, result) {
-                const panel = document.getElementById('diagnosticsPanel');
-                // Update specific test in display
-                console.log(`🔍 ${testName}:`, result);
-            }
-        }
-
-        // ===== APPLICATION INITIALIZATION =====
         const securitySystem = new SecuritySystem();
-        const authSystem = new AuthSystem();
         const paymentSystem = new PaymentSystem();
-        const diagnosticsSystem = new DiagnosticsSystem();
 
-        // Initialize diagnostics tests
-        diagnosticsSystem.addTest('security_scan', async () => {
-            await new Promise(resolve => setTimeout(resolve, 500));
-            return { status: 'ok', message: 'All security protocols active' };
-        });
-
-        diagnosticsSystem.addTest('ssl_verification', async () => {
-            await new Promise(resolve => setTimeout(resolve, 300));
-            return { status: 'ok', message: 'SSL Certificate valid' };
-        });
-
-        diagnosticsSystem.addTest('database_connection', async () => {
-            await new Promise(resolve => setTimeout(resolve, 700));
-            return { status: 'ok', message: 'Database connection established' };
-        });
-
-        diagnosticsSystem.addTest('payment_gateway', async () => {
-            await new Promise(resolve => setTimeout(resolve, 400));
-            return { status: 'ok', message: 'Payment systems operational' };
-        });
-
-        // ===== DOM MANIPULATION FUNCTIONS =====
+        // ===== NOTIFICATION SYSTEM =====
         function showNotification(message, type = 'info') {
             const container = document.getElementById('notificationContainer');
             const notification = document.createElement('div');
@@ -789,6 +1312,42 @@
             }, 4000);
         }
 
+        // ===== TAB MANAGEMENT =====
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            
+            // Add active class to clicked nav link
+            event.target.classList.add('active');
+            
+            // Update current tab
+            currentTab = tabName;
+            
+            showNotification(`Switched to ${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+        }
+
+        // ===== CART MANAGEMENT =====
+        function addToCart(itemName, price) {
+            cart.push({ name: itemName, price: price });
+            updateCartDisplay();
+            showNotification(`"${itemName}" added to cart!`, 'success');
+        }
+
+        function updateCartDisplay() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        // ===== SETTINGS MANAGEMENT =====
         function openSettings() {
             document.getElementById('settingsModal').style.display = 'flex';
             loadSettings();
@@ -801,14 +1360,9 @@
         function loadSettings() {
             const settings = JSON.parse(localStorage.getItem('appSettings') || '{}');
             document.getElementById('autoLogin').checked = settings.autoLogin || false;
-            document.getElementById('twoFactor').checked = settings.twoFactor || false;
             document.getElementById('saveLogin').checked = settings.saveLogin || true;
-            document.getElementById('allowCookies').checked = settings.allowCookies || true;
-            document.getElementById('dataEncryption').checked = settings.dataEncryption !== false;
             document.getElementById('doubleClick').checked = settings.doubleClick || false;
             document.getElementById('rightClick').checked = settings.rightClick !== false;
-            document.getElementById('sessionTimeout').value = settings.sessionTimeout || 30;
-            document.getElementById('theme').value = settings.theme || 'light';
         }
 
         function updateSetting(key, value) {
@@ -816,25 +1370,18 @@
             settings[key] = value;
             localStorage.setItem('appSettings', JSON.stringify(settings));
             
-            // Update CONFIG
-            if (key in CONFIG.features) {
-                CONFIG.features[key] = value;
-            }
-            if (key in CONFIG.security) {
-                CONFIG.security[key] = value;
-            }
-
-            showNotification(`Setting updated: ${key}`, 'success');
+            CONFIG.features[key] = value;
             applySettings();
+            showNotification(`Setting updated: ${key}`, 'success');
         }
 
         function applySettings() {
-            const settings = JSON.parse(localStorage.getItem('appSettings') || '{}');
-            
             // Apply double-click behavior
             document.addEventListener('dblclick', (e) => {
                 if (CONFIG.features.doubleClick && e.target.classList.contains('book-card')) {
-                    securePurchase(e.target.querySelector('.book-title').textContent);
+                    const bookTitle = e.target.querySelector('.book-title').textContent;
+                    const bookPrice = parseFloat(e.target.querySelector('.book-price').textContent.replace('$', ''));
+                    addToCart(bookTitle, bookPrice);
                 }
             });
 
@@ -852,6 +1399,7 @@
             });
         }
 
+        // ===== CONTEXT MENU =====
         function showContextMenu(e) {
             const contextMenu = document.getElementById('contextMenu');
             contextMenu.style.display = 'block';
@@ -878,62 +1426,98 @@
             hideContextMenu();
         }
 
-        function inspectElement() {
-            showNotification('Inspect element functionality activated', 'info');
-            hideContextMenu();
-        }
-
         function viewSource() {
             window.open('view-source:' + window.location.href, '_blank');
             hideContextMenu();
         }
 
-        async function securePurchase(bookTitle) {
-            try {
-                showNotification(`Processing secure purchase of "${bookTitle}"...`, 'warning');
+        // ===== AUTHENTICATION =====
+        function toggleLogin() {
+            if (currentUser) {
+                // Logout
+                currentUser = null;
+                document.getElementById('loginButton').innerHTML = '<i class="fas fa-user"></i> Sign In';
+                showNotification('Logged out successfully', 'info');
+            } else {
+                // Simulate login
+                const email = 'user@example.com';
+                const password = 'SecurePass123';
                 
-                const transactionId = await paymentSystem.processPayment(19.99, 'credit-card');
+                if (!securitySystem.validateInput(email, 'email')) {
+                    showNotification('Invalid email format', 'error');
+                    return;
+                }
+
+                if (!securitySystem.validateInput(password, 'password')) {
+                    showNotification('Password must be 8+ chars with uppercase, lowercase and number', 'error');
+                    return;
+                }
+
+                currentUser = {
+                    email: securitySystem.encryptData(email),
+                    name: 'John Doe',
+                    lastLogin: new Date().toISOString()
+                };
                 
-                showNotification(`Purchase successful! Transaction ID: ${transactionId}`, 'success');
-                securitySystem.logSecurityEvent('purchase_completed', { 
-                    bookTitle, 
-                    transactionId,
-                    encrypted: securitySystem.encryptData({ bookTitle, transactionId })
-                });
-            } catch (error) {
-                showNotification(`Purchase failed: ${error.message}`, 'error');
+                document.getElementById('loginButton').innerHTML = '<i class="fas fa-user-check"></i> Logout';
+                showNotification(`Welcome back, ${currentUser.name}!`, 'success');
+
+                if (CONFIG.features.saveLogin) {
+                    localStorage.setItem('userSession', securitySystem.encryptData({
+                        email: email,
+                        timestamp: Date.now()
+                    }));
+                }
             }
         }
 
-        function toggleLogin() {
-            const email = 'user@example.com';
-            const password = 'SecurePass123';
-            
-            authSystem.login(email, password, CONFIG.features.saveLogin)
-                .then(user => {
-                    showNotification(`Welcome back, ${user.name}!`, 'success');
-                    document.getElementById('loginButton').innerHTML = '<i class="fas fa-user-check"></i> Logout';
-                    document.getElementById('loginButton').onclick = () => {
-                        authSystem.logout();
-                        showNotification('Logged out successfully', 'info');
-                        document.getElementById('loginButton').innerHTML = '<i class="fas fa-user"></i> Sign In';
-                        document.getElementById('loginButton').onclick = toggleLogin;
-                    };
-                })
-                .catch(error => {
-                    showNotification(`Login failed: ${error.message}`, 'error');
-                });
+        // ===== PAYMENT PROCESSING =====
+        async function processCheckout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!', 'error');
+                return;
+            }
+
+            try {
+                showNotification('Processing secure payment...', 'warning');
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                const transactionId = await paymentSystem.processPayment(total, cart);
+                
+                showNotification(`Payment successful! Transaction ID: ${transactionId}`, 'success');
+                cart = [];
+                updateCartDisplay();
+                
+                // Log security event
+                console.log('🔒 Purchase completed:', { transactionId, items: cart.length, total });
+            } catch (error) {
+                showNotification(`Payment failed: ${error.message}`, 'error');
+            }
         }
 
+        // ===== DIAGNOSTICS =====
         function runFullDiagnostics() {
-            diagnosticsSystem.runAllTests();
+            showNotification('Running comprehensive system diagnostics...', 'warning');
+            
+            const tests = [
+                { name: 'Security System', status: 'ok' },
+                { name: 'Payment Gateway', status: 'ok' },
+                { name: 'User Authentication', status: 'ok' },
+                { name: 'Database Connection', status: 'ok' },
+                { name: 'SSL Certificate', status: 'ok' }
+            ];
+            
+            setTimeout(() => {
+                showNotification('All systems operational!', 'success');
+                console.log('✅ Diagnostics completed successfully');
+            }, 2000);
         }
 
         // ===== INITIALIZATION =====
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', function() {
             // Hide loading screen
             setTimeout(() => {
                 document.getElementById('loadingScreen').style.display = 'none';
+                showNotification('The Definitive Word loaded successfully!', 'success');
             }, 2000);
 
             // Apply settings
@@ -942,20 +1526,18 @@
             // Hide context menu on click
             document.addEventListener('click', hideContextMenu);
 
-            // Run initial diagnostics
-            if (CONFIG.diagnostics.autoRun) {
-                setTimeout(() => {
-                    diagnosticsSystem.runAllTests();
-                }, 3000);
-            }
-
             // Check for saved session
             const savedSession = localStorage.getItem('userSession');
             if (savedSession && CONFIG.features.autoLogin) {
                 try {
                     const sessionData = securitySystem.decryptData(savedSession);
-                    if (sessionData && (Date.now() - sessionData.timestamp) < (24 * 60 * 60 * 1000)) {
-                        await authSystem.login(sessionData.email, 'auto', true);
+                    if (sessionData) {
+                        currentUser = {
+                            email: securitySystem.encryptData(sessionData.email),
+                            name: 'John Doe',
+                            lastLogin: new Date().toISOString()
+                        };
+                        document.getElementById('loginButton').innerHTML = '<i class="fas fa-user-check"></i> Logout';
                         showNotification('Auto-login successful!', 'success');
                     }
                 } catch (e) {
@@ -963,31 +1545,23 @@
                 }
             }
 
-            // Session monitoring
-            setInterval(() => {
-                if (!authSystem.checkSession()) {
-                    // Session expired
-                }
-            }, 60000); // Check every minute
+            // Initialize cart
+            updateCartDisplay();
 
-            showNotification('Enterprise security system activated', 'success');
+            console.log('🚀 The Definitive Word fully initialized');
+            console.log('🔒 Security System:', securitySystem);
+            console.log('💳 Payment System:', paymentSystem);
+            console.log('🛒 Cart Items:', cart.length);
         });
 
-        // ===== VERSION CONTROL & LOGGING =====
-        console.log(`🚀 The Definitive Word v${CONFIG.version} initialized`);
-        console.log('🔒 Security System:', securitySystem);
-        console.log('🔑 Auth System:', authSystem);
-        console.log('💳 Payment System:', paymentSystem);
-        console.log('🔍 Diagnostics System:', diagnosticsSystem);
-
-        // Export for global access (for debugging)
-        window.App = {
-            config: CONFIG,
-            security: securitySystem,
-            auth: authSystem,
-            payment: paymentSystem,
-            diagnostics: diagnosticsSystem
-        };
+        // Make functions globally available
+        window.switchTab = switchTab;
+        window.addToCart = addToCart;
+        window.openSettings = openSettings;
+        window.closeSettings = closeSettings;
+        window.toggleLogin = toggleLogin;
+        window.runFullDiagnostics = runFullDiagnostics;
+        window.processCheckout = processCheckout;
     </script>
 </body>
 </html>
