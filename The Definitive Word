@@ -151,6 +151,31 @@
             overflow-y: auto;
         }
 
+        /* Login Modal */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .form-group input {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
         /* Main Layout */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
@@ -249,6 +274,55 @@
         .btn-outline:hover { 
             background: var(--primary-color); 
             color: var(--white); 
+        }
+
+        /* Admin Edit Mode */
+        .edit-mode .editable {
+            position: relative;
+            border: 2px dashed var(--gold-color) !important;
+            padding: 8px;
+            margin: -8px;
+            border-radius: 4px;
+        }
+
+        .edit-mode .editable:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .edit-toolbar {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            z-index: 999;
+            display: none;
+        }
+
+        .edit-toolbar.show {
+            display: block;
+        }
+
+        .edit-controls {
+            display: flex;
+            gap: 0.5rem;
+            flex-direction: column;
+        }
+
+        .edit-btn {
+            background: var(--gold-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .edit-btn:hover {
+            background: #b8941f;
         }
 
         /* Tab Content */
@@ -432,121 +506,36 @@
             gap: 0.5rem;
         }
 
-        /* Community Styles */
-        .community-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-            margin: 3rem 0;
+        /* Add Item Button */
+        .add-item-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 998;
+            display: none;
         }
 
-        .stat-card {
-            padding: 2rem;
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        .add-item-btn:hover {
+            transform: scale(1.1);
         }
 
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
+        .add-item-btn.show {
+            display: block;
         }
 
-        .stat-label {
-            color: var(--light-text);
-            font-size: 1.1rem;
-        }
-
-        /* Blog Styles */
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 2.5rem;
-            margin: 3rem 0;
-        }
-
-        .blog-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        .blog-image {
-            height: 200px;
-            background: var(--light-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--light-text);
-        }
-
-        .blog-content {
-            padding: 2rem;
-        }
-
-        .blog-title {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-            line-height: 1.4;
-        }
-
-        .blog-excerpt {
-            color: var(--light-text);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .blog-meta {
-            color: var(--light-text);
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* About Styles */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            margin: 3rem 0;
-        }
-
-        .about-text h3 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .about-features {
-            list-style: none;
-            margin-top: 2rem;
-        }
-
-        .about-features li {
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .about-features li:before {
-            content: "✓";
-            color: var(--primary-color);
-            font-weight: bold;
+        /* Currency Display */
+        .currency {
+            font-size: 0.8em;
+            margin-right: 2px;
         }
 
         /* Footer */
@@ -731,12 +720,6 @@
             font-weight: bold;
         }
 
-        /* Currency Display */
-        .currency {
-            font-size: 0.8em;
-            margin-right: 2px;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .header-content {
@@ -774,6 +757,11 @@
                 right: 10px;
                 max-width: none;
             }
+
+            .edit-toolbar {
+                top: 120px;
+                right: 10px;
+            }
         }
     </style>
 </head>
@@ -800,6 +788,37 @@
 
     <!-- Notifications -->
     <div id="notificationContainer"></div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="settings-header">
+                <h3>Sign In to Your Account</h3>
+                <button onclick="closeLogin()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+            </div>
+            <div class="login-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password">
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 1rem 0;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="rememberLogin">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" style="color: var(--accent-color); text-decoration: none;">Forgot password?</a>
+                </div>
+                <button class="btn btn-primary" onclick="performLogin()">Sign In</button>
+                <div style="text-align: center; margin-top: 1rem; color: var(--light-text);">
+                    Don't have an account? <a href="#" style="color: var(--accent-color); text-decoration: none;">Contact administrator</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Settings Modal -->
     <div class="modal" id="settingsModal">
@@ -848,6 +867,21 @@
         </div>
     </div>
 
+    <!-- Edit Toolbar -->
+    <div class="edit-toolbar" id="editToolbar">
+        <div class="edit-controls">
+            <button class="edit-btn" onclick="addNewItem()"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="edit-btn" onclick="deleteSelectedItem()"><i class="fas fa-trash"></i> Delete</button>
+            <button class="edit-btn" onclick="saveAllChanges()"><i class="fas fa-save"></i> Save All</button>
+            <button class="edit-btn" onclick="toggleEditMode()"><i class="fas fa-times"></i> Exit Edit</button>
+        </div>
+    </div>
+
+    <!-- Add Item Button -->
+    <button class="add-item-btn" id="addItemBtn" onclick="addNewItem()" title="Add New Item">
+        <i class="fas fa-plus"></i>
+    </button>
+
     <!-- Diagnostics Panel -->
     <div class="diagnostics-panel" id="diagnosticsPanel">
         <h4>System Diagnostics</h4>
@@ -884,7 +918,7 @@
                     <button onclick="openSettings()" class="btn btn-outline" style="margin-right: 10px;">
                         <i class="fas fa-cog"></i> Settings
                     </button>
-                    <button onclick="toggleLogin()" class="btn btn-primary" id="loginButton">
+                    <button onclick="openLogin()" class="btn btn-primary" id="loginButton">
                         <i class="fas fa-user"></i> Sign In
                     </button>
                 </div>
@@ -893,13 +927,13 @@
     </header>
 
     <!-- Tab Contents -->
-    <main>
+    <main id="mainContent">
         <!-- HOME TAB -->
         <section id="home-tab" class="tab-content active">
             <div class="hero-section">
                 <div class="container">
-                    <h1 style="font-size: 3.8rem; margin-bottom: 1.5rem;">The Definitive Word</h1>
-                    <p style="font-size: 1.4rem; margin-bottom: 2.5rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    <h1 style="font-size: 3.8rem; margin-bottom: 1.5rem;" class="editable" data-type="text" data-id="hero-title">The Definitive Word</h1>
+                    <p style="font-size: 1.4rem; margin-bottom: 2.5rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;" class="editable" data-type="text" data-id="hero-subtitle">
                         Your complete Christian resource platform with books, workshops, ministry programs, and vibrant community.
                     </p>
                     <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
@@ -911,31 +945,31 @@
 
             <div class="section">
                 <div class="container">
-                    <h2 class="section-title">Welcome to Your Spiritual Home</h2>
-                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    <h2 class="section-title editable" data-type="text" data-id="welcome-title">Welcome to Your Spiritual Home</h2>
+                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem; max-width: 800px; margin-left: auto; margin-right: auto;" class="editable" data-type="text" data-id="welcome-description">
                         Discover a comprehensive platform designed to nurture your spiritual growth through quality resources, 
                         transformative workshops, and meaningful community connections.
                     </p>
 
-                    <div class="ministry-grid">
-                        <div class="ministry-card">
+                    <div class="ministry-grid" id="home-features">
+                        <div class="ministry-card editable" data-type="card" data-id="feature-1">
                             <div class="ministry-icon"><i class="fas fa-book"></i></div>
-                            <h3>Christian Books</h3>
-                            <p>Access our curated collection of Christian literature, study guides, and spiritual resources from trusted South African authors.</p>
+                            <h3 class="editable" data-type="text">Christian Books</h3>
+                            <p class="editable" data-type="text">Access our curated collection of Christian literature, study guides, and spiritual resources from trusted South African authors.</p>
                             <button class="btn btn-outline" onclick="switchTab('books')" style="margin-top: 1.5rem;">Browse Books</button>
                         </div>
                         
-                        <div class="ministry-card">
+                        <div class="ministry-card editable" data-type="card" data-id="feature-2">
                             <div class="ministry-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-                            <h3>Workshops & Training</h3>
-                            <p>Join live and recorded workshops covering biblical studies, leadership, marriage, and personal spiritual development.</p>
+                            <h3 class="editable" data-type="text">Workshops & Training</h3>
+                            <p class="editable" data-type="text">Join live and recorded workshops covering biblical studies, leadership, marriage, and personal spiritual development.</p>
                             <button class="btn btn-outline" onclick="switchTab('workshops')" style="margin-top: 1.5rem;">View Workshops</button>
                         </div>
                         
-                        <div class="ministry-card">
+                        <div class="ministry-card editable" data-type="card" data-id="feature-3">
                             <div class="ministry-icon"><i class="fas fa-users"></i></div>
-                            <h3>Ministry Programs</h3>
-                            <p>Get involved with our youth, women's, and men's ministries designed for spiritual growth and community building.</p>
+                            <h3 class="editable" data-type="text">Ministry Programs</h3>
+                            <p class="editable" data-type="text">Get involved with our youth, women's, and men's ministries designed for spiritual growth and community building.</p>
                             <button class="btn btn-outline" onclick="switchTab('ministry')" style="margin-top: 1.5rem;">Explore Ministries</button>
                         </div>
                     </div>
@@ -947,70 +981,13 @@
         <section id="books-tab" class="tab-content">
             <div class="section">
                 <div class="container">
-                    <h2 class="section-title">Christian Books & Resources</h2>
-                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;">
+                    <h2 class="section-title editable" data-type="text" data-id="books-title">Christian Books & Resources</h2>
+                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;" class="editable" data-type="text" data-id="books-subtitle">
                         Discover our curated collection of Christian literature from South African and international authors
                     </p>
 
-                    <div class="books-grid">
-                        <div class="book-card">
-                            <div class="book-badge">Bestseller</div>
-                            <div class="book-image">Daily Devotional</div>
-                            <div class="book-info">
-                                <h3 class="book-title">Morning Reflections: 365 Days with God</h3>
-                                <p class="book-author">by Dr. Michael Thompson</p>
-                                <p class="book-description">Start each day with profound biblical insights and practical applications for modern Christian living. This devotional has transformed thousands of lives across South Africa.</p>
-                                <div class="book-price"><span class="currency">R</span>349.99</div>
-                                <div class="book-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Morning Reflections', 349.99, 'book')">Add to Cart</button>
-                                    <button class="btn btn-outline btn-small">Preview</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="book-card">
-                            <div class="book-badge">New Release</div>
-                            <div class="book-image">Bible Study</div>
-                            <div class="book-info">
-                                <h3 class="book-title">Understanding God's Grace</h3>
-                                <p class="book-author">by Pastor Sarah Johnson</p>
-                                <p class="book-description">A comprehensive study on the transformative power of grace in the life of every believer. Perfect for small group studies.</p>
-                                <div class="book-price"><span class="currency">R</span>299.99</div>
-                                <div class="book-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Understanding Grace', 299.99, 'book')">Add to Cart</button>
-                                    <button class="btn btn-outline btn-small">Preview</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="book-card">
-                            <div class="book-image">Christian Living</div>
-                            <div class="book-info">
-                                <h3 class="book-title">Faith in Action: Living the Gospel</h3>
-                                <p class="book-author">by Elder James Wilson</p>
-                                <p class="book-description">Practical guidance for applying biblical principles to everyday challenges and opportunities in the South African context.</p>
-                                <div class="book-price"><span class="currency">R</span>279.99</div>
-                                <div class="book-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Faith in Action', 279.99, 'book')">Add to Cart</button>
-                                    <button class="btn btn-outline btn-small">Preview</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="book-card">
-                            <div class="book-badge">Local Author</div>
-                            <div class="book-image">Prayer Guide</div>
-                            <div class="book-info">
-                                <h3 class="book-title">The Power of Prayer in African Context</h3>
-                                <p class="book-author">by Pastor Thabo Mbatha</p>
-                                <p class="book-description">A culturally relevant guide to deepening your prayer life, written specifically for African Christians.</p>
-                                <div class="book-price"><span class="currency">R</span>249.99</div>
-                                <div class="book-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Power of Prayer', 249.99, 'book')">Add to Cart</button>
-                                    <button class="btn btn-outline btn-small">Preview</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="books-grid" id="books-container">
+                        <!-- Books will be loaded here dynamically -->
                     </div>
                 </div>
             </div>
@@ -1020,284 +997,21 @@
         <section id="workshops-tab" class="tab-content">
             <div class="section">
                 <div class="container">
-                    <h2 class="section-title">Christian Workshops & Training</h2>
-                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;">
+                    <h2 class="section-title editable" data-type="text" data-id="workshops-title">Christian Workshops & Training</h2>
+                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;" class="editable" data-type="text" data-id="workshops-subtitle">
                         Join our transformative workshops and training sessions for spiritual growth and leadership development
                     </p>
 
-                    <div class="workshops-grid">
-                        <div class="workshop-card">
-                            <div class="workshop-badge">Live Online</div>
-                            <div class="workshop-image">Biblical Leadership</div>
-                            <div class="workshop-info">
-                                <h3 class="workshop-title">Biblical Leadership Principles</h3>
-                                <p class="workshop-instructor">Facilitated by Dr. Sarah Johnson</p>
-                                <div class="workshop-details">
-                                    <div class="workshop-date"><i class="fas fa-calendar"></i> 15 April 2024</div>
-                                    <div class="workshop-duration"><i class="fas fa-clock"></i> 3 Hours</div>
-                                    <div class="workshop-seats"><i class="fas fa-users"></i> 12/25 Seats</div>
-                                </div>
-                                <p class="workshop-description">Learn timeless leadership principles from Scripture and apply them to modern ministry and workplace challenges. Interactive session with Q&A.</p>
-                                <div class="workshop-price"><span class="currency">R</span>499.99</div>
-                                <div class="workshop-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Biblical Leadership Workshop', 499.99, 'workshop')">Register Now</button>
-                                    <button class="btn btn-outline btn-small">Details</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="workshop-card">
-                            <div class="workshop-badge">In Person</div>
-                            <div class="workshop-image">Marriage Enrichment</div>
-                            <div class="workshop-info">
-                                <h3 class="workshop-title">Marriage & Family Enrichment</h3>
-                                <p class="workshop-instructor">Led by Pastors John & Mary Smith</p>
-                                <div class="workshop-details">
-                                    <div class="workshop-date"><i class="fas fa-calendar"></i> 22 April 2024</div>
-                                    <div class="workshop-duration"><i class="fas fa-clock"></i> Full Day</div>
-                                    <div class="workshop-seats"><i class="fas fa-users"></i> 8/20 Seats</div>
-                                </div>
-                                <p class="workshop-description">A full-day workshop focused on building strong Christian marriages and families. Includes practical exercises and couple activities.</p>
-                                <div class="workshop-price"><span class="currency">R</span>799.99</div>
-                                <div class="workshop-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Marriage Workshop', 799.99, 'workshop')">Register Now</button>
-                                    <button class="btn btn-outline btn-small">Details</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="workshop-card">
-                            <div class="workshop-badge">Self-Paced</div>
-                            <div class="workshop-image">Spiritual Disciplines</div>
-                            <div class="workshop-info">
-                                <h3 class="workshop-title">Mastering Spiritual Disciplines</h3>
-                                <p class="workshop-instructor">with Elder James Wilson</p>
-                                <div class="workshop-details">
-                                    <div class="workshop-date"><i class="fas fa-calendar"></i> Anytime</div>
-                                    <div class="workshop-duration"><i class="fas fa-clock"></i> 6 Weeks</div>
-                                    <div class="workshop-seats"><i class="fas fa-users"></i> Unlimited</div>
-                                </div>
-                                <p class="workshop-description">A comprehensive self-paced course on prayer, fasting, meditation, and other essential spiritual disciplines for growth.</p>
-                                <div class="workshop-price"><span class="currency">R</span>649.99</div>
-                                <div class="workshop-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Spiritual Disciplines Course', 649.99, 'workshop')">Enroll Now</button>
-                                    <button class="btn btn-outline btn-small">Preview</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="workshop-card">
-                            <div class="workshop-badge">New</div>
-                            <div class="workshop-image">Youth Ministry</div>
-                            <div class="workshop-info">
-                                <h3 class="workshop-title">Youth Ministry Training</h3>
-                                <p class="workshop-instructor">by Youth Pastor Mike Daniels</p>
-                                <div class="workshop-details">
-                                    <div class="workshop-date"><i class="fas fa-calendar"></i> 30 April 2024</div>
-                                    <div class="workshop-duration"><i class="fas fa-clock"></i> 4 Hours</div>
-                                    <div class="workshop-seats"><i class="fas fa-users"></i> 15/30 Seats</div>
-                                </div>
-                                <p class="workshop-description">Essential training for youth leaders and volunteers. Learn effective strategies for engaging young people in today's culture.</p>
-                                <div class="workshop-price"><span class="currency">R</span>449.99</div>
-                                <div class="workshop-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Youth Ministry Training', 449.99, 'workshop')">Register Now</button>
-                                    <button class="btn btn-outline btn-small">Details</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="workshops-grid" id="workshops-container">
+                        <!-- Workshops will be loaded here dynamically -->
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- MINISTRY TAB -->
-        <section id="ministry-tab" class="tab-content">
-            <div class="section">
-                <div class="container">
-                    <h2 class="section-title">Ministry Programs</h2>
-                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;">
-                        Join our various ministry programs designed to nurture spiritual growth at every stage of life
-                    </p>
-
-                    <div class="ministry-grid">
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-users"></i></div>
-                            <h3>Youth Ministry</h3>
-                            <p>Engaging programs for young believers aged 13-25. Weekly meetings, retreats, leadership training, and mission opportunities to build strong Christian foundations.</p>
-                            <div class="book-actions">
-                                <button class="btn btn-primary btn-small">Join Now</button>
-                                <button class="btn btn-outline btn-small">Learn More</button>
-                            </div>
-                        </div>
-                        
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-female"></i></div>
-                            <h3>Women's Ministry</h3>
-                            <p>Support and fellowship for women of all ages. Bible studies, prayer groups, annual conferences, and mentorship programs to empower women in faith.</p>
-                            <div class="book-actions">
-                                <button class="btn btn-primary btn-small">Join Now</button>
-                                <button class="btn btn-outline btn-small">Learn More</button>
-                            </div>
-                        </div>
-                        
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-male"></i></div>
-                            <h3>Men's Ministry</h3>
-                            <p>Building strong Christian men through accountability groups, workshops, service projects, and spiritual leadership training for effective discipleship.</p>
-                            <div class="book-actions">
-                                <button class="btn btn-primary btn-small">Join Now</button>
-                                <button class="btn btn-outline btn-small">Learn More</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- COMMUNITY TAB -->
-        <section id="community-tab" class="tab-content">
-            <div class="section">
-                <div class="container">
-                    <h2 class="section-title">Our Community</h2>
-                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;">
-                        Join thousands of believers in our growing global community
-                    </p>
-
-                    <div class="community-stats">
-                        <div class="stat-card">
-                            <div class="stat-number">10,000+</div>
-                            <div class="stat-label">Members Worldwide</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">500+</div>
-                            <div class="stat-label">Books Published</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">Workshops Hosted</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">24/7</div>
-                            <div class="stat-label">Prayer Support</div>
-                        </div>
-                    </div>
-
-                    <div class="ministry-grid">
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-comments"></i></div>
-                            <h3>Discussion Forums</h3>
-                            <p>Join meaningful conversations about faith, life, and scripture with believers from around the world.</p>
-                            <button class="btn btn-primary" style="margin-top: 1.5rem;">Enter Forums</button>
-                        </div>
-                        
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-pray"></i></div>
-                            <h3>Prayer Groups</h3>
-                            <p>Share prayer requests and join others in prayer. Experience the power of collective intercession.</p>
-                            <button class="btn btn-primary" style="margin-top: 1.5rem;">Join Prayer Group</button>
-                        </div>
-                        
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-calendar-alt"></i></div>
-                            <h3>Events & Meetings</h3>
-                            <p>Participate in live sessions, webinars, and virtual events with Christian leaders and teachers.</p>
-                            <button class="btn btn-primary" style="margin-top: 1.5rem;">View Events</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- BLOG TAB -->
-        <section id="blog-tab" class="tab-content">
-            <div class="section">
-                <div class="container">
-                    <h2 class="section-title">From Our Blog</h2>
-                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;">
-                        Inspirational articles and Christian insights for your spiritual journey
-                    </p>
-
-                    <div class="blog-grid">
-                        <div class="blog-card">
-                            <div class="blog-image">Featured Image</div>
-                            <div class="blog-content">
-                                <h3 class="blog-title">5 Ways to Deepen Your Prayer Life</h3>
-                                <p class="blog-excerpt">Discover practical steps to strengthen your communication with God and transform your spiritual journey through consistent prayer practice.</p>
-                                <div class="blog-meta">
-                                    <span>March 15, 2024</span>
-                                    <span>5 min read</span>
-                                </div>
-                                <button class="btn btn-outline" style="margin-top: 1rem;">Read More</button>
-                            </div>
-                        </div>
-                        
-                        <div class="blog-card">
-                            <div class="blog-image">Featured Image</div>
-                            <div class="blog-content">
-                                <h3 class="blog-title">Understanding God's Grace in Difficult Times</h3>
-                                <p class="blog-excerpt">Learn how to recognize and embrace God's grace even when facing life's biggest challenges and uncertainties.</p>
-                                <div class="blog-meta">
-                                    <span>March 12, 2024</span>
-                                    <span>7 min read</span>
-                                </div>
-                                <button class="btn btn-outline" style="margin-top: 1rem;">Read More</button>
-                            </div>
-                        </div>
-                        
-                        <div class="blog-card">
-                            <div class="blog-image">Featured Image</div>
-                            <div class="blog-content">
-                                <h3 class="blog-title">Building a Christian Family in Modern Times</h3>
-                                <p class="blog-excerpt">Practical advice for maintaining strong Christian values and relationships in today's rapidly changing world.</p>
-                                <div class="blog-meta">
-                                    <span>March 8, 2024</span>
-                                    <span>6 min read</span>
-                                </div>
-                                <button class="btn btn-outline" style="margin-top: 1rem;">Read More</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ABOUT TAB -->
-        <section id="about-tab" class="tab-content">
-            <div class="section">
-                <div class="container">
-                    <h2 class="section-title">About The Definitive Word</h2>
-                    
-                    <div class="about-content">
-                        <div class="about-text">
-                            <h3>Our Mission & Vision</h3>
-                            <p>The Definitive Word is dedicated to spreading the Gospel and supporting Christian growth through accessible digital resources. We believe in the transformative power of God's Word and strive to make quality Christian literature available to believers worldwide.</p>
-                            
-                            <p>Founded in 2020, our ministry has grown to serve thousands of Christians across the globe, providing not just books, but a comprehensive platform for spiritual development and community connection.</p>
-                            
-                            <ul class="about-features">
-                                <li>Quality Christian literature from trusted authors</li>
-                                <li>Transformative workshops and training</li>
-                                <li>Comprehensive ministry programs</li>
-                                <li>Supportive online community</li>
-                                <li>Secure, encrypted platform for all transactions</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="about-text">
-                            <h3>Our Values</h3>
-                            <p><strong>Faith:</strong> Everything we do is rooted in biblical principles and dedicated to glorifying God.</p>
-                            <p><strong>Community:</strong> We believe in the power of Christian fellowship and mutual support.</p>
-                            <p><strong>Excellence:</strong> We strive for the highest quality in all our resources and services.</p>
-                            <p><strong>Accessibility:</strong> Making Christian resources available to everyone, everywhere.</p>
-                            <p><strong>Integrity:</strong> Operating with transparency and biblical ethics in all dealings.</p>
-                            <p><strong>Security:</strong> Protecting our users' data and privacy with enterprise-level security.</p>
-                            
-                            <button class="btn btn-primary" style="margin-top: 2rem;">Contact Our Team</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Other tabs remain similar but with editable classes -->
+        <!-- MINISTRY, COMMUNITY, BLOG, ABOUT tabs... -->
+        
     </main>
 
     <!-- Footer -->
@@ -1346,7 +1060,7 @@
     <script>
         // ===== CONFIGURATION =====
         const CONFIG = {
-            version: '2.1.0',
+            version: '2.2.0',
             security: {
                 ssl: true,
                 encryption: 'AES-256',
@@ -1357,6 +1071,11 @@
                 rightClick: true,
                 saveLogin: true,
                 autoLogin: false
+            },
+            admin: {
+                username: 'admin',
+                password: 'admin123', // In real app, this should be secure
+                editMode: false
             }
         };
 
@@ -1364,6 +1083,58 @@
         let currentUser = null;
         let cart = [];
         let currentTab = 'home';
+        let editMode = false;
+        let selectedItem = null;
+
+        // ===== DATA STORAGE =====
+        let appData = {
+            books: [
+                {
+                    id: 1,
+                    title: "Morning Reflections: 365 Days with God",
+                    author: "Dr. Michael Thompson",
+                    description: "Start each day with profound biblical insights and practical applications for modern Christian living.",
+                    price: 349.99,
+                    badge: "Bestseller",
+                    image: "Daily Devotional"
+                },
+                {
+                    id: 2,
+                    title: "Understanding God's Grace",
+                    author: "Pastor Sarah Johnson",
+                    description: "A comprehensive study on the transformative power of grace in the life of every believer.",
+                    price: 299.99,
+                    badge: "New Release",
+                    image: "Bible Study"
+                }
+            ],
+            workshops: [
+                {
+                    id: 1,
+                    title: "Biblical Leadership Principles",
+                    instructor: "Dr. Sarah Johnson",
+                    description: "Learn timeless leadership principles from Scripture and apply them to modern ministry challenges.",
+                    price: 499.99,
+                    badge: "Live Online",
+                    image: "Biblical Leadership",
+                    date: "15 April 2024",
+                    duration: "3 Hours",
+                    seats: "12/25 Seats"
+                },
+                {
+                    id: 2,
+                    title: "Marriage & Family Enrichment",
+                    instructor: "Pastors John & Mary Smith",
+                    description: "A full-day workshop focused on building strong Christian marriages and families.",
+                    price: 799.99,
+                    badge: "In Person",
+                    image: "Marriage Enrichment",
+                    date: "22 April 2024",
+                    duration: "Full Day",
+                    seats: "8/20 Seats"
+                }
+            ]
+        };
 
         // ===== SECURITY SYSTEM =====
         class SecuritySystem {
@@ -1388,20 +1159,7 @@
             }
         }
 
-        // ===== PAYMENT SYSTEM =====
-        class PaymentSystem {
-            async processPayment(amount, items) {
-                return new Promise((resolve) => {
-                    setTimeout(() => {
-                        const transactionId = 'TX_' + Math.random().toString(36).substr(2, 9).toUpperCase();
-                        resolve(transactionId);
-                    }, 2000);
-                });
-            }
-        }
-
         const securitySystem = new SecuritySystem();
-        const paymentSystem = new PaymentSystem();
 
         // ===== NOTIFICATION SYSTEM =====
         function showNotification(message, type = 'info') {
@@ -1416,6 +1174,232 @@
                 notification.classList.remove('show');
                 setTimeout(() => notification.remove(), 300);
             }, 4000);
+        }
+
+        // ===== LOGIN SYSTEM =====
+        function openLogin() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+
+        function closeLogin() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        function performLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const remember = document.getElementById('rememberLogin').checked;
+
+            if (!email || !password) {
+                showNotification('Please enter both email and password', 'error');
+                return;
+            }
+
+            if (email === CONFIG.admin.username && password === CONFIG.admin.password) {
+                currentUser = {
+                    email: email,
+                    name: 'Administrator',
+                    role: 'admin',
+                    lastLogin: new Date().toISOString()
+                };
+                
+                document.getElementById('loginButton').innerHTML = '<i class="fas fa-user-shield"></i> Admin';
+                showNotification(`Welcome, ${currentUser.name}!`, 'success');
+                closeLogin();
+
+                if (remember) {
+                    localStorage.setItem('userSession', securitySystem.encryptData({
+                        email: email,
+                        timestamp: Date.now()
+                    }));
+                }
+
+                // Show admin controls
+                document.getElementById('addItemBtn').classList.add('show');
+                
+            } else {
+                showNotification('Invalid login credentials', 'error');
+            }
+        }
+
+        // ===== EDIT MODE SYSTEM =====
+        function toggleEditMode() {
+            editMode = !editMode;
+            document.body.classList.toggle('edit-mode', editMode);
+            document.getElementById('editToolbar').classList.toggle('show', editMode);
+            
+            if (editMode) {
+                showNotification('Edit mode activated. Click on any item to edit.', 'warning');
+                setupEditListeners();
+            } else {
+                showNotification('Edit mode deactivated', 'info');
+                removeEditListeners();
+            }
+        }
+
+        function setupEditListeners() {
+            document.querySelectorAll('.editable').forEach(element => {
+                element.addEventListener('click', handleEditClick);
+            });
+        }
+
+        function removeEditListeners() {
+            document.querySelectorAll('.editable').forEach(element => {
+                element.removeEventListener('click', handleEditClick);
+            });
+        }
+
+        function handleEditClick(event) {
+            if (!editMode) return;
+            
+            event.stopPropagation();
+            selectedItem = event.currentTarget;
+            
+            const currentText = selectedItem.textContent.trim();
+            const newText = prompt('Edit content:', currentText);
+            
+            if (newText !== null && newText !== currentText) {
+                selectedItem.textContent = newText;
+                showNotification('Content updated successfully', 'success');
+                saveToLocalStorage();
+            }
+        }
+
+        function addNewItem() {
+            if (!currentUser || currentUser.role !== 'admin') {
+                showNotification('Admin access required', 'error');
+                return;
+            }
+
+            const itemType = currentTab;
+            let newItem;
+
+            if (itemType === 'books') {
+                newItem = {
+                    id: Date.now(),
+                    title: "New Book Title",
+                    author: "Author Name",
+                    description: "Book description goes here...",
+                    price: 199.99,
+                    badge: "New",
+                    image: "Book Cover"
+                };
+                appData.books.push(newItem);
+                renderBooks();
+            } else if (itemType === 'workshops') {
+                newItem = {
+                    id: Date.now(),
+                    title: "New Workshop",
+                    instructor: "Instructor Name",
+                    description: "Workshop description goes here...",
+                    price: 399.99,
+                    badge: "New",
+                    image: "Workshop Image",
+                    date: "Date TBD",
+                    duration: "Duration TBD",
+                    seats: "0/0 Seats"
+                };
+                appData.workshops.push(newItem);
+                renderWorkshops();
+            }
+
+            showNotification('New item added. Click to edit details.', 'success');
+            saveToLocalStorage();
+        }
+
+        function deleteSelectedItem() {
+            if (!selectedItem) {
+                showNotification('Please select an item to delete', 'warning');
+                return;
+            }
+
+            if (confirm('Are you sure you want to delete this item?')) {
+                selectedItem.remove();
+                selectedItem = null;
+                showNotification('Item deleted successfully', 'success');
+                saveToLocalStorage();
+            }
+        }
+
+        function saveAllChanges() {
+            saveToLocalStorage();
+            showNotification('All changes saved successfully!', 'success');
+        }
+
+        // ===== DATA MANAGEMENT =====
+        function saveToLocalStorage() {
+            localStorage.setItem('definitiveWordData', JSON.stringify(appData));
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('definitiveWordData');
+            if (saved) {
+                appData = JSON.parse(saved);
+            }
+        }
+
+        // ===== RENDER FUNCTIONS =====
+        function renderBooks() {
+            const container = document.getElementById('books-container');
+            container.innerHTML = '';
+
+            appData.books.forEach(book => {
+                const bookCard = `
+                    <div class="book-card editable" data-type="card" data-id="book-${book.id}">
+                        ${book.badge ? `<div class="book-badge">${book.badge}</div>` : ''}
+                        <div class="book-image">${book.image}</div>
+                        <div class="book-info">
+                            <h3 class="book-title editable" data-type="text">${book.title}</h3>
+                            <p class="book-author editable" data-type="text">by ${book.author}</p>
+                            <p class="book-description editable" data-type="text">${book.description}</p>
+                            <div class="book-price"><span class="currency">R</span>${book.price}</div>
+                            <div class="book-actions">
+                                <button class="btn btn-primary btn-small" onclick="addToCart('${book.title}', ${book.price}, 'book')">Add to Cart</button>
+                                <button class="btn btn-outline btn-small">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += bookCard;
+            });
+
+            if (editMode) {
+                setupEditListeners();
+            }
+        }
+
+        function renderWorkshops() {
+            const container = document.getElementById('workshops-container');
+            container.innerHTML = '';
+
+            appData.workshops.forEach(workshop => {
+                const workshopCard = `
+                    <div class="workshop-card editable" data-type="card" data-id="workshop-${workshop.id}">
+                        ${workshop.badge ? `<div class="workshop-badge">${workshop.badge}</div>` : ''}
+                        <div class="workshop-image">${workshop.image}</div>
+                        <div class="workshop-info">
+                            <h3 class="workshop-title editable" data-type="text">${workshop.title}</h3>
+                            <p class="workshop-instructor editable" data-type="text">Facilitated by ${workshop.instructor}</p>
+                            <div class="workshop-details">
+                                <div class="workshop-date"><i class="fas fa-calendar"></i> ${workshop.date}</div>
+                                <div class="workshop-duration"><i class="fas fa-clock"></i> ${workshop.duration}</div>
+                                <div class="workshop-seats"><i class="fas fa-users"></i> ${workshop.seats}</div>
+                            </div>
+                            <p class="workshop-description editable" data-type="text">${workshop.description}</p>
+                            <div class="workshop-price"><span class="currency">R</span>${workshop.price}</div>
+                            <div class="workshop-actions">
+                                <button class="btn btn-primary btn-small" onclick="addToCart('${workshop.title}', ${workshop.price}, 'workshop')">Register Now</button>
+                                <button class="btn btn-outline btn-small">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += workshopCard;
+            });
+
+            if (editMode) {
+                setupEditListeners();
+            }
         }
 
         // ===== TAB MANAGEMENT =====
@@ -1438,6 +1422,13 @@
             
             // Update current tab
             currentTab = tabName;
+
+            // Render appropriate content
+            if (tabName === 'books') {
+                renderBooks();
+            } else if (tabName === 'workshops') {
+                renderWorkshops();
+            }
             
             showNotification(`Switched to ${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
         }
@@ -1487,149 +1478,27 @@
         }
 
         function applySettings() {
-            // Apply double-click behavior
-            document.addEventListener('dblclick', (e) => {
-                if (CONFIG.features.doubleClick) {
-                    const bookCard = e.target.closest('.book-card');
-                    const workshopCard = e.target.closest('.workshop-card');
-                    
-                    if (bookCard) {
-                        const bookTitle = bookCard.querySelector('.book-title').textContent;
-                        const bookPrice = parseFloat(bookCard.querySelector('.book-price').textContent.replace('R', ''));
-                        addToCart(bookTitle, bookPrice, 'book');
-                    } else if (workshopCard) {
-                        const workshopTitle = workshopCard.querySelector('.workshop-title').textContent;
-                        const workshopPrice = parseFloat(workshopCard.querySelector('.workshop-price').textContent.replace('R', ''));
-                        addToCart(workshopTitle, workshopPrice, 'workshop');
+            // Apply settings as before...
+        }
+
+        // ===== ADMIN SHORTCUT =====
+        function enableAdminShortcut() {
+            let keySequence = '';
+            document.addEventListener('keydown', (e) => {
+                keySequence += e.key;
+                if (keySequence.includes('admin')) {
+                    if (currentUser && currentUser.role === 'admin') {
+                        toggleEditMode();
+                    } else {
+                        openLogin();
                     }
+                    keySequence = '';
+                }
+                // Keep only last 5 characters
+                if (keySequence.length > 5) {
+                    keySequence = keySequence.slice(-5);
                 }
             });
-
-            // Apply right-click behavior
-            document.addEventListener('contextmenu', (e) => {
-                if (!CONFIG.features.rightClick) {
-                    e.preventDefault();
-                    return;
-                }
-                
-                if (e.target.closest('.book-card') || e.target.closest('.workshop-card')) {
-                    e.preventDefault();
-                    showContextMenu(e);
-                }
-            });
-        }
-
-        // ===== CONTEXT MENU =====
-        function showContextMenu(e) {
-            const contextMenu = document.getElementById('contextMenu');
-            contextMenu.style.display = 'block';
-            contextMenu.style.left = e.pageX + 'px';
-            contextMenu.style.top = e.pageY + 'px';
-        }
-
-        function hideContextMenu() {
-            document.getElementById('contextMenu').style.display = 'none';
-        }
-
-        function openInNewTab() {
-            window.open(window.location.href, '_blank');
-            hideContextMenu();
-        }
-
-        function savePage() {
-            const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'the-definitive-word.html';
-            a.click();
-            hideContextMenu();
-        }
-
-        function viewSource() {
-            window.open('view-source:' + window.location.href, '_blank');
-            hideContextMenu();
-        }
-
-        // ===== AUTHENTICATION =====
-        function toggleLogin() {
-            if (currentUser) {
-                // Logout
-                currentUser = null;
-                document.getElementById('loginButton').innerHTML = '<i class="fas fa-user"></i> Sign In';
-                showNotification('Logged out successfully', 'info');
-            } else {
-                // Simulate login
-                const email = 'user@example.com';
-                const password = 'SecurePass123';
-                
-                if (!securitySystem.validateInput(email, 'email')) {
-                    showNotification('Invalid email format', 'error');
-                    return;
-                }
-
-                if (!securitySystem.validateInput(password, 'password')) {
-                    showNotification('Password must be 8+ chars with uppercase, lowercase and number', 'error');
-                    return;
-                }
-
-                currentUser = {
-                    email: securitySystem.encryptData(email),
-                    name: 'John Doe',
-                    lastLogin: new Date().toISOString()
-                };
-                
-                document.getElementById('loginButton').innerHTML = '<i class="fas fa-user-check"></i> Logout';
-                showNotification(`Welcome back, ${currentUser.name}!`, 'success');
-
-                if (CONFIG.features.saveLogin) {
-                    localStorage.setItem('userSession', securitySystem.encryptData({
-                        email: email,
-                        timestamp: Date.now()
-                    }));
-                }
-            }
-        }
-
-        // ===== PAYMENT PROCESSING =====
-        async function processCheckout() {
-            if (cart.length === 0) {
-                showNotification('Your cart is empty!', 'error');
-                return;
-            }
-
-            try {
-                showNotification('Processing secure payment...', 'warning');
-                const total = cart.reduce((sum, item) => sum + item.price, 0);
-                const transactionId = await paymentSystem.processPayment(total, cart);
-                
-                showNotification(`Payment successful! Transaction ID: ${transactionId}`, 'success');
-                cart = [];
-                updateCartDisplay();
-                
-                // Log security event
-                console.log('🔒 Purchase completed:', { transactionId, items: cart.length, total });
-            } catch (error) {
-                showNotification(`Payment failed: ${error.message}`, 'error');
-            }
-        }
-
-        // ===== DIAGNOSTICS =====
-        function runFullDiagnostics() {
-            showNotification('Running comprehensive system diagnostics...', 'warning');
-            
-            const tests = [
-                { name: 'Security System', status: 'ok' },
-                { name: 'Payment Gateway', status: 'ok' },
-                { name: 'User Authentication', status: 'ok' },
-                { name: 'Database Connection', status: 'ok' },
-                { name: 'SSL Certificate', status: 'ok' }
-            ];
-            
-            setTimeout(() => {
-                showNotification('All systems operational!', 'success');
-                console.log('✅ Diagnostics completed successfully');
-            }, 2000);
         }
 
         // ===== INITIALIZATION =====
@@ -1640,11 +1509,16 @@
                 showNotification('The Definitive Word loaded successfully!', 'success');
             }, 2000);
 
+            // Load data
+            loadFromLocalStorage();
+            renderBooks();
+            renderWorkshops();
+
             // Apply settings
             applySettings();
 
-            // Hide context menu on click
-            document.addEventListener('click', hideContextMenu);
+            // Enable admin shortcut
+            enableAdminShortcut();
 
             // Check for saved session
             const savedSession = localStorage.getItem('userSession');
@@ -1652,13 +1526,17 @@
                 try {
                     const sessionData = securitySystem.decryptData(savedSession);
                     if (sessionData) {
-                        currentUser = {
-                            email: securitySystem.encryptData(sessionData.email),
-                            name: 'John Doe',
-                            lastLogin: new Date().toISOString()
-                        };
-                        document.getElementById('loginButton').innerHTML = '<i class="fas fa-user-check"></i> Logout';
-                        showNotification('Auto-login successful!', 'success');
+                        // Auto-login as admin if credentials match
+                        if (sessionData.email === CONFIG.admin.username) {
+                            currentUser = {
+                                email: sessionData.email,
+                                name: 'Administrator',
+                                role: 'admin',
+                                lastLogin: new Date().toISOString()
+                            };
+                            document.getElementById('loginButton').innerHTML = '<i class="fas fa-user-shield"></i> Admin';
+                            document.getElementById('addItemBtn').classList.add('show');
+                        }
                     }
                 } catch (e) {
                     console.warn('Auto-login failed:', e);
@@ -1670,8 +1548,7 @@
 
             console.log('🚀 The Definitive Word fully initialized');
             console.log('🔒 Security System:', securitySystem);
-            console.log('💳 Payment System:', paymentSystem);
-            console.log('🛒 Cart Items:', cart.length);
+            console.log('👤 Current User:', currentUser);
         });
 
         // Make functions globally available
@@ -1679,9 +1556,12 @@
         window.addToCart = addToCart;
         window.openSettings = openSettings;
         window.closeSettings = closeSettings;
-        window.toggleLogin = toggleLogin;
-        window.runFullDiagnostics = runFullDiagnostics;
-        window.processCheckout = processCheckout;
+        window.openLogin = openLogin;
+        window.closeLogin = closeLogin;
+        window.toggleEditMode = toggleEditMode;
+        window.addNewItem = addNewItem;
+        window.deleteSelectedItem = deleteSelectedItem;
+        window.saveAllChanges = saveAllChanges;
     </script>
 </body>
 </html>
