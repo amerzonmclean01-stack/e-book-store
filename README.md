@@ -297,14 +297,14 @@
         }
 
         /* Store Styles */
-        .books-grid {
+        .books-grid, .workshops-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2.5rem;
             margin: 3rem 0;
         }
 
-        .book-card {
+        .book-card, .workshop-card {
             background: var(--white);
             border: 1px solid var(--border);
             border-radius: 12px;
@@ -314,12 +314,12 @@
             position: relative;
         }
 
-        .book-card:hover {
+        .book-card:hover, .workshop-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
 
-        .book-badge {
+        .book-badge, .workshop-badge {
             position: absolute;
             top: 15px;
             right: 15px;
@@ -332,7 +332,7 @@
             z-index: 2;
         }
 
-        .book-image {
+        .book-image, .workshop-image {
             height: 200px;
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             display: flex;
@@ -343,11 +343,11 @@
             font-size: 1.1rem;
         }
 
-        .book-info {
+        .book-info, .workshop-info {
             padding: 2rem;
         }
 
-        .book-title {
+        .book-title, .workshop-title {
             font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
@@ -355,28 +355,28 @@
             line-height: 1.4;
         }
 
-        .book-author {
+        .book-author, .workshop-instructor {
             color: var(--light-text);
             margin-bottom: 1rem;
             font-size: 1rem;
             font-style: italic;
         }
 
-        .book-description {
+        .book-description, .workshop-description {
             color: var(--light-text);
             margin-bottom: 1.5rem;
             font-size: 0.95rem;
             line-height: 1.6;
         }
 
-        .book-price {
+        .book-price, .workshop-price {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary-color);
             margin-bottom: 1.5rem;
         }
 
-        .book-actions {
+        .book-actions, .workshop-actions {
             display: flex;
             gap: 1rem;
         }
@@ -415,6 +415,21 @@
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
             color: var(--primary-color);
+        }
+
+        /* Workshop Specific Styles */
+        .workshop-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .workshop-date, .workshop-duration, .workshop-seats {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         /* Community Styles */
@@ -716,6 +731,12 @@
             font-weight: bold;
         }
 
+        /* Currency Display */
+        .currency {
+            font-size: 0.8em;
+            margin-right: 2px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .header-content {
@@ -847,7 +868,8 @@
                 
                 <nav class="nav">
                     <a href="#home" class="nav-link active" onclick="switchTab('home')">Home</a>
-                    <a href="#store" class="nav-link" onclick="switchTab('store')">Store</a>
+                    <a href="#books" class="nav-link" onclick="switchTab('books')">Books</a>
+                    <a href="#workshops" class="nav-link" onclick="switchTab('workshops')">Workshops</a>
                     <a href="#ministry" class="nav-link" onclick="switchTab('ministry')">Ministry</a>
                     <a href="#community" class="nav-link" onclick="switchTab('community')">Community</a>
                     <a href="#blog" class="nav-link" onclick="switchTab('blog')">Blog</a>
@@ -878,11 +900,11 @@
                 <div class="container">
                     <h1 style="font-size: 3.8rem; margin-bottom: 1.5rem;">The Definitive Word</h1>
                     <p style="font-size: 1.4rem; margin-bottom: 2.5rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">
-                        Your complete Christian resource platform with secure ebooks, ministry programs, and vibrant community.
+                        Your complete Christian resource platform with books, workshops, ministry programs, and vibrant community.
                     </p>
                     <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="switchTab('store')">Explore Store</button>
-                        <button class="btn" style="background: rgba(255,255,255,0.1); color: white; border: 2px solid white;" onclick="switchTab('ministry')">Join Ministry</button>
+                        <button class="btn btn-primary" onclick="switchTab('books')">Browse Books</button>
+                        <button class="btn" style="background: rgba(255,255,255,0.1); color: white; border: 2px solid white;" onclick="switchTab('workshops')">View Workshops</button>
                     </div>
                 </div>
             </div>
@@ -892,42 +914,42 @@
                     <h2 class="section-title">Welcome to Your Spiritual Home</h2>
                     <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
                         Discover a comprehensive platform designed to nurture your spiritual growth through quality resources, 
-                        meaningful community, and transformative ministry programs.
+                        transformative workshops, and meaningful community connections.
                     </p>
 
                     <div class="ministry-grid">
                         <div class="ministry-card">
                             <div class="ministry-icon"><i class="fas fa-book"></i></div>
-                            <h3>Digital Library</h3>
-                            <p>Access hundreds of Christian ebooks, study guides, and spiritual resources with secure, encrypted downloads.</p>
-                            <button class="btn btn-outline" onclick="switchTab('store')" style="margin-top: 1.5rem;">Browse Library</button>
+                            <h3>Christian Books</h3>
+                            <p>Access our curated collection of Christian literature, study guides, and spiritual resources from trusted South African authors.</p>
+                            <button class="btn btn-outline" onclick="switchTab('books')" style="margin-top: 1.5rem;">Browse Books</button>
                         </div>
                         
                         <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-hands-helping"></i></div>
-                            <h3>Ministry Programs</h3>
-                            <p>Join our various ministry programs tailored for different age groups and spiritual needs.</p>
-                            <button class="btn btn-outline" onclick="switchTab('ministry')" style="margin-top: 1.5rem;">Explore Ministries</button>
+                            <div class="ministry-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                            <h3>Workshops & Training</h3>
+                            <p>Join live and recorded workshops covering biblical studies, leadership, marriage, and personal spiritual development.</p>
+                            <button class="btn btn-outline" onclick="switchTab('workshops')" style="margin-top: 1.5rem;">View Workshops</button>
                         </div>
                         
                         <div class="ministry-card">
                             <div class="ministry-icon"><i class="fas fa-users"></i></div>
-                            <h3>Community</h3>
-                            <p>Connect with thousands of believers worldwide through our secure online community platform.</p>
-                            <button class="btn btn-outline" onclick="switchTab('community')" style="margin-top: 1.5rem;">Join Community</button>
+                            <h3>Ministry Programs</h3>
+                            <p>Get involved with our youth, women's, and men's ministries designed for spiritual growth and community building.</p>
+                            <button class="btn btn-outline" onclick="switchTab('ministry')" style="margin-top: 1.5rem;">Explore Ministries</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- STORE TAB -->
-        <section id="store-tab" class="tab-content">
+        <!-- BOOKS TAB -->
+        <section id="books-tab" class="tab-content">
             <div class="section">
                 <div class="container">
-                    <h2 class="section-title">Christian Resource Store</h2>
+                    <h2 class="section-title">Christian Books & Resources</h2>
                     <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;">
-                        Discover our curated collection of Christian books, study guides, and spiritual growth materials
+                        Discover our curated collection of Christian literature from South African and international authors
                     </p>
 
                     <div class="books-grid">
@@ -937,25 +959,25 @@
                             <div class="book-info">
                                 <h3 class="book-title">Morning Reflections: 365 Days with God</h3>
                                 <p class="book-author">by Dr. Michael Thompson</p>
-                                <p class="book-description">Start each day with profound biblical insights and practical applications for modern Christian living.</p>
-                                <div class="book-price">$19.99</div>
+                                <p class="book-description">Start each day with profound biblical insights and practical applications for modern Christian living. This devotional has transformed thousands of lives across South Africa.</p>
+                                <div class="book-price"><span class="currency">R</span>349.99</div>
                                 <div class="book-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Morning Reflections', 19.99)">Add to Cart</button>
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Morning Reflections', 349.99, 'book')">Add to Cart</button>
                                     <button class="btn btn-outline btn-small">Preview</button>
                                 </div>
                             </div>
                         </div>
 
                         <div class="book-card">
-                            <div class="book-badge">New</div>
+                            <div class="book-badge">New Release</div>
                             <div class="book-image">Bible Study</div>
                             <div class="book-info">
                                 <h3 class="book-title">Understanding God's Grace</h3>
                                 <p class="book-author">by Pastor Sarah Johnson</p>
-                                <p class="book-description">A comprehensive study on the transformative power of grace in the life of every believer.</p>
-                                <div class="book-price">$22.99</div>
+                                <p class="book-description">A comprehensive study on the transformative power of grace in the life of every believer. Perfect for small group studies.</p>
+                                <div class="book-price"><span class="currency">R</span>299.99</div>
                                 <div class="book-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Understanding Grace', 22.99)">Add to Cart</button>
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Understanding Grace', 299.99, 'book')">Add to Cart</button>
                                     <button class="btn btn-outline btn-small">Preview</button>
                                 </div>
                             </div>
@@ -966,25 +988,120 @@
                             <div class="book-info">
                                 <h3 class="book-title">Faith in Action: Living the Gospel</h3>
                                 <p class="book-author">by Elder James Wilson</p>
-                                <p class="book-description">Practical guidance for applying biblical principles to everyday challenges and opportunities.</p>
-                                <div class="book-price">$18.99</div>
+                                <p class="book-description">Practical guidance for applying biblical principles to everyday challenges and opportunities in the South African context.</p>
+                                <div class="book-price"><span class="currency">R</span>279.99</div>
                                 <div class="book-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Faith in Action', 18.99)">Add to Cart</button>
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Faith in Action', 279.99, 'book')">Add to Cart</button>
                                     <button class="btn btn-outline btn-small">Preview</button>
                                 </div>
                             </div>
                         </div>
 
                         <div class="book-card">
+                            <div class="book-badge">Local Author</div>
                             <div class="book-image">Prayer Guide</div>
                             <div class="book-info">
-                                <h3 class="book-title">The Power of Prayer</h3>
-                                <p class="book-author">by Maria Garcia</p>
-                                <p class="book-description">Deepen your prayer life with this comprehensive guide to communicating with God.</p>
-                                <div class="book-price">$15.99</div>
+                                <h3 class="book-title">The Power of Prayer in African Context</h3>
+                                <p class="book-author">by Pastor Thabo Mbatha</p>
+                                <p class="book-description">A culturally relevant guide to deepening your prayer life, written specifically for African Christians.</p>
+                                <div class="book-price"><span class="currency">R</span>249.99</div>
                                 <div class="book-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Power of Prayer', 15.99)">Add to Cart</button>
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Power of Prayer', 249.99, 'book')">Add to Cart</button>
                                     <button class="btn btn-outline btn-small">Preview</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WORKSHOPS TAB -->
+        <section id="workshops-tab" class="tab-content">
+            <div class="section">
+                <div class="container">
+                    <h2 class="section-title">Christian Workshops & Training</h2>
+                    <p style="text-align: center; color: var(--light-text); margin-bottom: 4rem; font-size: 1.3rem;">
+                        Join our transformative workshops and training sessions for spiritual growth and leadership development
+                    </p>
+
+                    <div class="workshops-grid">
+                        <div class="workshop-card">
+                            <div class="workshop-badge">Live Online</div>
+                            <div class="workshop-image">Biblical Leadership</div>
+                            <div class="workshop-info">
+                                <h3 class="workshop-title">Biblical Leadership Principles</h3>
+                                <p class="workshop-instructor">Facilitated by Dr. Sarah Johnson</p>
+                                <div class="workshop-details">
+                                    <div class="workshop-date"><i class="fas fa-calendar"></i> 15 April 2024</div>
+                                    <div class="workshop-duration"><i class="fas fa-clock"></i> 3 Hours</div>
+                                    <div class="workshop-seats"><i class="fas fa-users"></i> 12/25 Seats</div>
+                                </div>
+                                <p class="workshop-description">Learn timeless leadership principles from Scripture and apply them to modern ministry and workplace challenges. Interactive session with Q&A.</p>
+                                <div class="workshop-price"><span class="currency">R</span>499.99</div>
+                                <div class="workshop-actions">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Biblical Leadership Workshop', 499.99, 'workshop')">Register Now</button>
+                                    <button class="btn btn-outline btn-small">Details</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="workshop-card">
+                            <div class="workshop-badge">In Person</div>
+                            <div class="workshop-image">Marriage Enrichment</div>
+                            <div class="workshop-info">
+                                <h3 class="workshop-title">Marriage & Family Enrichment</h3>
+                                <p class="workshop-instructor">Led by Pastors John & Mary Smith</p>
+                                <div class="workshop-details">
+                                    <div class="workshop-date"><i class="fas fa-calendar"></i> 22 April 2024</div>
+                                    <div class="workshop-duration"><i class="fas fa-clock"></i> Full Day</div>
+                                    <div class="workshop-seats"><i class="fas fa-users"></i> 8/20 Seats</div>
+                                </div>
+                                <p class="workshop-description">A full-day workshop focused on building strong Christian marriages and families. Includes practical exercises and couple activities.</p>
+                                <div class="workshop-price"><span class="currency">R</span>799.99</div>
+                                <div class="workshop-actions">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Marriage Workshop', 799.99, 'workshop')">Register Now</button>
+                                    <button class="btn btn-outline btn-small">Details</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="workshop-card">
+                            <div class="workshop-badge">Self-Paced</div>
+                            <div class="workshop-image">Spiritual Disciplines</div>
+                            <div class="workshop-info">
+                                <h3 class="workshop-title">Mastering Spiritual Disciplines</h3>
+                                <p class="workshop-instructor">with Elder James Wilson</p>
+                                <div class="workshop-details">
+                                    <div class="workshop-date"><i class="fas fa-calendar"></i> Anytime</div>
+                                    <div class="workshop-duration"><i class="fas fa-clock"></i> 6 Weeks</div>
+                                    <div class="workshop-seats"><i class="fas fa-users"></i> Unlimited</div>
+                                </div>
+                                <p class="workshop-description">A comprehensive self-paced course on prayer, fasting, meditation, and other essential spiritual disciplines for growth.</p>
+                                <div class="workshop-price"><span class="currency">R</span>649.99</div>
+                                <div class="workshop-actions">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Spiritual Disciplines Course', 649.99, 'workshop')">Enroll Now</button>
+                                    <button class="btn btn-outline btn-small">Preview</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="workshop-card">
+                            <div class="workshop-badge">New</div>
+                            <div class="workshop-image">Youth Ministry</div>
+                            <div class="workshop-info">
+                                <h3 class="workshop-title">Youth Ministry Training</h3>
+                                <p class="workshop-instructor">by Youth Pastor Mike Daniels</p>
+                                <div class="workshop-details">
+                                    <div class="workshop-date"><i class="fas fa-calendar"></i> 30 April 2024</div>
+                                    <div class="workshop-duration"><i class="fas fa-clock"></i> 4 Hours</div>
+                                    <div class="workshop-seats"><i class="fas fa-users"></i> 15/30 Seats</div>
+                                </div>
+                                <p class="workshop-description">Essential training for youth leaders and volunteers. Learn effective strategies for engaging young people in today's culture.</p>
+                                <div class="workshop-price"><span class="currency">R</span>449.99</div>
+                                <div class="workshop-actions">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Youth Ministry Training', 449.99, 'workshop')">Register Now</button>
+                                    <button class="btn btn-outline btn-small">Details</button>
                                 </div>
                             </div>
                         </div>
@@ -1032,16 +1149,6 @@
                                 <button class="btn btn-outline btn-small">Learn More</button>
                             </div>
                         </div>
-
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-child"></i></div>
-                            <h3>Children's Ministry</h3>
-                            <p>Age-appropriate biblical teaching and activities for children. Sunday school, vacation Bible school, and family events to nurture young faith.</p>
-                            <div class="book-actions">
-                                <button class="btn btn-primary btn-small">Join Now</button>
-                                <button class="btn btn-outline btn-small">Learn More</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1067,7 +1174,7 @@
                         </div>
                         <div class="stat-card">
                             <div class="stat-number">50+</div>
-                            <div class="stat-label">Ministry Programs</div>
+                            <div class="stat-label">Workshops Hosted</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-number">24/7</div>
@@ -1169,9 +1276,9 @@
                             
                             <ul class="about-features">
                                 <li>Quality Christian literature from trusted authors</li>
-                                <li>Comprehensive ministry programs for all ages</li>
+                                <li>Transformative workshops and training</li>
+                                <li>Comprehensive ministry programs</li>
                                 <li>Supportive online community</li>
-                                <li>Regular inspirational content and resources</li>
                                 <li>Secure, encrypted platform for all transactions</li>
                             </ul>
                         </div>
@@ -1205,10 +1312,10 @@
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <a onclick="switchTab('home')">Home</a>
-                    <a onclick="switchTab('store')">Resource Store</a>
+                    <a onclick="switchTab('books')">Books</a>
+                    <a onclick="switchTab('workshops')">Workshops</a>
                     <a onclick="switchTab('ministry')">Ministry Programs</a>
                     <a onclick="switchTab('community')">Community</a>
-                    <a onclick="switchTab('blog')">Blog & Articles</a>
                 </div>
                 
                 <div class="footer-section">
@@ -1216,7 +1323,6 @@
                     <a>Youth Ministry</a>
                     <a>Women's Ministry</a>
                     <a>Men's Ministry</a>
-                    <a>Children's Ministry</a>
                     <a>Prayer Requests</a>
                 </div>
                 
@@ -1337,8 +1443,13 @@
         }
 
         // ===== CART MANAGEMENT =====
-        function addToCart(itemName, price) {
-            cart.push({ name: itemName, price: price });
+        function addToCart(itemName, price, type) {
+            cart.push({ 
+                name: itemName, 
+                price: price, 
+                type: type,
+                id: Date.now() + Math.random()
+            });
             updateCartDisplay();
             showNotification(`"${itemName}" added to cart!`, 'success');
         }
@@ -1378,10 +1489,19 @@
         function applySettings() {
             // Apply double-click behavior
             document.addEventListener('dblclick', (e) => {
-                if (CONFIG.features.doubleClick && e.target.classList.contains('book-card')) {
-                    const bookTitle = e.target.querySelector('.book-title').textContent;
-                    const bookPrice = parseFloat(e.target.querySelector('.book-price').textContent.replace('$', ''));
-                    addToCart(bookTitle, bookPrice);
+                if (CONFIG.features.doubleClick) {
+                    const bookCard = e.target.closest('.book-card');
+                    const workshopCard = e.target.closest('.workshop-card');
+                    
+                    if (bookCard) {
+                        const bookTitle = bookCard.querySelector('.book-title').textContent;
+                        const bookPrice = parseFloat(bookCard.querySelector('.book-price').textContent.replace('R', ''));
+                        addToCart(bookTitle, bookPrice, 'book');
+                    } else if (workshopCard) {
+                        const workshopTitle = workshopCard.querySelector('.workshop-title').textContent;
+                        const workshopPrice = parseFloat(workshopCard.querySelector('.workshop-price').textContent.replace('R', ''));
+                        addToCart(workshopTitle, workshopPrice, 'workshop');
+                    }
                 }
             });
 
@@ -1392,7 +1512,7 @@
                     return;
                 }
                 
-                if (e.target.classList.contains('book-card') || e.target.closest('.book-card')) {
+                if (e.target.closest('.book-card') || e.target.closest('.workshop-card')) {
                     e.preventDefault();
                     showContextMenu(e);
                 }
