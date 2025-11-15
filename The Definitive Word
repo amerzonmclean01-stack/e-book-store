@@ -106,6 +106,21 @@
             overflow-y: auto;
         }
 
+        /* Settings Header */
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .settings-header h3 {
+            color: var(--primary-color);
+            margin: 0;
+        }
+
         /* Login/Signup Modal */
         .auth-form {
             display: flex;
@@ -1827,9 +1842,9 @@
                     appData = JSON.parse(saved);
                 console.log('Data loaded from localStorage');
                 console.log('Books:', appData.books.length);
-                    console.log('Workshops:', appData.workshops.length);
-                    console.log('Blog Posts:', appData.blogPosts.length);
-                    console.log('Users:', appData.users.length);
+                console.log('Workshops:', appData.workshops.length);
+                console.log('Blog Posts:', appData.blogPosts.length);
+                console.log('Users:', appData.users.length);
                 } catch (e) {
                     console.error('Error loading data:', e);
                 }
@@ -1871,96 +1886,6 @@
             }, 4000);
         }
 
-        // ===== INITIALIZATION =====
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('=== STARTING DIAGNOSTICS ===');
-            
-            // Hide loading screen
-            setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
-                showNotification('The Definitive Word loaded successfully! All systems operational.', 'success');
-            }, 2000);
-
-            // Load data
-            loadFromLocalStorage();
-            
-            // Render initial content
-            renderBooks();
-            renderWorkshops();
-            renderBlogPosts();
-
-            // Set up tab switching for navigation links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const tabName = this.getAttribute('href').substring(1);
-                    switchTab(tabName);
-                });
-            });
-
-            // Set up footer link functionality
-            document.querySelectorAll('.footer-section a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const text = this.textContent;
-                    if (text.includes('Home') || text.includes('Books') || text.includes('Workshops') || text.includes('Ministry') || text.includes('Community')) {
-                        const tabName = text.toLowerCase().replace(' programs', '').replace(' ', '');
-                        switchTab(tabName);
-                    }
-                });
-            });
-
-            console.log('=== DIAGNOSTICS COMPLETE ===');
-            console.log('All systems initialized successfully');
-            console.log('Current user:', currentUser);
-           // ===== INITIALIZATION =====
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('=== STARTING DIAGNOSTICS ===');
-            
-            // Hide loading screen
-            setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
-                showNotification('The Definitive Word loaded successfully! All systems operational.', 'success');
-            }, 2000);
-
-            // Load data
-            loadFromLocalStorage();
-            
-            // Render initial content
-            renderBooks();
-            renderWorkshops();
-            renderBlogPosts();
-            updateCartDisplay();
-
-            // Set up tab switching for navigation links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const tabName = this.getAttribute('href').substring(1);
-                    switchTab(tabName);
-                });
-            });
-
-            // Set up footer link functionality
-            document.querySelectorAll('.footer-section a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const text = this.textContent;
-                    if (text.includes('Home') || text.includes('Books') || text.includes('Workshops') || text.includes('Ministry') || text.includes('Community')) {
-                        const tabName = text.toLowerCase().replace(' programs', '').replace(' ', '');
-                        switchTab(tabName);
-                    }
-                });
-            });
-
-            // Check for saved user session
-            checkSavedSession();
-
-            console.log('=== DIAGNOSTICS COMPLETE ===');
-            console.log('All systems initialized successfully');
-            console.log('Current user:', currentUser);
-        });
-
         // ===== SESSION MANAGEMENT =====
         function checkSavedSession() {
             const savedUser = localStorage.getItem('definitiveWordCurrentUser');
@@ -1978,360 +1903,7 @@
             }
         }
 
-        // ===== ENHANCED SECURITY FEATURES =====
-        function encryptData(data) {
-            // Simple base64 encoding for demo purposes
-            // In production, use proper encryption
-            return btoa(JSON.stringify(data));
-        }
-
-        function decryptData(encryptedData) {
-            try {
-                return JSON.parse(atob(encryptedData));
-            } catch (e) {
-                console.error('Decryption error:', e);
-                return null;
-            }
-        }
-
-        // ===== PAYMENT PROCESSING =====
-        function processPayment(amount, paymentMethod) {
-            return new Promise((resolve, reject) => {
-                showNotification('Processing payment...', 'warning');
-                
-                setTimeout(() => {
-                    // Simulate payment processing
-                    const success = Math.random() > 0.1; // 90% success rate
-                    
-                    if (success) {
-                        resolve({
-                            success: true,
-                            transactionId: 'TXN_' + Date.now(),
-                            amount: amount,
-                            timestamp: new Date().toISOString()
-                        });
-                    } else {
-                        reject({
-                            success: false,
-                            error: 'Payment processing failed. Please try again.'
-                        });
-                    }
-                }, 2000);
-            });
-        }
-
-        // ===== SEARCH FUNCTIONALITY =====
-        function initializeSearch() {
-            const searchInput = document.createElement('input');
-            searchInput.type = 'text';
-            searchInput.placeholder = 'Search books, workshops, blog posts...';
-            searchInput.style.cssText = `
-                padding: 10px;
-                border: 1px solid var(--border);
-                border-radius: 6px;
-                width: 250px;
-                margin-right: 1rem;
-            `;
-            
-            searchInput.addEventListener('input', function(e) {
-                performSearch(e.target.value);
-            });
-
-            // Add search to header
-            const headerActions = document.querySelector('.header-actions');
-            headerActions.insertBefore(searchInput, headerActions.firstChild);
-        }
-
-        function performSearch(query) {
-            if (!query.trim()) {
-                // Reset to current tab content
-                switchTab(currentTab);
-                return;
-            }
-
-            const results = {
-                books: appData.books.filter(book => 
-                    book.title.toLowerCase().includes(query.toLowerCase()) ||
-                    book.author.toLowerCase().includes(query.toLowerCase()) ||
-                    book.description.toLowerCase().includes(query.toLowerCase())
-                ),
-                workshops: appData.workshops.filter(workshop =>
-                    workshop.title.toLowerCase().includes(query.toLowerCase()) ||
-                    workshop.instructor.toLowerCase().includes(query.toLowerCase()) ||
-                    workshop.description.toLowerCase().includes(query.toLowerCase())
-                ),
-                blogPosts: appData.blogPosts.filter(post =>
-                    post.title.toLowerCase().includes(query.toLowerCase()) ||
-                    post.author.toLowerCase().includes(query.toLowerCase()) ||
-                    post.excerpt.toLowerCase().includes(query.toLowerCase())
-                )
-            };
-
-            displaySearchResults(results, query);
-        }
-
-        function displaySearchResults(results, query) {
-            const mainContent = document.getElementById('mainContent');
-            const resultsHTML = `
-                <section class="tab-content active">
-                    <div class="section">
-                        <div class="container">
-                            <h2 class="section-title">Search Results for "${query}"</h2>
-                            
-                            ${results.books.length > 0 ? `
-                                <h3 style="margin: 2rem 0 1rem 0; color: var(--primary-color);">Books (${results.books.length})</h3>
-                                <div class="books-grid">
-                                    ${results.books.map(book => `
-                                        <div class="book-card">
-                                            ${book.badge ? `<div class="book-badge">${book.badge}</div>` : ''}
-                                            <div class="book-image">${book.image}</div>
-                                            <div class="book-info">
-                                                <h3 class="book-title">${book.title}</h3>
-                                                <p class="book-author">by ${book.author}</p>
-                                                <p class="book-description">${book.description}</p>
-                                                <div class="book-price"><span class="currency">R</span>${book.price.toFixed(2)}</div>
-                                                <div class="book-actions">
-                                                    <button class="btn btn-primary btn-small" onclick="addToCart('${book.title.replace(/'/g, "\\'")}', ${book.price}, 'book')">Add to Cart</button>
-                                                    <button class="btn btn-outline btn-small" onclick="previewItem('${book.title.replace(/'/g, "\\'")}', '${book.description.replace(/'/g, "\\'")}', ${book.price})">Preview</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            ` : ''}
-                            
-                            ${results.workshops.length > 0 ? `
-                                <h3 style="margin: 2rem 0 1rem 0; color: var(--primary-color);">Workshops (${results.workshops.length})</h3>
-                                <div class="workshops-grid">
-                                    ${results.workshops.map(workshop => `
-                                        <div class="workshop-card">
-                                            ${workshop.badge ? `<div class="workshop-badge">${workshop.badge}</div>` : ''}
-                                            <div class="workshop-image">${workshop.image}</div>
-                                            <div class="workshop-info">
-                                                <h3 class="workshop-title">${workshop.title}</h3>
-                                                <p class="workshop-instructor">Facilitated by ${workshop.instructor}</p>
-                                                <div class="workshop-details">
-                                                    <div class="workshop-date"><i class="fas fa-calendar"></i> ${workshop.date}</div>
-                                                    <div class="workshop-duration"><i class="fas fa-clock"></i> ${workshop.duration}</div>
-                                                    <div class="workshop-seats"><i class="fas fa-users"></i> ${workshop.seats}</div>
-                                                </div>
-                                                <p class="workshop-description">${workshop.description}</p>
-                                                <div class="workshop-price"><span class="currency">R</span>${workshop.price.toFixed(2)}</div>
-                                                <div class="workshop-actions">
-                                                    <button class="btn btn-primary btn-small" onclick="registerForWorkshop('${workshop.title.replace(/'/g, "\\'")}', ${workshop.price})">Register Now</button>
-                                                    <button class="btn btn-outline btn-small" onclick="showWorkshopDetails('${workshop.title.replace(/'/g, "\\'")}', '${workshop.description.replace(/'/g, "\\'")}')">Details</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            ` : ''}
-                            
-                            ${results.blogPosts.length > 0 ? `
-                                <h3 style="margin: 2rem 0 1rem 0; color: var(--primary-color);">Blog Posts (${results.blogPosts.length})</h3>
-                                <div class="blog-grid">
-                                    ${results.blogPosts.map(post => `
-                                        <div class="blog-card">
-                                            <div class="blog-image">${post.image}</div>
-                                            <div class="blog-info">
-                                                <h3 class="blog-title">${post.title}</h3>
-                                                <p class="blog-author">by ${post.author}</p>
-                                                <p class="blog-excerpt">${post.excerpt}</p>
-                                                <div class="blog-meta">
-                                                    <span>${post.date}</span>
-                                                    <span>${post.readTime}</span>
-                                                </div>
-                                                <div class="blog-actions">
-                                                    <button class="btn btn-primary btn-small" onclick="readBlogPost('${post.title.replace(/'/g, "\\'")}')">Read More</button>
-                                                    <button class="btn btn-outline btn-small" onclick="shareBlogPost('${post.title.replace(/'/g, "\\'")}')">Share</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            ` : ''}
-                            
-                            ${results.books.length === 0 && results.workshops.length === 0 && results.blogPosts.length === 0 ? `
-                                <div style="text-align: center; padding: 3rem; color: var(--light-text);">
-                                    <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                                    <h3>No results found</h3>
-                                    <p>Try different keywords or browse our categories</p>
-                                </div>
-                            ` : ''}
-                        </div>
-                    </div>
-                </section>
-            `;
-            
-            // Hide all tabs and show search results
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            mainContent.innerHTML = resultsHTML;
-        }
-
-        // ===== WISHLIST FUNCTIONALITY =====
-        let wishlist = [];
-
-        function addToWishlist(itemName, price, type) {
-            if (!currentUser) {
-                showNotification('Please sign in to add items to wishlist', 'error');
-                openAuth();
-                return;
-            }
-
-            const wishlistItem = {
-                name: itemName,
-                price: price,
-                type: type,
-                id: Date.now() + Math.random(),
-                addedDate: new Date().toISOString()
-            };
-
-            wishlist.push(wishlistItem);
-            showNotification(`"${itemName}" added to wishlist!`, 'success');
-            saveWishlist();
-        }
-
-        function saveWishlist() {
-            if (currentUser) {
-                localStorage.setItem(`definitiveWordWishlist_${currentUser.email}`, JSON.stringify(wishlist));
-            }
-        }
-
-        function loadWishlist() {
-            if (currentUser) {
-                const saved = localStorage.getItem(`definitiveWordWishlist_${currentUser.email}`);
-                if (saved) {
-                    try {
-                        wishlist = JSON.parse(saved);
-                    } catch (e) {
-                        console.error('Error loading wishlist:', e);
-                    }
-                }
-            }
-        }
-
-        // ===== PROFILE MANAGEMENT =====
-        function openProfile() {
-            if (!currentUser) {
-                showNotification('Please sign in to view profile', 'error');
-                openAuth();
-                return;
-            }
-
-            showNotification(`Profile: ${currentUser.name}\nEmail: ${currentUser.email}\nMember since: ${new Date(currentUser.joinDate).toLocaleDateString()}`, 'info');
-        }
-
-        // ===== EXPORT FUNCTIONALITY =====
-        function exportUserData() {
-            if (!currentUser) {
-                showNotification('Please sign in to export data', 'error');
-                return;
-            }
-
-            const userData = {
-                profile: currentUser,
-                cart: cart,
-                wishlist: wishlist,
-                exportDate: new Date().toISOString()
-            };
-
-            const dataStr = JSON.stringify(userData, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
-            
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(dataBlob);
-            link.download = `definitive-word-data-${currentUser.email}-${Date.now()}.json`;
-            link.click();
-            
-            showNotification('User data exported successfully!', 'success');
-        }
-
-        // ===== OFFLINE FUNCTIONALITY =====
-        function setupServiceWorker() {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch(registrationError => {
-                        console.log('SW registration failed: ', registrationError);
-                    });
-            }
-        }
-
-        // ===== ACCESSIBILITY FEATURES =====
-        function initAccessibility() {
-            // Add skip to main content link
-            const skipLink = document.createElement('a');
-            skipLink.href = '#mainContent';
-            skipLink.innerHTML = 'Skip to main content';
-            skipLink.style.cssText = `
-                position: absolute;
-                top: -40px;
-                left: 6px;
-                background: var(--primary-color);
-                color: white;
-                padding: 8px;
-                z-index: 10000;
-                text-decoration: none;
-            `;
-            skipLink.addEventListener('focus', function() {
-                this.style.top = '6px';
-            });
-            skipLink.addEventListener('blur', function() {
-                this.style.top = '-40px';
-            });
-            document.body.insertBefore(skipLink, document.body.firstChild);
-
-            // Add keyboard navigation
-            document.addEventListener('keydown', function(e) {
-                if (e.altKey && e.key === '1') switchTab('home');
-                if (e.altKey && e.key === '2') switchTab('books');
-                if (e.altKey && e.key === '3') switchTab('workshops');
-                if (e.altKey && e.key === '4') openCart();
-                if (e.altKey && e.key === '5') openAuth();
-            });
-        }
-
-        // ===== PERFORMANCE OPTIMIZATION =====
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        // ===== ENHANCED INITIALIZATION =====
-        function enhancedInit() {
-            // Initialize search
-            initializeSearch();
-            
-            // Load wishlist
-            loadWishlist();
-            
-            // Setup service worker for offline functionality
-            setupServiceWorker();
-            
-            // Initialize accessibility features
-            initAccessibility();
-            
-            // Add performance monitoring
-            if ('performance' in window) {
-                const perfObserver = new PerformanceObserver((list) => {
-                    list.getEntries().forEach((entry) => {
-                        console.log(`${entry.name}: ${entry.duration}ms`);
-                    });
-                });
-                perfObserver.observe({ entryTypes: ['navigation', 'paint', 'resource'] });
-            }
-        }
-
-        // Update DOMContentLoaded to include enhanced initialization
+        // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
             console.log('=== STARTING DIAGNOSTICS ===');
             
@@ -2373,9 +1945,6 @@
 
             // Check for saved user session
             checkSavedSession();
-
-            // Enhanced initialization
-            enhancedInit();
 
             console.log('=== DIAGNOSTICS COMPLETE ===');
             console.log('All systems initialized successfully');
