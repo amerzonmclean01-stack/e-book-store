@@ -805,52 +805,6 @@
             background: var(--secondary-blue);
         }
 
-        /* Switch Toggle */
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 24px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: var(--success);
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-
         /* Responsive */
         @media (max-width: 1024px) {
             .nav {
@@ -981,12 +935,12 @@
                 </p>
                 
                 <div class="login-options">
-                    <div class="login-option active" onclick="selectLoginType('regular', this)">
+                    <div class="login-option active" onclick="selectLoginType('regular')">
                         <i class="fas fa-user"></i>
                         <h4>Regular Member</h4>
                         <p>Access books, workshops, community features, and spiritual resources. Perfect for individual spiritual growth.</p>
                     </div>
-                    <div class="login-option" onclick="selectLoginType('admin', this)">
+                    <div class="login-option" onclick="selectLoginType('admin')">
                         <i class="fas fa-user-shield"></i>
                         <h4>Administrator</h4>
                         <p>Manage platform content, users, and settings. Full access to all administrative tools and features.</p>
@@ -1535,41 +1489,27 @@
 
         <!-- BOOKS TAB -->
         <section id="books-tab" class="tab-content">
-            <div class="hero-section">
-                <div class="container">
-                    <h1 style="font-size: 3rem; margin-bottom: 1.5rem;">Christian Books</h1>
-                    <p style="font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">
-                        Explore our curated collection of Christian books, devotionals, and study resources.
-                    </p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="openModal('authModal')">
-                            <i class="fas fa-user-plus"></i> Join to Access Books
-                        </button>
-                    </div>
-                </div>
-            </div>
-
             <div class="section">
                 <div class="container">
-                    <h2 class="section-title">Book Collection</h2>
+                    <h2 class="section-title">Christian Books & Resources</h2>
                     <p class="section-subtitle">
-                        Browse our selection of spiritually enriching books for all ages and stages of faith
+                        Explore our curated collection of Christian literature, study guides, and spiritual resources
                     </p>
 
                     <div class="cards-grid">
                         <div class="card">
                             <div class="card-badge">New Release</div>
-                            <div class="card-image">Faith Journey</div>
+                            <div class="card-image">Bible Study</div>
                             <div class="card-content">
-                                <h3 class="card-title">Walking in Faith: A 90-Day Devotional</h3>
-                                <p class="card-meta">by Pastor James Wilson</p>
-                                <p class="card-description">A powerful 90-day journey to strengthen your faith and deepen your relationship with God.</p>
+                                <h3 class="card-title">Understanding the Gospels</h3>
+                                <p class="card-meta">by Dr. James Wilson</p>
+                                <p class="card-description">A comprehensive guide to the four Gospels with historical context and practical applications for modern believers.</p>
                                 <div class="card-price">R 299.99</div>
                                 <div class="card-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Walking in Faith: A 90-Day Devotional', 299.99, 'book')">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Understanding the Gospels', 299.99, 'book')">
                                         <i class="fas fa-cart-plus"></i> Add to Cart
                                     </button>
-                                    <button class="btn btn-outline btn-small" onclick="previewItem('Walking in Faith: A 90-Day Devotional', 'A powerful 90-day journey to strengthen your faith and deepen your relationship with God.', 299.99)">
+                                    <button class="btn btn-outline btn-small" onclick="previewItem('Understanding the Gospels', 'A comprehensive guide to the four Gospels with historical context and practical applications for modern believers.', 299.99)">
                                         <i class="fas fa-eye"></i> Preview
                                     </button>
                                 </div>
@@ -1578,17 +1518,17 @@
 
                         <div class="card">
                             <div class="card-badge">Bestseller</div>
-                            <div class="card-image">Family Devotional</div>
+                            <div class="card-image">Christian Living</div>
                             <div class="card-content">
-                                <h3 class="card-title">Family Faith: Building Spiritual Foundations</h3>
-                                <p class="card-meta">by Dr. Rebecca Martinez</p>
-                                <p class="card-description">Practical guidance for building strong spiritual foundations in your family life.</p>
-                                <div class="card-price">R 379.99</div>
+                                <h3 class="card-title">The Pursuit of Holiness</h3>
+                                <p class="card-meta">by Pastor John Richards</p>
+                                <p class="card-description">A practical guide to developing spiritual disciplines and pursuing holiness in everyday life.</p>
+                                <div class="card-price">R 249.99</div>
                                 <div class="card-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Family Faith: Building Spiritual Foundations', 379.99, 'book')">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('The Pursuit of Holiness', 249.99, 'book')">
                                         <i class="fas fa-cart-plus"></i> Add to Cart
                                     </button>
-                                    <button class="btn btn-outline btn-small" onclick="previewItem('Family Faith: Building Spiritual Foundations', 'Practical guidance for building strong spiritual foundations in your family life.', 379.99)">
+                                    <button class="btn btn-outline btn-small" onclick="previewItem('The Pursuit of Holiness', 'A practical guide to developing spiritual disciplines and pursuing holiness in everyday life.', 249.99)">
                                         <i class="fas fa-eye"></i> Preview
                                     </button>
                                 </div>
@@ -1597,17 +1537,74 @@
 
                         <div class="card">
                             <div class="card-badge">Study Guide</div>
-                            <div class="card-image">Bible Study</div>
+                            <div class="card-image">Small Group</div>
                             <div class="card-content">
-                                <h3 class="card-title">Understanding the Gospels: A Comprehensive Study</h3>
-                                <p class="card-meta">by Dr. Michael Thompson</p>
-                                <p class="card-description">Deep dive into the four Gospels with historical context and practical applications.</p>
-                                <div class="card-price">R 449.99</div>
+                                <h3 class="card-title">Romans: Grace and Faith</h3>
+                                <p class="card-meta">by Dr. Sarah Johnson</p>
+                                <p class="card-description">A 12-week small group study guide exploring Paul's letter to the Romans with discussion questions and activities.</p>
+                                <div class="card-price">R 199.99</div>
                                 <div class="card-actions">
-                                    <button class="btn btn-primary btn-small" onclick="addToCart('Understanding the Gospels: A Comprehensive Study', 449.99, 'book')">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Romans: Grace and Faith', 199.99, 'book')">
                                         <i class="fas fa-cart-plus"></i> Add to Cart
                                     </button>
-                                    <button class="btn btn-outline btn-small" onclick="previewItem('Understanding the Gospels: A Comprehensive Study', 'Deep dive into the four Gospels with historical context and practical applications.', 449.99)">
+                                    <button class="btn btn-outline btn-small" onclick="previewItem('Romans: Grace and Faith', 'A 12-week small group study guide exploring Paul\'s letter to the Romans with discussion questions and activities.', 199.99)">
+                                        <i class="fas fa-eye"></i> Preview
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-badge">Family</div>
+                            <div class="card-image">Children's Book</div>
+                            <div class="card-content">
+                                <h3 class="card-title">Bible Stories for Kids</h3>
+                                <p class="card-meta">by Mary Thompson</p>
+                                <p class="card-description">Beautifully illustrated Bible stories with age-appropriate lessons and discussion questions for children ages 4-8.</p>
+                                <div class="card-price">R 179.99</div>
+                                <div class="card-actions">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Bible Stories for Kids', 179.99, 'book')">
+                                        <i class="fas fa-cart-plus"></i> Add to Cart
+                                    </button>
+                                    <button class="btn btn-outline btn-small" onclick="previewItem('Bible Stories for Kids', 'Beautifully illustrated Bible stories with age-appropriate lessons and discussion questions for children ages 4-8.', 179.99)">
+                                        <i class="fas fa-eye"></i> Preview
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-badge">Prayer</div>
+                            <div class="card-image">Devotional</div>
+                            <div class="card-content">
+                                <h3 class="card-title">Prayers for Every Need</h3>
+                                <p class="card-meta">by Rev. David Chen</p>
+                                <p class="card-description">A collection of prayers for various life situations, accompanied by relevant Scripture verses and reflection prompts.</p>
+                                <div class="card-price">R 219.99</div>
+                                <div class="card-actions">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Prayers for Every Need', 219.99, 'book')">
+                                        <i class="fas fa-cart-plus"></i> Add to Cart
+                                    </button>
+                                    <button class="btn btn-outline btn-small" onclick="previewItem('Prayers for Every Need', 'A collection of prayers for various life situations, accompanied by relevant Scripture verses and reflection prompts.', 219.99)">
+                                        <i class="fas fa-eye"></i> Preview
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-badge">Leadership</div>
+                            <div class="card-image">Ministry</div>
+                            <div class="card-content">
+                                <h3 class="card-title">Servant Leadership in the Church</h3>
+                                <p class="card-meta">by Dr. Michael Thompson</p>
+                                <p class="card-description">Biblical principles for effective church leadership with practical applications for pastors and ministry leaders.</p>
+                                <div class="card-price">R 329.99</div>
+                                <div class="card-actions">
+                                    <button class="btn btn-primary btn-small" onclick="addToCart('Servant Leadership in the Church', 329.99, 'book')">
+                                        <i class="fas fa-cart-plus"></i> Add to Cart
+                                    </button>
+                                    <button class="btn btn-outline btn-small" onclick="previewItem('Servant Leadership in the Church', 'Biblical principles for effective church leadership with practical applications for pastors and ministry leaders.', 329.99)">
                                         <i class="fas fa-eye"></i> Preview
                                     </button>
                                 </div>
@@ -1620,41 +1617,27 @@
 
         <!-- WORKSHOPS TAB -->
         <section id="workshops-tab" class="tab-content">
-            <div class="hero-section">
-                <div class="container">
-                    <h1 style="font-size: 3rem; margin-bottom: 1.5rem;">Workshops & Training</h1>
-                    <p style="font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">
-                        Join our transformative workshops and training sessions for spiritual growth and leadership development.
-                    </p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="openModal('authModal')">
-                            <i class="fas fa-user-plus"></i> Register for Workshops
-                        </button>
-                    </div>
-                </div>
-            </div>
-
             <div class="section">
                 <div class="container">
-                    <h2 class="section-title">Upcoming Workshops</h2>
+                    <h2 class="section-title">Workshops & Training</h2>
                     <p class="section-subtitle">
-                        Join live sessions or access recorded workshops at your convenience
+                        Join our live and recorded workshops to deepen your biblical knowledge and spiritual growth
                     </p>
 
                     <div class="cards-grid">
                         <div class="card">
                             <div class="card-badge">Live Online</div>
-                            <div class="card-image">Prayer Workshop</div>
+                            <div class="card-image">Biblical Studies</div>
                             <div class="card-content">
-                                <h3 class="card-title">Power of Prayer: Deepening Your Connection</h3>
-                                <p class="card-meta">Facilitated by Pastor Sarah Johnson</p>
-                                <p class="card-description">Learn transformative prayer techniques and develop a consistent prayer life.</p>
-                                <div class="card-price">R 199.99</div>
+                                <h3 class="card-title">Understanding Biblical Prophecy</h3>
+                                <p class="card-meta">Facilitated by Dr. James Wilson</p>
+                                <p class="card-description">Learn to interpret biblical prophecy accurately and understand its relevance for today's world.</p>
+                                <div class="card-price">R 399.99</div>
                                 <div class="card-actions">
-                                    <button class="btn btn-primary btn-small" onclick="registerForWorkshop('Power of Prayer: Deepening Your Connection', 199.99)">
+                                    <button class="btn btn-primary btn-small" onclick="registerForWorkshop('Understanding Biblical Prophecy', 399.99)">
                                         <i class="fas fa-user-plus"></i> Register Now
                                     </button>
-                                    <button class="btn btn-outline btn-small" onclick="showWorkshopDetails('Power of Prayer: Deepening Your Connection', 'Learn transformative prayer techniques and develop a consistent prayer life.')">
+                                    <button class="btn btn-outline btn-small" onclick="showWorkshopDetails('Understanding Biblical Prophecy', 'Learn to interpret biblical prophecy accurately and understand its relevance for today\'s world.')">
                                         <i class="fas fa-info-circle"></i> Details
                                     </button>
                                 </div>
@@ -1663,17 +1646,36 @@
 
                         <div class="card">
                             <div class="card-badge">Recorded</div>
-                            <div class="card-image">Marriage Workshop</div>
+                            <div class="card-image">Marriage & Family</div>
                             <div class="card-content">
-                                <h3 class="card-title">Biblical Marriage: Building a Godly Foundation</h3>
-                                <p class="card-meta">Facilitated by Dr. Mark and Rebecca Williams</p>
-                                <p class="card-description">Biblical principles for building a strong, Christ-centered marriage.</p>
-                                <div class="card-price">R 299.99</div>
+                                <h3 class="card-title">Building a Christ-Centered Marriage</h3>
+                                <p class="card-meta">Facilitated by Pastor John & Sarah Richards</p>
+                                <p class="card-description">Practical biblical principles for strengthening your marriage and building a godly home.</p>
+                                <div class="card-price">R 349.99</div>
                                 <div class="card-actions">
-                                    <button class="btn btn-primary btn-small" onclick="registerForWorkshop('Biblical Marriage: Building a Godly Foundation', 299.99)">
+                                    <button class="btn btn-primary btn-small" onclick="registerForWorkshop('Building a Christ-Centered Marriage', 349.99)">
                                         <i class="fas fa-user-plus"></i> Register Now
                                     </button>
-                                    <button class="btn btn-outline btn-small" onclick="showWorkshopDetails('Biblical Marriage: Building a Godly Foundation', 'Biblical principles for building a strong, Christ-centered marriage.')">
+                                    <button class="btn btn-outline btn-small" onclick="showWorkshopDetails('Building a Christ-Centered Marriage', 'Practical biblical principles for strengthening your marriage and building a godly home.')">
+                                        <i class="fas fa-info-circle"></i> Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-badge">Live Online</div>
+                            <div class="card-image">Spiritual Growth</div>
+                            <div class="card-content">
+                                <h3 class="card-title">Developing a Powerful Prayer Life</h3>
+                                <p class="card-meta">Facilitated by Rev. David Chen</p>
+                                <p class="card-description">Learn practical techniques to deepen your prayer life and experience greater intimacy with God.</p>
+                                <div class="card-price">R 299.99</div>
+                                <div class="card-actions">
+                                    <button class="btn btn-primary btn-small" onclick="registerForWorkshop('Developing a Powerful Prayer Life', 299.99)">
+                                        <i class="fas fa-user-plus"></i> Register Now
+                                    </button>
+                                    <button class="btn btn-outline btn-small" onclick="showWorkshopDetails('Developing a Powerful Prayer Life', 'Learn practical techniques to deepen your prayer life and experience greater intimacy with God.')">
                                         <i class="fas fa-info-circle"></i> Details
                                     </button>
                                 </div>
@@ -1684,15 +1686,53 @@
                             <div class="card-badge">Free</div>
                             <div class="card-image">Youth Ministry</div>
                             <div class="card-content">
-                                <h3 class="card-title">Engaging Youth: Ministry Strategies</h3>
-                                <p class="card-meta">Facilitated by Youth Pastor David Chen</p>
-                                <p class="card-description">Effective strategies for connecting with and discipling the next generation.</p>
+                                <h3 class="card-title">Engaging Today's Youth with the Gospel</h3>
+                                <p class="card-meta">Facilitated by Youth Pastor Mark Johnson</p>
+                                <p class="card-description">Effective strategies for connecting with young people and presenting the Gospel in relevant ways.</p>
                                 <div class="card-price">Free</div>
                                 <div class="card-actions">
-                                    <button class="btn btn-primary btn-small" onclick="registerForWorkshop('Engaging Youth: Ministry Strategies', 0)">
+                                    <button class="btn btn-primary btn-small" onclick="registerForWorkshop('Engaging Today\'s Youth with the Gospel', 0)">
                                         <i class="fas fa-user-plus"></i> Register Now
                                     </button>
-                                    <button class="btn btn-outline btn-small" onclick="showWorkshopDetails('Engaging Youth: Ministry Strategies', 'Effective strategies for connecting with and discipling the next generation.')">
+                                    <button class="btn btn-outline btn-small" onclick="showWorkshopDetails('Engaging Today\'s Youth with the Gospel', 'Effective strategies for connecting with young people and presenting the Gospel in relevant ways.')">
+                                        <i class="fas fa-info-circle"></i> Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-badge">Recorded</div>
+                            <div class="card-image">Financial Stewardship</div>
+                            <div class="card-content">
+                                <h3 class="card-title">Biblical Principles of Financial Management</h3>
+                                <p class="card-meta">Facilitated by Financial Coach Rachel Williams</p>
+                                <p class="card-description">Learn God's perspective on money and practical steps for financial freedom and generous giving.</p>
+                                <div class="card-price">R 279.99</div>
+                                <div class="card-actions">
+                                    <button class="btn btn-primary btn-small" onclick="registerForWorkshop('Biblical Principles of Financial Management', 279.99)">
+                                        <i class="fas fa-user-plus"></i> Register Now
+                                    </button>
+                                    <button class="btn btn-outline btn-small" onclick="showWorkshopDetails('Biblical Principles of Financial Management', 'Learn God\'s perspective on money and practical steps for financial freedom and generous giving.')">
+                                        <i class="fas fa-info-circle"></i> Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-badge">Live Online</div>
+                            <div class="card-image">Evangelism</div>
+                            <div class="card-content">
+                                <h3 class="card-title">Sharing Your Faith with Confidence</h3>
+                                <p class="card-meta">Facilitated by Evangelist Paul Martinez</p>
+                                <p class="card-description">Overcome fear and learn effective methods for sharing the Gospel in various contexts and relationships.</p>
+                                <div class="card-price">R 319.99</div>
+                                <div class="card-actions">
+                                    <button class="btn btn-primary btn-small" onclick="registerForWorkshop('Sharing Your Faith with Confidence', 319.99)">
+                                        <i class="fas fa-user-plus"></i> Register Now
+                                    </button>
+                                    <button class="btn btn-outline btn-small" onclick="showWorkshopDetails('Sharing Your Faith with Confidence', 'Overcome fear and learn effective methods for sharing the Gospel in various contexts and relationships.')">
                                         <i class="fas fa-info-circle"></i> Details
                                     </button>
                                 </div>
@@ -1703,250 +1743,7 @@
             </div>
         </section>
 
-        <!-- MINISTRY TAB -->
-        <section id="ministry-tab" class="tab-content">
-            <div class="hero-section">
-                <div class="container">
-                    <h1 style="font-size: 3rem; margin-bottom: 1.5rem;">Ministry Programs</h1>
-                    <p style="font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">
-                        Get involved with our specialized ministry programs designed for spiritual growth and community building.
-                    </p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="openModal('authModal')">
-                            <i class="fas fa-user-plus"></i> Join a Ministry
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="container">
-                    <h2 class="section-title">Our Ministries</h2>
-                    <p class="section-subtitle">
-                        Connect with like-minded believers through our specialized ministry programs
-                    </p>
-
-                    <div class="ministry-grid">
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-users"></i></div>
-                            <h3>Youth Ministry</h3>
-                            <p>Engaging programs for teenagers and young adults to grow in their faith and build lasting Christian friendships.</p>
-                            <button class="btn btn-outline" onclick="openModal('authModal')" style="margin-top: 1.5rem;">
-                                <i class="fas fa-user-plus"></i> Join Youth Ministry
-                            </button>
-                        </div>
-                        
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-female"></i></div>
-                            <h3>Women's Ministry</h3>
-                            <p>Supportive community for women of all ages to grow spiritually through Bible studies, retreats, and fellowship.</p>
-                            <button class="btn btn-outline" onclick="openModal('authModal')" style="margin-top: 1.5rem;">
-                                <i class="fas fa-user-plus"></i> Join Women's Ministry
-                            </button>
-                        </div>
-                        
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-male"></i></div>
-                            <h3>Men's Ministry</h3>
-                            <p>Brotherhood and accountability for men seeking to live out their faith in their families, workplaces, and communities.</p>
-                            <button class="btn btn-outline" onclick="openModal('authModal')" style="margin-top: 1.5rem;">
-                                <i class="fas fa-user-plus"></i> Join Men's Ministry
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- COMMUNITY TAB -->
-        <section id="community-tab" class="tab-content">
-            <div class="hero-section">
-                <div class="container">
-                    <h1 style="font-size: 3rem; margin-bottom: 1.5rem;">Community</h1>
-                    <p style="font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">
-                        Connect with fellow believers, share experiences, and grow together in faith.
-                    </p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="openModal('authModal')">
-                            <i class="fas fa-user-plus"></i> Join Community
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="container">
-                    <h2 class="section-title">Community Features</h2>
-                    <p class="section-subtitle">
-                        Engage with our vibrant Christian community through various platforms and activities
-                    </p>
-
-                    <div class="community-stats">
-                        <div class="stat-card">
-                            <div class="stat-number">2,500+</div>
-                            <div class="stat-label">Active Members</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">150+</div>
-                            <div class="stat-label">Small Groups</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">Countries</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">24/7</div>
-                            <div class="stat-label">Prayer Support</div>
-                        </div>
-                    </div>
-
-                    <div class="cards-grid">
-                        <div class="card">
-                            <div class="card-image">Small Groups</div>
-                            <div class="card-content">
-                                <h3 class="card-title">Small Group Fellowships</h3>
-                                <p class="card-description">Join intimate small groups for Bible study, prayer, and fellowship with believers in your area or online.</p>
-                                <button class="btn btn-primary btn-small" onclick="openModal('authModal')">
-                                    <i class="fas fa-search"></i> Find a Group
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-image">Prayer Network</div>
-                            <div class="card-content">
-                                <h3 class="card-title">Prayer Requests & Support</h3>
-                                <p class="card-description">Share prayer requests and join others in praying for needs within our community.</p>
-                                <button class="btn btn-primary btn-small" onclick="openModal('authModal')">
-                                    <i class="fas fa-pray"></i> Share Request
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-image">Events</div>
-                            <div class="card-content">
-                                <h3 class="card-title">Community Events</h3>
-                                <p class="card-description">Participate in online and local events, conferences, and gatherings with fellow believers.</p>
-                                <button class="btn btn-primary btn-small" onclick="openModal('authModal')">
-                                    <i class="fas fa-calendar"></i> View Events
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- BLOG TAB -->
-        <section id="blog-tab" class="tab-content">
-            <div class="hero-section">
-                <div class="container">
-                    <h1 style="font-size: 3rem; margin-bottom: 1.5rem;">Blog & Articles</h1>
-                    <p style="font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">
-                        Insightful articles, devotionals, and Christian perspectives on faith and life.
-                    </p>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="container">
-                    <h2 class="section-title">Latest Articles</h2>
-                    <p class="section-subtitle">
-                        Stay updated with fresh biblical insights and Christian living advice
-                    </p>
-
-                    <div class="cards-grid">
-                        <div class="card">
-                            <div class="card-image">Faith Article</div>
-                            <div class="card-content">
-                                <h3 class="card-title">Trusting God in Uncertain Times</h3>
-                                <p class="card-meta">By Pastor James Wilson | March 15, 2024</p>
-                                <p class="card-description">Practical ways to maintain faith and hope when facing life's challenges and uncertainties.</p>
-                                <button class="btn btn-primary btn-small" onclick="openModal('authModal')">
-                                    <i class="fas fa-book-open"></i> Read Article
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-image">Family Article</div>
-                            <div class="card-content">
-                                <h3 class="card-title">Raising Children in the Faith</h3>
-                                <p class="card-meta">By Dr. Rebecca Martinez | March 10, 2024</p>
-                                <p class="card-description">Biblical principles and practical tips for nurturing faith in your children from a young age.</p>
-                                <button class="btn btn-primary btn-small" onclick="openModal('authModal')">
-                                    <i class="fas fa-book-open"></i> Read Article
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-image">Prayer Article</div>
-                            <div class="card-content">
-                                <h3 class="card-title">The Power of Persistent Prayer</h3>
-                                <p class="card-meta">By Pastor Sarah Johnson | March 5, 2024</p>
-                                <p class="card-description">Understanding why persistence in prayer matters and how to develop a consistent prayer life.</p>
-                                <button class="btn btn-primary btn-small" onclick="openModal('authModal')">
-                                    <i class="fas fa-book-open"></i> Read Article
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ABOUT TAB -->
-        <section id="about-tab" class="tab-content">
-            <div class="hero-section">
-                <div class="container">
-                    <h1 style="font-size: 3rem; margin-bottom: 1.5rem;">About Us</h1>
-                    <p style="font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">
-                        Learn about our mission, vision, and the team behind The Definitive Word ministry.
-                    </p>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="container">
-                    <h2 class="section-title">Our Mission & Vision</h2>
-                    <p class="section-subtitle">
-                        Spreading God's Truth, Transforming Lives
-                    </p>
-
-                    <div class="ministry-grid">
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-cross"></i></div>
-                            <h3>Our Mission</h3>
-                            <p>To provide biblically sound resources, teaching, and community that equips believers for spiritual growth and effective ministry.</p>
-                        </div>
-                        
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-eye"></i></div>
-                            <h3>Our Vision</h3>
-                            <p>To see transformed lives and communities through the power of God's Word and the work of the Holy Spirit.</p>
-                        </div>
-                        
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-heart"></i></div>
-                            <h3>Our Values</h3>
-                            <p>Biblical authority, spiritual growth, community, excellence, integrity, and compassion guide everything we do.</p>
-                        </div>
-                    </div>
-
-                    <div style="max-width: 800px; margin: 4rem auto; text-align: center;">
-                        <h3 style="color: var(--primary-blue); margin-bottom: 1.5rem;">Our Story</h3>
-                        <p style="color: var(--dark-gray); line-height: 1.8; margin-bottom: 2rem;">
-                            The Definitive Word ministry began in 2010 with a simple vision: to make quality biblical teaching and resources accessible to everyone, everywhere. What started as a small Bible study group has grown into a global ministry reaching thousands of people through books, workshops, online resources, and community programs.
-                        </p>
-                        <p style="color: var(--dark-gray); line-height: 1.8;">
-                            Our team of dedicated pastors, teachers, and ministry leaders is committed to providing doctrinally sound content that transforms lives and strengthens faith. We believe that God's Word is indeed definitive for life, faith, and practice, and we're passionate about helping people discover its life-changing power.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Additional tabs would continue here with similar structure -->
         
     </main>
 
@@ -2177,13 +1974,13 @@
         }
 
         // ===== AUTHENTICATION SYSTEM =====
-        function selectLoginType(type, element) {
+        function selectLoginType(type) {
             try {
                 selectedLoginType = type;
                 document.querySelectorAll('.login-option').forEach(option => {
                     option.classList.remove('active');
                 });
-                element.classList.add('active');
+                event.currentTarget.classList.add('active');
             } catch (e) {
                 console.error('Error selecting login type: ' + e.message);
                 showNotification('Error selecting account type. Please try again.', 'error');
@@ -2219,14 +2016,8 @@
                 document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
                 
                 document.querySelectorAll('.auth-tab').forEach(tabElement => {
-                    tabElement.classList.remove('active');
+                    tabElement.classList.toggle('active', tabElement.textContent.includes(tab === 'login' ? 'Sign In' : 'Create Account'));
                 });
-                
-                if (tab === 'login') {
-                    document.querySelector('.auth-tab:first-child').classList.add('active');
-                } else {
-                    document.querySelector('.auth-tab:last-child').classList.add('active');
-                }
             } catch (e) {
                 console.error('Error switching auth tab: ' + e.message);
                 showNotification('Error switching tabs. Please try again.', 'error');
@@ -2412,15 +2203,7 @@
                 });
                 
                 document.getElementById(`${tab}Settings`).style.display = 'block';
-                
-                // Find and activate the correct tab
-                const tabs = document.querySelectorAll('.auth-tab');
-                for (let i = 0; i < tabs.length; i++) {
-                    if (tabs[i].getAttribute('onclick') === `switchSettingsTab('${tab}')`) {
-                        tabs[i].classList.add('active');
-                        break;
-                    }
-                }
+                document.querySelector(`.auth-tab[onclick="switchSettingsTab('${tab}')"]`).classList.add('active');
             } catch (e) {
                 console.error('Error switching settings tab: ' + e.message);
                 showNotification('Error switching settings tab. Please try again.', 'error');
@@ -2453,23 +2236,8 @@
                 });
                 
                 // Show selected tab and activate nav link
-                const tabElement = document.getElementById(`${tabName}-tab`);
-                if (tabElement) {
-                    tabElement.classList.add('active');
-                } else {
-                    console.error(`Tab ${tabName}-tab not found`);
-                    // Fallback to home tab
-                    document.getElementById('home-tab').classList.add('active');
-                    document.querySelector('.nav-link[href="#home"]').classList.add('active');
-                    showNotification('Page not available yet. Redirected to home.', 'info');
-                    return;
-                }
-                
-                // Find and activate the correct nav link
-                const navLink = document.querySelector(`.nav-link[href="#${tabName}"]`);
-                if (navLink) {
-                    navLink.classList.add('active');
-                }
+                document.getElementById(`${tabName}-tab`).classList.add('active');
+                document.querySelector(`.nav-link[href="#${tabName}"]`).classList.add('active');
                 
                 currentTab = tabName;
             } catch (e) {
@@ -2665,31 +2433,6 @@
             }
         }
 
-        // ===== PLACEHOLDER FUNCTIONS =====
-        function submitPrayerRequest() {
-            showNotification('Prayer request feature coming soon!', 'info');
-        }
-
-        function contactTeam() {
-            showNotification('Contact form coming soon!', 'info');
-        }
-
-        function showFAQ() {
-            showNotification('FAQ section coming soon!', 'info');
-        }
-
-        function showShippingInfo() {
-            showNotification('Shipping information coming soon!', 'info');
-        }
-
-        function showReturnsPolicy() {
-            showNotification('Returns policy coming soon!', 'info');
-        }
-
-        function showPrivacyPolicy() {
-            showNotification('Privacy policy coming soon!', 'info');
-        }
-
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
             console.log('=== STARTING FULL DIAGNOSTICS ===');
@@ -2726,15 +2469,8 @@
                     link.addEventListener('click', function(e) {
                         e.preventDefault();
                         const text = this.textContent;
-                        if (text.includes('Home') || text.includes('Books') || text.includes('Workshops') || 
-                            text.includes('Ministry Programs') || text.includes('Community') || 
-                            text.includes('Youth Ministry') || text.includes('Women\'s Ministry') || 
-                            text.includes('Men\'s Ministry')) {
-                            let tabName = text.toLowerCase().replace(' programs', '').replace(' ministry', '').replace(' ', '');
-                            if (tabName === 'ministryprograms') tabName = 'ministry';
-                            if (tabName === 'youth') tabName = 'ministry';
-                            if (tabName === 'women\'s') tabName = 'ministry';
-                            if (tabName === 'men\'s') tabName = 'ministry';
+                        if (text.includes('Home') || text.includes('Books') || text.includes('Workshops') || text.includes('Ministry') || text.includes('Community')) {
+                            const tabName = text.toLowerCase().replace(' programs', '').replace(' ', '');
                             switchTab(tabName);
                         }
                     });
