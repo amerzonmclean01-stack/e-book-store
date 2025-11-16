@@ -6,20 +6,20 @@
     <title>The Definitive Word - Complete Christian Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* === COMPLETE STYLES === */
+        /* === UPDATED COLOR SCHEME: White, Gold, Blue === */
         :root {
-            --primary-color: #1a365d;
-            --secondary-color: #2d3748;
-            --accent-color: #2b6cb0;
-            --gold-color: #d4af37;
-            --light-bg: #f7fafc;
-            --dark-text: #2d3748;
-            --light-text: #718096;
-            --white: #ffffff;
-            --border: #e2e8f0;
-            --success: #38a169;
-            --error: #e53e3e;
-            --warning: #dd6b20;
+            --primary-color: #1e3a8a;  /* Deep Blue */
+            --secondary-color: #1e40af; /* Medium Blue */
+            --accent-color: #2563eb;    /* Bright Blue */
+            --gold-color: #d4af37;      /* Gold */
+            --light-bg: #ffffff;        /* White */
+            --dark-text: #1f2937;       /* Dark Gray */
+            --light-text: #6b7280;      /* Light Gray */
+            --white: #ffffff;           /* Pure White */
+            --border: #e5e7eb;         /* Light Border */
+            --success: #10b981;        /* Green */
+            --error: #ef4444;          /* Red */
+            --warning: #f59e0b;        /* Amber */
         }
 
         * {
@@ -58,7 +58,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -104,6 +104,8 @@
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            border: 2px solid var(--gold-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         /* Settings Header */
@@ -145,6 +147,13 @@
             border-radius: 6px;
             font-size: 1rem;
             font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         .auth-tabs {
@@ -159,12 +168,51 @@
             text-align: center;
             cursor: pointer;
             border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
         }
 
         .auth-tab.active {
             border-bottom-color: var(--accent-color);
             color: var(--accent-color);
             font-weight: 600;
+        }
+
+        .auth-tab:hover {
+            background: #f8fafc;
+        }
+
+        /* Login Options */
+        .login-options {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .login-option {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .login-option:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .login-option.active {
+            border-color: var(--accent-color);
+            background: #f0f9ff;
+        }
+
+        .login-option i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
         }
 
         /* Main Layout */
@@ -256,7 +304,7 @@
         
         .btn-primary:hover { 
             transform: translateY(-2px); 
-            box-shadow: 0 6px 20px rgba(43, 108, 176, 0.4); 
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4); 
         }
         
         .btn-outline { 
@@ -296,7 +344,7 @@
         .hero-section {
             padding: 100px 0;
             text-align: center;
-            background: linear-gradient(135deg, var(--primary-color) 0%, #2c5282 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
         }
 
@@ -323,14 +371,14 @@
         }
 
         /* Store Styles */
-        .books-grid, .workshops-grid, .events-grid, .blog-grid {
+        .books-grid, .workshops-grid, .events-grid, .blog-grid, .jobs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
             margin: 3rem 0;
         }
 
-        .book-card, .workshop-card, .event-card, .blog-card {
+        .book-card, .workshop-card, .event-card, .blog-card, .job-card {
             background: var(--white);
             border: 1px solid var(--border);
             border-radius: 12px;
@@ -340,12 +388,12 @@
             position: relative;
         }
 
-        .book-card:hover, .workshop-card:hover, .event-card:hover, .blog-card:hover {
+        .book-card:hover, .workshop-card:hover, .event-card:hover, .blog-card:hover, .job-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
 
-        .book-badge, .workshop-badge, .event-badge {
+        .book-badge, .workshop-badge, .event-badge, .job-badge {
             position: absolute;
             top: 15px;
             right: 15px;
@@ -358,7 +406,7 @@
             z-index: 2;
         }
 
-        .book-image, .workshop-image, .event-image, .blog-image {
+        .book-image, .workshop-image, .event-image, .blog-image, .job-image {
             height: 200px;
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             display: flex;
@@ -369,11 +417,11 @@
             font-size: 1.1rem;
         }
 
-        .book-info, .workshop-info, .event-info, .blog-info {
+        .book-info, .workshop-info, .event-info, .blog-info, .job-info {
             padding: 1.5rem;
         }
 
-        .book-title, .workshop-title, .event-title, .blog-title {
+        .book-title, .workshop-title, .event-title, .blog-title, .job-title {
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
@@ -381,28 +429,28 @@
             line-height: 1.4;
         }
 
-        .book-author, .workshop-instructor, .event-speaker, .blog-author {
+        .book-author, .workshop-instructor, .event-speaker, .blog-author, .job-company {
             color: var(--light-text);
             margin-bottom: 1rem;
             font-size: 0.9rem;
             font-style: italic;
         }
 
-        .book-description, .workshop-description, .event-description, .blog-excerpt {
+        .book-description, .workshop-description, .event-description, .blog-excerpt, .job-description {
             color: var(--light-text);
             margin-bottom: 1.5rem;
             font-size: 0.9rem;
             line-height: 1.6;
         }
 
-        .book-price, .workshop-price, .event-price {
+        .book-price, .workshop-price, .event-price, .job-salary {
             font-size: 1.3rem;
             font-weight: 700;
             color: var(--primary-color);
             margin-bottom: 1.5rem;
         }
 
-        .book-actions, .workshop-actions, .event-actions, .blog-actions {
+        .book-actions, .workshop-actions, .event-actions, .blog-actions, .job-actions {
             display: flex;
             gap: 0.8rem;
         }
@@ -444,7 +492,7 @@
         }
 
         /* Workshop Specific Styles */
-        .workshop-details, .event-details {
+        .workshop-details, .event-details, .job-details {
             display: flex;
             justify-content: space-between;
             margin-bottom: 1rem;
@@ -453,7 +501,8 @@
         }
 
         .workshop-date, .workshop-duration, .workshop-seats,
-        .event-date, .event-time, .event-location {
+        .event-date, .event-time, .event-location,
+        .job-type, .job-location, .job-deadline {
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -611,6 +660,47 @@
             font-weight: bold;
         }
 
+        /* Editable Content */
+        .editable {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .editable:hover {
+            background-color: #f0f9ff;
+        }
+
+        .editable.editing {
+            background-color: #fff8e1;
+            border: 1px dashed var(--gold-color);
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        /* Community Tabs */
+        .community-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .community-tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .community-tab.active {
+            border-bottom-color: var(--accent-color);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .community-tab:hover {
+            background: #f8fafc;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .nav {
@@ -651,6 +741,10 @@
                 padding: 8px 16px;
                 font-size: 0.85rem;
             }
+
+            .login-options {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 480px) {
@@ -684,53 +778,85 @@
         <p>Loading all features...</p>
     </div>
 
-    <!-- Login/Signup Modal -->
+    <!-- Enhanced Login/Signup Modal -->
     <div class="modal" id="authModal">
         <div class="modal-content">
             <div class="settings-header">
                 <h3>Welcome to The Definitive Word</h3>
                 <button onclick="closeAuth()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
             </div>
-            <div class="auth-tabs">
-                <div class="auth-tab active" onclick="switchAuthTab('login')">Sign In</div>
-                <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+            
+            <!-- Login Type Selection -->
+            <div id="loginTypeSelection">
+                <h4 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary-color);">Choose Login Type</h4>
+                <div class="login-options">
+                    <div class="login-option active" onclick="selectLoginType('normal')">
+                        <i class="fas fa-user"></i>
+                        <h4>Regular User</h4>
+                        <p>Access books, workshops, and community features</p>
+                    </div>
+                    <div class="login-option" onclick="selectLoginType('admin')">
+                        <i class="fas fa-user-shield"></i>
+                        <h4>Administrator</h4>
+                        <p>Manage content and platform settings</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="proceedToLogin()" style="width: 100%; margin-top: 1rem;">
+                    Continue to Login
+                </button>
             </div>
-            <div class="auth-form" id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">Email Address</label>
-                    <input type="email" id="loginEmail" placeholder="Enter your email">
+
+            <!-- Login/Signup Forms -->
+            <div id="loginForms" style="display: none;">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" onclick="switchAuthTab('login')">Sign In</div>
+                    <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
                 </div>
-                <div class="form-group">
-                    <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" placeholder="Enter your password">
+                
+                <div class="auth-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password">
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 1rem 0;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="rememberLogin">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" style="color: var(--accent-color); text-decoration: none;" onclick="showForgotPassword()">Forgot password?</a>
+                    </div>
+                    <button class="btn btn-primary" onclick="performLogin()">Sign In</button>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin: 1rem 0;">
-                    <label style="display: flex; align-items: center; gap: 0.5rem;">
-                        <input type="checkbox" id="rememberLogin">
-                        <span>Remember me</span>
-                    </label>
-                    <a href="#" style="color: var(--accent-color); text-decoration: none;" onclick="showForgotPassword()">Forgot password?</a>
+                
+                <div class="auth-form" id="signupForm" style="display: none;">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" placeholder="Create a password">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupConfirm">Confirm Password</label>
+                        <input type="password" id="signupConfirm" placeholder="Confirm your password">
+                    </div>
+                    <button class="btn btn-primary" onclick="performSignup()">Create Account</button>
                 </div>
-                <button class="btn btn-primary" onclick="performLogin()">Sign In</button>
-            </div>
-            <div class="auth-form" id="signupForm" style="display: none;">
-                <div class="form-group">
-                    <label for="signupName">Full Name</label>
-                    <input type="text" id="signupName" placeholder="Enter your full name">
+
+                <div style="text-align: center; margin-top: 1rem;">
+                    <button class="btn btn-outline" onclick="goBackToLoginType()" style="width: 100%;">
+                        <i class="fas fa-arrow-left"></i> Back to Login Options
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="signupEmail">Email Address</label>
-                    <input type="email" id="signupEmail" placeholder="Enter your email">
-                </div>
-                <div class="form-group">
-                    <label for="signupPassword">Password</label>
-                    <input type="password" id="signupPassword" placeholder="Create a password">
-                </div>
-                <div class="form-group">
-                    <label for="signupConfirm">Confirm Password</label>
-                    <input type="password" id="signupConfirm" placeholder="Confirm your password">
-                </div>
-                <button class="btn btn-primary" onclick="performSignup()">Create Account</button>
             </div>
         </div>
     </div>
@@ -833,6 +959,7 @@
                         <option value="workshop">Workshop</option>
                         <option value="event">Event</option>
                         <option value="blog">Blog Post</option>
+                        <option value="job">Job Opportunity</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -840,7 +967,7 @@
                     <input type="text" id="itemTitle" placeholder="Enter title">
                 </div>
                 <div class="form-group">
-                    <label for="itemAuthor">Author/Instructor</label>
+                    <label for="itemAuthor">Author/Instructor/Company</label>
                     <input type="text" id="itemAuthor" placeholder="Enter name">
                 </div>
                 <div class="form-group">
@@ -858,6 +985,14 @@
                 <div class="form-group" id="durationGroup" style="display: none;">
                     <label for="itemDuration">Duration</label>
                     <input type="text" id="itemDuration" placeholder="e.g., 3 Hours">
+                </div>
+                <div class="form-group" id="locationGroup" style="display: none;">
+                    <label for="itemLocation">Location</label>
+                    <input type="text" id="itemLocation" placeholder="e.g., Online, Johannesburg">
+                </div>
+                <div class="form-group" id="salaryGroup" style="display: none;">
+                    <label for="itemSalary">Salary/Stipend</label>
+                    <input type="text" id="itemSalary" placeholder="e.g., R15,000 - R20,000">
                 </div>
                 <button class="btn btn-primary" onclick="saveNewItem()">Add Item</button>
             </div>
@@ -928,21 +1063,21 @@
                         <div class="ministry-card">
                             <div class="ministry-icon"><i class="fas fa-book"></i></div>
                             <h3>Christian Books</h3>
-                            <p>Access our curated collection of Christian literature, study guides, and spiritual resources from trusted South African authors.</p>
+                            <p class="editable" ondblclick="makeEditable(this)">Access our curated collection of Christian literature, study guides, and spiritual resources from trusted South African authors.</p>
                             <button class="btn btn-outline" onclick="switchTab('books')" style="margin-top: 1.5rem;">Browse Books</button>
                         </div>
                         
                         <div class="ministry-card">
                             <div class="ministry-icon"><i class="fas fa-chalkboard-teacher"></i></div>
                             <h3>Workshops & Training</h3>
-                            <p>Join live and recorded workshops covering biblical studies, leadership, marriage, and personal spiritual development.</p>
+                            <p class="editable" ondblclick="makeEditable(this)">Join live and recorded workshops covering biblical studies, leadership, marriage, and personal spiritual development.</p>
                             <button class="btn btn-outline" onclick="switchTab('workshops')" style="margin-top: 1.5rem;">View Workshops</button>
                         </div>
                         
                         <div class="ministry-card">
                             <div class="ministry-icon"><i class="fas fa-users"></i></div>
                             <h3>Ministry Programs</h3>
-                            <p>Get involved with our youth, women's, and men's ministries designed for spiritual growth and community building.</p>
+                            <p class="editable" ondblclick="makeEditable(this)">Get involved with our youth, women's, and men's ministries designed for spiritual growth and community building.</p>
                             <button class="btn btn-outline" onclick="switchTab('ministry')" style="margin-top: 1.5rem;">Explore Ministries</button>
                         </div>
                     </div>
@@ -995,7 +1130,7 @@
                         <div class="ministry-card">
                             <div class="ministry-icon"><i class="fas fa-users"></i></div>
                             <h3>Youth Ministry</h3>
-                            <p>Engaging programs for young believers aged 13-25. Weekly meetings, retreats, leadership training, and mission opportunities to build strong Christian foundations.</p>
+                            <p class="editable" ondblclick="makeEditable(this)">Engaging programs for young believers aged 13-25. Weekly meetings, retreats, leadership training, and mission opportunities to build strong Christian foundations.</p>
                             <div class="book-actions">
                                 <button class="btn btn-primary btn-small" onclick="showMinistryDetails('Youth Ministry')">Learn More</button>
                                 <button class="btn btn-outline btn-small" onclick="registerForMinistry('Youth Ministry')">Join Now</button>
@@ -1005,7 +1140,7 @@
                         <div class="ministry-card">
                             <div class="ministry-icon"><i class="fas fa-female"></i></div>
                             <h3>Women's Ministry</h3>
-                            <p>Support and fellowship for women of all ages. Bible studies, prayer groups, annual conferences, and mentorship programs to empower women in faith.</p>
+                            <p class="editable" ondblclick="makeEditable(this)">Support and fellowship for women of all ages. Bible studies, prayer groups, annual conferences, and mentorship programs to empower women in faith.</p>
                             <div class="book-actions">
                                 <button class="btn btn-primary btn-small" onclick="showMinistryDetails('Women\\'s Ministry')">Learn More</button>
                                 <button class="btn btn-outline btn-small" onclick="registerForMinistry('Women\\'s Ministry')">Join Now</button>
@@ -1015,7 +1150,7 @@
                         <div class="ministry-card">
                             <div class="ministry-icon"><i class="fas fa-male"></i></div>
                             <h3>Men's Ministry</h3>
-                            <p>Building strong Christian men through accountability groups, workshops, service projects, and spiritual leadership training for effective discipleship.</p>
+                            <p class="editable" ondblclick="makeEditable(this)">Building strong Christian men through accountability groups, workshops, service projects, and spiritual leadership training for effective discipleship.</p>
                             <div class="book-actions">
                                 <button class="btn btn-primary btn-small" onclick="showMinistryDetails('Men\\'s Ministry')">Learn More</button>
                                 <button class="btn btn-outline btn-small" onclick="registerForMinistry('Men\\'s Ministry')">Join Now</button>
@@ -1035,45 +1170,96 @@
                         Join thousands of believers in our growing global community
                     </p>
 
-                    <div class="community-stats">
-                        <div class="stat-card">
-                            <div class="stat-number">10,000+</div>
-                            <div class="stat-label">Members Worldwide</div>
+                    <!-- Community Tabs -->
+                    <div class="community-tabs">
+                        <div class="community-tab active" onclick="switchCommunityTab('overview')">Overview</div>
+                        <div class="community-tab" onclick="switchCommunityTab('events')">Upcoming Events</div>
+                        <div class="community-tab" onclick="switchCommunityTab('jobs')">Job Opportunities</div>
+                        <div class="community-tab" onclick="switchCommunityTab('forums')">Discussion Forums</div>
+                    </div>
+
+                    <!-- Community Overview -->
+                    <div id="community-overview" class="community-tab-content active">
+                        <div class="community-stats">
+                            <div class="stat-card">
+                                <div class="stat-number">10,000+</div>
+                                <div class="stat-label">Members Worldwide</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">500+</div>
+                                <div class="stat-label">Books Published</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">50+</div>
+                                <div class="stat-label">Workshops Hosted</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">Prayer Support</div>
+                            </div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-number">500+</div>
-                            <div class="stat-label">Books Published</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">Workshops Hosted</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">24/7</div>
-                            <div class="stat-label">Prayer Support</div>
+
+                        <div class="ministry-grid">
+                            <div class="ministry-card">
+                                <div class="ministry-icon"><i class="fas fa-comments"></i></div>
+                                <h3>Discussion Forums</h3>
+                                <p class="editable" ondblclick="makeEditable(this)">Join meaningful conversations about faith, life, and scripture with believers from around the world.</p>
+                                <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="openCommunityForums()">Enter Forums</button>
+                            </div>
+                            
+                            <div class="ministry-card">
+                                <div class="ministry-icon"><i class="fas fa-pray"></i></div>
+                                <h3>Prayer Groups</h3>
+                                <p class="editable" ondblclick="makeEditable(this)">Share prayer requests and join others in prayer. Experience the power of collective intercession.</p>
+                                <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="joinPrayerGroup()">Join Prayer Group</button>
+                            </div>
+                            
+                            <div class="ministry-card">
+                                <div class="ministry-icon"><i class="fas fa-calendar-alt"></i></div>
+                                <h3>Events & Meetings</h3>
+                                <p class="editable" ondblclick="makeEditable(this)">Participate in live sessions, webinars, and virtual events with Christian leaders and teachers.</p>
+                                <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="viewCommunityEvents()">View Events</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="ministry-grid">
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-comments"></i></div>
-                            <h3>Discussion Forums</h3>
-                            <p>Join meaningful conversations about faith, life, and scripture with believers from around the world.</p>
-                            <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="openCommunityForums()">Enter Forums</button>
+                    <!-- Upcoming Events -->
+                    <div id="community-events" class="community-tab-content" style="display: none;">
+                        <div class="events-grid" id="events-container">
+                            <!-- Events will be loaded here dynamically -->
                         </div>
-                        
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-pray"></i></div>
-                            <h3>Prayer Groups</h3>
-                            <p>Share prayer requests and join others in prayer. Experience the power of collective intercession.</p>
-                            <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="joinPrayerGroup()">Join Prayer Group</button>
+                    </div>
+
+                    <!-- Job Opportunities -->
+                    <div id="community-jobs" class="community-tab-content" style="display: none;">
+                        <div class="jobs-grid" id="jobs-container">
+                            <!-- Jobs will be loaded here dynamically -->
                         </div>
-                        
-                        <div class="ministry-card">
-                            <div class="ministry-icon"><i class="fas fa-calendar-alt"></i></div>
-                            <h3>Events & Meetings</h3>
-                            <p>Participate in live sessions, webinars, and virtual events with Christian leaders and teachers.</p>
-                            <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="viewCommunityEvents()">View Events</button>
+                    </div>
+
+                    <!-- Discussion Forums -->
+                    <div id="community-forums" class="community-tab-content" style="display: none;">
+                        <div class="ministry-grid">
+                            <div class="ministry-card">
+                                <div class="ministry-icon"><i class="fas fa-bible"></i></div>
+                                <h3>Bible Study Forum</h3>
+                                <p class="editable" ondblclick="makeEditable(this)">Deep dive into scripture with fellow believers. Share insights and ask questions about God's Word.</p>
+                                <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="joinForum('Bible Study')">Join Discussion</button>
+                            </div>
+                            
+                            <div class="ministry-card">
+                                <div class="ministry-icon"><i class="fas fa-hands-helping"></i></div>
+                                <h3>Christian Living</h3>
+                                <p class="editable" ondblclick="makeEditable(this)">Discuss practical Christian living, relationships, work, and daily walk with Christ.</p>
+                                <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="joinForum('Christian Living')">Join Discussion</button>
+                            </div>
+                            
+                            <div class="ministry-card">
+                                <div class="ministry-icon"><i class="fas fa-praying-hands"></i></div>
+                                <h3>Prayer Requests</h3>
+                                <p class="editable" ondblclick="makeEditable(this)">Share your prayer needs and pray for others in our supportive community.</p>
+                                <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="joinForum('Prayer Requests')">Join Discussion</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1105,38 +1291,38 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin: 3rem 0;">
                         <div>
                             <h3 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary-color);">Our Mission & Vision</h3>
-                            <p>The Definitive Word is dedicated to spreading the Gospel and supporting Christian growth through accessible digital resources. We believe in the transformative power of God's Word and strive to make quality Christian literature available to believers worldwide.</p>
+                            <p class="editable" ondblclick="makeEditable(this)">The Definitive Word is dedicated to spreading the Gospel and supporting Christian growth through accessible digital resources. We believe in the transformative power of God's Word and strive to make quality Christian literature available to believers worldwide.</p>
                             
-                            <p>Founded in 2020, our ministry has grown to serve thousands of Christians across the globe, providing not just books, but a comprehensive platform for spiritual development and community connection.</p>
+                            <p class="editable" ondblclick="makeEditable(this)">Founded in 2020, our ministry has grown to serve thousands of Christians across the globe, providing not just books, but a comprehensive platform for spiritual development and community connection.</p>
                             
                             <ul style="list-style: none; margin-top: 2rem;">
                                 <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 1rem;">
                                     <span style="color: var(--primary-color); font-weight: bold;">✓</span>
-                                    <span>Quality Christian literature from trusted authors</span>
+                                    <span class="editable" ondblclick="makeEditable(this)">Quality Christian literature from trusted authors</span>
                                 </li>
                                 <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 1rem;">
                                     <span style="color: var(--primary-color); font-weight: bold;">✓</span>
-                                    <span>Transformative workshops and training</span>
+                                    <span class="editable" ondblclick="makeEditable(this)">Transformative workshops and training</span>
                                 </li>
                                 <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 1rem;">
                                     <span style="color: var(--primary-color); font-weight: bold;">✓</span>
-                                    <span>Comprehensive ministry programs</span>
+                                    <span class="editable" ondblclick="makeEditable(this)">Comprehensive ministry programs</span>
                                 </li>
                                 <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 1rem;">
                                     <span style="color: var(--primary-color); font-weight: bold;">✓</span>
-                                    <span>Supportive online community</span>
+                                    <span class="editable" ondblclick="makeEditable(this)">Supportive online community</span>
                                 </li>
                             </ul>
                         </div>
                         
                         <div>
                             <h3 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary-color);">Our Values</h3>
-                            <p><strong>Faith:</strong> Everything we do is rooted in biblical principles and dedicated to glorifying God.</p>
-                            <p><strong>Community:</strong> We believe in the power of Christian fellowship and mutual support.</p>
-                            <p><strong>Excellence:</strong> We strive for the highest quality in all our resources and services.</p>
-                            <p><strong>Accessibility:</strong> Making Christian resources available to everyone, everywhere.</p>
-                            <p><strong>Integrity:</strong> Operating with transparency and biblical ethics in all dealings.</p>
-                            <p><strong>Security:</strong> Protecting our users' data and privacy with enterprise-level security.</p>
+                            <p class="editable" ondblclick="makeEditable(this)"><strong>Faith:</strong> Everything we do is rooted in biblical principles and dedicated to glorifying God.</p>
+                            <p class="editable" ondblclick="makeEditable(this)"><strong>Community:</strong> We believe in the power of Christian fellowship and mutual support.</p>
+                            <p class="editable" ondblclick="makeEditable(this)"><strong>Excellence:</strong> We strive for the highest quality in all our resources and services.</p>
+                            <p class="editable" ondblclick="makeEditable(this)"><strong>Accessibility:</strong> Making Christian resources available to everyone, everywhere.</p>
+                            <p class="editable" ondblclick="makeEditable(this)"><strong>Integrity:</strong> Operating with transparency and biblical ethics in all dealings.</p>
+                            <p class="editable" ondblclick="makeEditable(this)"><strong>Security:</strong> Protecting our users' data and privacy with enterprise-level security.</p>
                             
                             <button class="btn btn-primary" style="margin-top: 2rem;" onclick="contactTeam()">Contact Our Team</button>
                         </div>
@@ -1152,7 +1338,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>The Definitive Word</h4>
-                    <p>Your trusted source for biblical teaching, spiritual growth resources, and Christian community. Committed to spreading God's Word with excellence and integrity.</p>
+                    <p class="editable" ondblclick="makeEditable(this)">Your trusted source for biblical teaching, spiritual growth resources, and Christian community. Committed to spreading God's Word with excellence and integrity.</p>
                 </div>
                 
                 <div class="footer-section">
@@ -1204,6 +1390,8 @@
         let cart = [];
         let currentTab = 'home';
         let currentAuthTab = 'login';
+        let selectedLoginType = 'normal';
+        let editMode = false;
 
         // ===== DATA STORAGE =====
         let appData = {
@@ -1262,6 +1450,58 @@
                     seats: "8/20 Seats"
                 }
             ],
+            events: [
+                {
+                    id: 1,
+                    title: "Annual Prayer Conference",
+                    speaker: "Various Church Leaders",
+                    description: "Join us for three days of powerful prayer, worship, and spiritual renewal.",
+                    price: 0,
+                    badge: "Free Event",
+                    image: "Prayer Conference",
+                    date: "25-27 May 2024",
+                    time: "9:00 AM - 5:00 PM",
+                    location: "Johannesburg Convention Center"
+                },
+                {
+                    id: 2,
+                    title: "Youth Summer Camp",
+                    speaker: "Youth Ministry Team",
+                    description: "A week-long camp for youth featuring sports, worship, and Bible studies.",
+                    price: 1200.00,
+                    badge: "Early Bird",
+                    image: "Youth Camp",
+                    date: "15-22 December 2024",
+                    time: "All Day",
+                    location: "Drakensberg Retreat Center"
+                }
+            ],
+            jobs: [
+                {
+                    id: 1,
+                    title: "Church Administrator",
+                    company: "Grace Community Church",
+                    description: "We're seeking an organized administrator to manage church operations and support ministry activities.",
+                    salary: "R18,000 - R22,000",
+                    badge: "Full Time",
+                    image: "Church Job",
+                    type: "Full Time",
+                    location: "Pretoria",
+                    deadline: "30 April 2024"
+                },
+                {
+                    id: 2,
+                    title: "Worship Leader",
+                    company: "Living Waters Ministry",
+                    description: "Passionate worship leader needed to lead our congregation in heartfelt worship and develop the music ministry.",
+                    salary: "R15,000 - R20,000",
+                    badge: "Part Time",
+                    image: "Music Job",
+                    type: "Part Time",
+                    location: "Cape Town",
+                    deadline: "15 May 2024"
+                }
+            ],
             blogPosts: [
                 {
                     id: 1,
@@ -1294,7 +1534,25 @@
             users: []
         };
 
-        // ===== AUTHENTICATION SYSTEM =====
+        // ===== ENHANCED AUTHENTICATION SYSTEM =====
+        function selectLoginType(type) {
+            selectedLoginType = type;
+            document.querySelectorAll('.login-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function proceedToLogin() {
+            document.getElementById('loginTypeSelection').style.display = 'none';
+            document.getElementById('loginForms').style.display = 'block';
+        }
+
+        function goBackToLoginType() {
+            document.getElementById('loginTypeSelection').style.display = 'block';
+            document.getElementById('loginForms').style.display = 'none';
+        }
+
         function switchAuthTab(tab) {
             currentAuthTab = tab;
             document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
@@ -1307,7 +1565,15 @@
 
         function openAuth() {
             document.getElementById('authModal').style.display = 'flex';
-            switchAuthTab('login');
+            document.getElementById('loginTypeSelection').style.display = 'block';
+            document.getElementById('loginForms').style.display = 'none';
+            selectedLoginType = 'normal';
+            
+            // Reset login options
+            document.querySelectorAll('.login-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.querySelectorAll('.login-option')[0].classList.add('active');
         }
 
         function closeAuth() {
@@ -1331,7 +1597,7 @@
             }
 
             // Check for admin login
-            if (email === CONFIG.admin.username && password === CONFIG.admin.password) {
+            if (selectedLoginType === 'admin' && email === CONFIG.admin.username && password === CONFIG.admin.password) {
                 currentUser = {
                     email: email,
                     name: 'Administrator',
@@ -1339,7 +1605,7 @@
                     lastLogin: new Date().toISOString()
                 };
                 document.getElementById('loginButton').innerHTML = '<i class="fas fa-user-shield"></i> Admin';
-                showNotification(`Welcome, ${currentUser.name}!`, 'success');
+                showNotification(`Welcome, ${currentUser.name}! Admin privileges activated.`, 'success');
                 closeAuth();
                 return;
             }
@@ -1402,11 +1668,238 @@
             closeAuth();
         }
 
+        // ===== COMMUNITY TAB SYSTEM =====
+        function switchCommunityTab(tabName) {
+            // Hide all community tabs
+            document.querySelectorAll('.community-tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            
+            // Remove active class from all community tabs
+            document.querySelectorAll('.community-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab and activate
+            document.getElementById(`community-${tabName}`).style.display = 'block';
+            document.querySelector(`.community-tab[onclick="switchCommunityTab('${tabName}')"]`).classList.add('active');
+
+            // Render appropriate content
+            if (tabName === 'events') {
+                renderEvents();
+            } else if (tabName === 'jobs') {
+                renderJobs();
+            }
+        }
+
+        // ===== EDITABLE CONTENT SYSTEM =====
+        function makeEditable(element) {
+            if (!editMode) return;
+            
+            const currentText = element.textContent;
+            element.classList.add('editing');
+            
+            const input = document.createElement('textarea');
+            input.value = currentText;
+            input.style.width = '100%';
+            input.style.minHeight = '100px';
+            input.style.padding = '0.5rem';
+            input.style.border = '1px solid var(--accent-color)';
+            input.style.borderRadius = '4px';
+            
+            element.innerHTML = '';
+            element.appendChild(input);
+            input.focus();
+            
+            // Save on Enter or click outside
+            function saveEdit() {
+                element.textContent = input.value;
+                element.classList.remove('editing');
+                showNotification('Content updated successfully!', 'success');
+                saveToLocalStorage();
+            }
+            
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    saveEdit();
+                }
+                if (e.key === 'Escape') {
+                    element.textContent = currentText;
+                    element.classList.remove('editing');
+                }
+            });
+            
+            input.addEventListener('blur', saveEdit);
+        }
+
+        function toggleEditMode() {
+            if (!currentUser || currentUser.role !== 'admin') {
+                showNotification('Admin access required. Please sign in as administrator.', 'error');
+                openAuth();
+                return;
+            }
+            
+            editMode = !editMode;
+            const editables = document.querySelectorAll('.editable');
+            
+            if (editMode) {
+                editables.forEach(el => {
+                    el.style.cursor = 'text';
+                    el.title = 'Double-click to edit';
+                });
+                showNotification('Edit mode activated! Double-click any text to edit.', 'success');
+            } else {
+                editables.forEach(el => {
+                    el.style.cursor = 'default';
+                    el.title = '';
+                });
+                showNotification('Edit mode deactivated.', 'info');
+            }
+        }
+
+        // ===== ENHANCED RENDER FUNCTIONS =====
+        function renderEvents() {
+            const container = document.getElementById('events-container');
+            if (!container) return;
+            
+            container.innerHTML = '';
+
+            appData.events.forEach(event => {
+                const eventCard = `
+                    <div class="event-card">
+                        ${event.badge ? `<div class="event-badge">${event.badge}</div>` : ''}
+                        <div class="event-image">${event.image}</div>
+                        <div class="event-info">
+                            <h3 class="event-title">${event.title}</h3>
+                            <p class="event-speaker">Hosted by ${event.speaker}</p>
+                            <div class="event-details">
+                                <div class="event-date"><i class="fas fa-calendar"></i> ${event.date}</div>
+                                <div class="event-time"><i class="fas fa-clock"></i> ${event.time}</div>
+                                <div class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.location}</div>
+                            </div>
+                            <p class="event-description">${event.description}</p>
+                            ${event.price > 0 ? `<div class="event-price"><span class="currency">R</span>${event.price.toFixed(2)}</div>` : '<div class="event-price" style="color: var(--success);">Free Event</div>'}
+                            <div class="event-actions">
+                                <button class="btn btn-primary btn-small" onclick="registerForEvent('${event.title.replace(/'/g, "\\'")}', ${event.price})">Register Now</button>
+                                <button class="btn btn-outline btn-small" onclick="showEventDetails('${event.title.replace(/'/g, "\\'")}', '${event.description.replace(/'/g, "\\'")}')">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += eventCard;
+            });
+        }
+
+        function renderJobs() {
+            const container = document.getElementById('jobs-container');
+            if (!container) return;
+            
+            container.innerHTML = '';
+
+            appData.jobs.forEach(job => {
+                const jobCard = `
+                    <div class="job-card">
+                        ${job.badge ? `<div class="job-badge">${job.badge}</div>` : ''}
+                        <div class="job-image">${job.image}</div>
+                        <div class="job-info">
+                            <h3 class="job-title">${job.title}</h3>
+                            <p class="job-company">${job.company}</p>
+                            <div class="job-details">
+                                <div class="job-type"><i class="fas fa-briefcase"></i> ${job.type}</div>
+                                <div class="job-location"><i class="fas fa-map-marker-alt"></i> ${job.location}</div>
+                                <div class="job-deadline"><i class="fas fa-clock"></i> Apply by ${job.deadline}</div>
+                            </div>
+                            <p class="job-description">${job.description}</p>
+                            <div class="job-salary">${job.salary}</div>
+                            <div class="job-actions">
+                                <button class="btn btn-primary btn-small" onclick="applyForJob('${job.title.replace(/'/g, "\\'")}')">Apply Now</button>
+                                <button class="btn btn-outline btn-small" onclick="showJobDetails('${job.title.replace(/'/g, "\\'")}', '${job.description.replace(/'/g, "\\'")}')">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += jobCard;
+            });
+        }
+
+        // ===== NEW ACTION FUNCTIONS =====
+        function registerForEvent(title, price) {
+            if (!currentUser) {
+                showNotification('Please sign in to register for events', 'error');
+                openAuth();
+                return;
+            }
+            if (price > 0) {
+                addToCart(title, price, 'event');
+            } else {
+                showNotification(`Successfully registered for ${title}! You will receive confirmation details via email.`, 'success');
+            }
+        }
+
+        function applyForJob(title) {
+            if (!currentUser) {
+                showNotification('Please sign in to apply for jobs', 'error');
+                openAuth();
+                return;
+            }
+            showNotification(`Application submitted for ${title}! The employer will contact you if shortlisted.`, 'success');
+        }
+
+        function showEventDetails(title, description) {
+            showNotification(`Event Details: ${title}\n\n${description}`, 'info');
+        }
+
+        function showJobDetails(title, description) {
+            showNotification(`Job Details: ${title}\n\n${description}`, 'info');
+        }
+
+        function joinForum(forumName) {
+            if (!currentUser) {
+                showNotification('Please sign in to join forum discussions', 'error');
+                openAuth();
+                return;
+            }
+            showNotification(`Welcome to the ${forumName} forum! You can now participate in discussions.`, 'success');
+        }
+
+        // ===== EXISTING FUNCTIONS (Updated) =====
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected tab and activate nav link
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            document.querySelector(`.nav-link[href="#${tabName}"]`).classList.add('active');
+            
+            currentTab = tabName;
+
+            // Render appropriate content
+            if (tabName === 'books') {
+                renderBooks();
+            } else if (tabName === 'workshops') {
+                renderWorkshops();
+            } else if (tabName === 'blog') {
+                renderBlogPosts();
+            } else if (tabName === 'community') {
+                // Reset to overview tab when switching to community
+                switchCommunityTab('overview');
+            }
+        }
+
+        // ===== KEEP ALL OTHER EXISTING FUNCTIONS AS THEY WERE =====
+        // [All the existing functions from previous code remain here...]
         function showForgotPassword() {
             showNotification('Password reset feature coming soon!', 'info');
         }
 
-        // ===== CART SYSTEM =====
         function openCart() {
             renderCartItems();
             document.getElementById('cartModal').style.display = 'flex';
@@ -1476,7 +1969,6 @@
             }, 2000);
         }
 
-        // ===== ADD ITEM SYSTEM =====
         function openAddItem() {
             if (!currentUser || currentUser.role !== 'admin') {
                 showNotification('Admin access required. Please sign in as administrator.', 'error');
@@ -1495,13 +1987,17 @@
             document.getElementById('itemPrice').value = '';
             document.getElementById('itemDate').value = '';
             document.getElementById('itemDuration').value = '';
+            document.getElementById('itemLocation').value = '';
+            document.getElementById('itemSalary').value = '';
         }
 
         function updateItemForm() {
             const type = document.getElementById('itemType').value;
-            document.getElementById('priceGroup').style.display = type !== 'blog' ? 'block' : 'none';
+            document.getElementById('priceGroup').style.display = type !== 'blog' && type !== 'job' ? 'block' : 'none';
             document.getElementById('dateGroup').style.display = type === 'workshop' || type === 'event' ? 'block' : 'none';
             document.getElementById('durationGroup').style.display = type === 'workshop' ? 'block' : 'none';
+            document.getElementById('locationGroup').style.display = type === 'event' || type === 'job' ? 'block' : 'none';
+            document.getElementById('salaryGroup').style.display = type === 'job' ? 'block' : 'none';
         }
 
         function saveNewItem() {
@@ -1518,40 +2014,58 @@
             const newItem = {
                 id: Date.now(),
                 title: title,
-                author: author,
                 description: description,
-                image: type.charAt(0).toUpperCase() + type.slice(1) + ' Image'
+                image: type.charAt(0).toUpperCase() + type.slice(1) + ' Image',
+                badge: "New"
             };
 
-            if (type !== 'blog') {
+            if (type === 'book') {
                 const price = parseFloat(document.getElementById('itemPrice').value);
                 if (!price || price <= 0) {
                     showNotification('Please enter a valid price', 'error');
                     return;
                 }
                 newItem.price = price;
-                newItem.badge = "New";
-            }
-
-            if (type === 'workshop' || type === 'event') {
+                newItem.author = author;
+                appData.books.push(newItem);
+                renderBooks();
+            } else if (type === 'workshop') {
+                const price = parseFloat(document.getElementById('itemPrice').value);
+                if (!price || price <= 0) {
+                    showNotification('Please enter a valid price', 'error');
+                    return;
+                }
+                newItem.price = price;
+                newItem.instructor = author;
                 newItem.date = document.getElementById('itemDate').value || 'Date TBD';
-            }
-
-            if (type === 'workshop') {
                 newItem.duration = document.getElementById('itemDuration').value || 'Duration TBD';
                 newItem.seats = "0/0 Seats";
-                newItem.instructor = author;
                 appData.workshops.push(newItem);
                 renderWorkshops();
+            } else if (type === 'event') {
+                const price = parseFloat(document.getElementById('itemPrice').value) || 0;
+                newItem.price = price;
+                newItem.speaker = author;
+                newItem.date = document.getElementById('itemDate').value || 'Date TBD';
+                newItem.time = "Time TBD";
+                newItem.location = document.getElementById('itemLocation').value || 'Location TBD';
+                appData.events.push(newItem);
+                renderEvents();
+            } else if (type === 'job') {
+                newItem.company = author;
+                newItem.salary = document.getElementById('itemSalary').value || 'Salary negotiable';
+                newItem.type = "Full Time";
+                newItem.location = document.getElementById('itemLocation').value || 'Location TBD';
+                newItem.deadline = "Deadline TBD";
+                appData.jobs.push(newItem);
+                renderJobs();
             } else if (type === 'blog') {
+                newItem.author = author;
                 newItem.date = new Date().toLocaleDateString();
                 newItem.readTime = "5 min read";
                 newItem.excerpt = description.substring(0, 150) + '...';
                 appData.blogPosts.push(newItem);
                 renderBlogPosts();
-            } else {
-                appData.books.push(newItem);
-                renderBooks();
             }
 
             saveToLocalStorage();
@@ -1559,37 +2073,6 @@
             closeAddItem();
         }
 
-        // ===== TAB MANAGEMENT =====
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Remove active class from all nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Show selected tab and activate nav link
-            document.getElementById(`${tabName}-tab`).classList.add('active');
-            document.querySelector(`.nav-link[href="#${tabName}"]`).classList.add('active');
-            
-            currentTab = tabName;
-
-            // Render appropriate content
-            if (tabName === 'books') {
-                renderBooks();
-            } else if (tabName === 'workshops') {
-                renderWorkshops();
-            } else if (tabName === 'blog') {
-                renderBlogPosts();
-            }
-            
-            showNotification(`Switched to ${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
-        }
-
-        // ===== RENDER FUNCTIONS =====
         function renderBooks() {
             const container = document.getElementById('books-container');
             if (!container) return;
@@ -1678,7 +2161,6 @@
             });
         }
 
-        // ===== ACTION FUNCTIONS =====
         function addToCart(itemName, price, type) {
             cart.push({ 
                 name: itemName, 
@@ -1743,7 +2225,7 @@
         }
 
         function viewCommunityEvents() {
-            showNotification('Loading upcoming community events... Check back soon for new events!', 'info');
+            switchCommunityTab('events');
         }
 
         function readBlogPost(title) {
@@ -1783,7 +2265,6 @@
             showNotification('Privacy Policy:\n\nWe value your privacy and protect your personal information. Your data is never shared with third parties without your consent.', 'info');
         }
 
-        // ===== SETTINGS & DIAGNOSTICS =====
         function openSettings() {
             document.getElementById('settingsModal').style.display = 'flex';
         }
@@ -1821,16 +2302,6 @@
             showNotification(`${key} ${value ? 'enabled' : 'disabled'}`, 'success');
         }
 
-        function toggleEditMode() {
-            if (!currentUser || currentUser.role !== 'admin') {
-                showNotification('Admin access required. Please sign in as administrator.', 'error');
-                openAuth();
-                return;
-            }
-            showNotification('Edit mode toggled. Admin features are now active.', 'success');
-        }
-
-        // ===== DATA MANAGEMENT =====
         function saveToLocalStorage() {
             localStorage.setItem('definitiveWordData', JSON.stringify(appData));
         }
@@ -1840,18 +2311,17 @@
             if (saved) {
                 try {
                     appData = JSON.parse(saved);
-                console.log('Data loaded from localStorage');
-                console.log('Books:', appData.books.length);
-                console.log('Workshops:', appData.workshops.length);
-                console.log('Blog Posts:', appData.blogPosts.length);
-                console.log('Users:', appData.users.length);
+                    console.log('Data loaded from localStorage');
+                    console.log('Books:', appData.books.length);
+                    console.log('Workshops:', appData.workshops.length);
+                    console.log('Blog Posts:', appData.blogPosts.length);
+                    console.log('Users:', appData.users.length);
                 } catch (e) {
                     console.error('Error loading data:', e);
                 }
             }
         }
 
-        // ===== NOTIFICATION SYSTEM =====
         function showNotification(message, type = 'info') {
             // Create notification element
             const notification = document.createElement('div');
@@ -1886,7 +2356,6 @@
             }, 4000);
         }
 
-        // ===== SESSION MANAGEMENT =====
         function checkSavedSession() {
             const savedUser = localStorage.getItem('definitiveWordCurrentUser');
             const autoLogin = localStorage.getItem('definitiveWordAutoLogin') === 'true';
@@ -1920,6 +2389,8 @@
             renderBooks();
             renderWorkshops();
             renderBlogPosts();
+            renderEvents();
+            renderJobs();
             updateCartDisplay();
 
             // Set up tab switching for navigation links
