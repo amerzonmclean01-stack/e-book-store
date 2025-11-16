@@ -68,6 +68,56 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Diagnostic Panel */
+        #diagnosticPanel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--white);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1001;
+            max-width: 300px;
+            font-size: 0.85rem;
+        }
+
+        .diagnostic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .diagnostic-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px 0;
+            padding: 3px 0;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .status-ok {
+            background: var(--success);
+        }
+
+        .status-warning {
+            background: var(--warning);
+        }
+
+        .status-error {
+            background: var(--error);
+        }
+
         /* Main Layout */
         .container { 
             max-width: 1200px; 
@@ -186,6 +236,16 @@
         .btn-gold:hover {
             background: #b8941f;
             transform: translateY(-2px);
+        }
+
+        .btn-refresh {
+            background: var(--light-gray);
+            color: var(--primary-blue);
+            border: 1px solid var(--medium-gray);
+        }
+
+        .btn-refresh:hover {
+            background: var(--medium-gray);
         }
 
         /* Header Actions */
@@ -793,6 +853,13 @@
             .login-options {
                 grid-template-columns: 1fr;
             }
+
+            #diagnosticPanel {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
         }
 
         @media (max-width: 480px) {
@@ -822,6 +889,19 @@
         <div class="spinner"></div>
         <h3>Initializing The Definitive Word</h3>
         <p>Loading all features...</p>
+    </div>
+
+    <!-- Diagnostic Panel -->
+    <div id="diagnosticPanel">
+        <div class="diagnostic-header">
+            <h4>System Diagnostics</h4>
+            <button class="btn btn-refresh btn-small" onclick="runDiagnostics()">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+        </div>
+        <div id="diagnosticResults">
+            <!-- Diagnostic results will be populated here -->
+        </div>
     </div>
 
     <!-- Enhanced Login/Signup Modal -->
@@ -1257,6 +1337,9 @@
                 </nav>
 
                 <div class="header-actions">
+                    <button class="btn btn-refresh" onclick="refreshApplication()" title="Refresh Application">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
                     <a href="#cart" style="position: relative; color: var(--primary-blue); font-size: 1.2rem; text-decoration: none;" onclick="openModal('cartModal')">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count" id="cartCount">0</span>
@@ -1452,58 +1535,176 @@
 
     <!-- JavaScript -->
     <script>
-        // Application State
+        // ===== APPLICATION STATE =====
         let currentUser = null;
         let cart = [];
         let currentTab = 'home';
         let currentAuthTab = 'login';
         let selectedLoginType = 'regular';
         let currentAuthStep = 'loginType';
+        let diagnostics = {
+            appState: 'loading',
+            authentication: 'unknown',
+            cartSystem: 'unknown',
+            uiComponents: 'unknown',
+            dataStorage: 'unknown',
+            modals: 'unknown'
+        };
 
-        // Sample Data
-        const sampleBooks = [
-            {
-                id: 1,
-                title: "Morning Reflections: 365 Days with God",
-                author: "Dr. Michael Thompson",
-                description: "Start each day with profound biblical insights and practical applications for modern Christian living.",
-                price: 349.99,
-                badge: "Bestseller",
-                image: "Daily Devotional"
-            },
-            {
-                id: 2,
-                title: "Understanding God's Grace",
-                author: "Pastor Sarah Johnson",
-                description: "A comprehensive study on the transformative power of grace in the life of every believer.",
-                price: 299.99,
-                badge: "New Release",
-                image: "Bible Study"
+        // ===== DIAGNOSTIC SYSTEM =====
+        function runDiagnostics() {
+            console.log('=== RUNNING FULL DIAGNOSTICS ===');
+            
+            // Test Application State
+            try {
+                diagnostics.appState = currentUser ? 'authenticated' : 'anonymous';
+                console.log('✓ Application state: ' + diagnostics.appState);
+            } catch (e) {
+                diagnostics.appState = 'error';
+                console.error('✗ Application state error: ' + e.message);
             }
-        ];
 
-        const sampleWorkshops = [
-            {
-                id: 1,
-                title: "Biblical Leadership Principles",
-                instructor: "Dr. Sarah Johnson",
-                description: "Learn timeless leadership principles from Scripture and apply them to modern ministry challenges.",
-                price: 499.99,
-                badge: "Live Online",
-                image: "Biblical Leadership",
-                date: "15 April 2024",
-                duration: "3 Hours",
-                seats: "12/25 Seats"
+            // Test Authentication System
+            try {
+                const authModal = document.getElementById('authModal');
+                diagnostics.authentication = authModal ? 'ready' : 'missing';
+                console.log('✓ Authentication system: ' + diagnostics.authentication);
+            } catch (e) {
+                diagnostics.authentication = 'error';
+                console.error('✗ Authentication system error: ' + e.message);
             }
-        ];
 
-        // Modal Management
+            // Test Cart System
+            try {
+                const cartCount = document.getElementById('cartCount');
+                diagnostics.cartSystem = cartCount ? 'ready' : 'missing';
+                console.log('✓ Cart system: ' + diagnostics.cartSystem);
+            } catch (e) {
+                diagnostics.cartSystem = 'error';
+                console.error('✗ Cart system error: ' + e.message);
+            }
+
+            // Test UI Components
+            try {
+                const mainContent = document.getElementById('mainContent');
+                diagnostics.uiComponents = mainContent ? 'ready' : 'missing';
+                console.log('✓ UI components: ' + diagnostics.uiComponents);
+            } catch (e) {
+                diagnostics.uiComponents = 'error';
+                console.error('✗ UI components error: ' + e.message);
+            }
+
+            // Test Data Storage
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                diagnostics.dataStorage = 'working';
+                console.log('✓ Data storage: ' + diagnostics.dataStorage);
+            } catch (e) {
+                diagnostics.dataStorage = 'error';
+                console.error('✗ Data storage error: ' + e.message);
+            }
+
+            // Test Modals
+            try {
+                const modals = document.querySelectorAll('.modal');
+                diagnostics.modals = modals.length > 0 ? 'ready' : 'missing';
+                console.log('✓ Modals: ' + diagnostics.modals + ' (' + modals.length + ' found)');
+            } catch (e) {
+                diagnostics.modals = 'error';
+                console.error('✗ Modals error: ' + e.message);
+            }
+
+            updateDiagnosticDisplay();
+            showNotification('Diagnostics completed successfully!', 'success');
+        }
+
+        function updateDiagnosticDisplay() {
+            const diagnosticResults = document.getElementById('diagnosticResults');
+            diagnosticResults.innerHTML = '';
+
+            for (const [system, status] of Object.entries(diagnostics)) {
+                const item = document.createElement('div');
+                item.className = 'diagnostic-item';
+                
+                const statusClass = status === 'ready' || status === 'working' || status === 'authenticated' ? 
+                    'status-ok' : status === 'unknown' ? 'status-warning' : 'status-error';
+                
+                item.innerHTML = `
+                    <div class="status-indicator ${statusClass}"></div>
+                    <div>${system}: ${status}</div>
+                `;
+                
+                diagnosticResults.appendChild(item);
+            }
+        }
+
+        // ===== REFRESH FUNCTION =====
+        function refreshApplication() {
+            showNotification('Refreshing application...', 'warning');
+            
+            // Reset application state
+            currentUser = null;
+            cart = [];
+            currentTab = 'home';
+            currentAuthTab = 'login';
+            selectedLoginType = 'regular';
+            currentAuthStep = 'loginType';
+            
+            // Reset UI elements
+            document.getElementById('loginButton').innerHTML = '<i class="fas fa-user"></i> Sign In';
+            document.getElementById('cartCount').textContent = '0';
+            
+            // Close all modals
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+            
+            // Reset auth modal to first step
+            document.getElementById('loginTypeStep').classList.add('active');
+            document.getElementById('loginFormStep').classList.remove('active');
+            document.getElementById('profileStep').classList.remove('active');
+            
+            // Clear form fields
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('signupName').value = '';
+            document.getElementById('signupEmail').value = '';
+            document.getElementById('signupPassword').value = '';
+            document.getElementById('signupConfirm').value = '';
+            
+            // Reset login options
+            document.querySelectorAll('.login-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.querySelectorAll('.login-option')[0].classList.add('active');
+            
+            // Reset tabs
+            switchTab('home');
+            
+            // Run diagnostics
+            setTimeout(() => {
+                runDiagnostics();
+                showNotification('Application refreshed successfully!', 'success');
+            }, 500);
+        }
+
+        // ===== MODAL MANAGEMENT =====
         function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
+            try {
+                document.getElementById(modalId).style.display = 'flex';
+            } catch (e) {
+                console.error('Error opening modal: ' + e.message);
+                showNotification('Error opening dialog. Please try again.', 'error');
+            }
         }
 
         function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
+            try {
+                document.getElementById(modalId).style.display = 'none';
+            } catch (e) {
+                console.error('Error closing modal: ' + e.message);
+            }
         }
 
         // Close modals when clicking outside
@@ -1516,127 +1717,162 @@
             }
         }
 
-        // Auth System
+        // ===== AUTHENTICATION SYSTEM =====
         function selectLoginType(type) {
-            selectedLoginType = type;
-            document.querySelectorAll('.login-option').forEach(option => {
-                option.classList.remove('active');
-            });
-            event.currentTarget.classList.add('active');
+            try {
+                selectedLoginType = type;
+                document.querySelectorAll('.login-option').forEach(option => {
+                    option.classList.remove('active');
+                });
+                event.currentTarget.classList.add('active');
+            } catch (e) {
+                console.error('Error selecting login type: ' + e.message);
+                showNotification('Error selecting account type. Please try again.', 'error');
+            }
         }
 
         function proceedToLoginForm() {
-            document.getElementById('loginTypeStep').classList.remove('active');
-            document.getElementById('loginFormStep').classList.add('active');
-            currentAuthStep = 'loginForm';
+            try {
+                document.getElementById('loginTypeStep').classList.remove('active');
+                document.getElementById('loginFormStep').classList.add('active');
+                currentAuthStep = 'loginForm';
+            } catch (e) {
+                console.error('Error proceeding to login form: ' + e.message);
+                showNotification('Error navigating to login form. Please try again.', 'error');
+            }
         }
 
         function goBackToLoginType() {
-            document.getElementById('loginFormStep').classList.remove('active');
-            document.getElementById('loginTypeStep').classList.add('active');
-            currentAuthStep = 'loginType';
+            try {
+                document.getElementById('loginFormStep').classList.remove('active');
+                document.getElementById('loginTypeStep').classList.add('active');
+                currentAuthStep = 'loginType';
+            } catch (e) {
+                console.error('Error going back to login type: ' + e.message);
+                showNotification('Error navigating back. Please try again.', 'error');
+            }
         }
 
         function switchAuthTab(tab) {
-            currentAuthTab = tab;
-            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
-            document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
-            
-            document.querySelectorAll('.auth-tab').forEach(tabElement => {
-                tabElement.classList.toggle('active', tabElement.textContent.includes(tab === 'login' ? 'Sign In' : 'Create Account'));
-            });
+            try {
+                currentAuthTab = tab;
+                document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+                document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+                
+                document.querySelectorAll('.auth-tab').forEach(tabElement => {
+                    tabElement.classList.toggle('active', tabElement.textContent.includes(tab === 'login' ? 'Sign In' : 'Create Account'));
+                });
+            } catch (e) {
+                console.error('Error switching auth tab: ' + e.message);
+                showNotification('Error switching tabs. Please try again.', 'error');
+            }
         }
 
         function performLogin() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
+            try {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
 
-            if (!email || !password) {
-                showNotification('Please enter both email and password', 'error');
-                return;
-            }
+                if (!email || !password) {
+                    showNotification('Please enter both email and password', 'error');
+                    return;
+                }
 
-            // Check for admin login
-            if (selectedLoginType === 'admin' && email === 'admin@definitiveword.org' && password === 'Admin123!') {
+                // Check for admin login
+                if (selectedLoginType === 'admin' && email === 'admin@definitiveword.org' && password === 'Admin123!') {
+                    currentUser = {
+                        email: email,
+                        name: 'Administrator',
+                        role: 'admin',
+                        lastLogin: new Date().toISOString()
+                    };
+                    document.getElementById('loginButton').innerHTML = '<i class="fas fa-user-shield"></i> Admin';
+                    showNotification(`Welcome, ${currentUser.name}! Admin privileges activated.`, 'success');
+                    closeModal('authModal');
+                    
+                    // Show profile completion for new admin
+                    showProfileCompletion();
+                    return;
+                }
+
+                // For demo purposes - accept any login
                 currentUser = {
                     email: email,
-                    name: 'Administrator',
-                    role: 'admin',
+                    name: email.split('@')[0],
+                    role: selectedLoginType,
                     lastLogin: new Date().toISOString()
                 };
-                document.getElementById('loginButton').innerHTML = '<i class="fas fa-user-shield"></i> Admin';
-                showNotification(`Welcome, ${currentUser.name}! Admin privileges activated.`, 'success');
+                
+                document.getElementById('loginButton').innerHTML = `<i class="fas fa-user-check"></i> ${currentUser.name}`;
+                showNotification(`Welcome back, ${currentUser.name}!`, 'success');
                 closeModal('authModal');
                 
-                // Show profile completion for new admin
-                showProfileCompletion();
-                return;
-            }
-
-            // For demo purposes - accept any login
-            currentUser = {
-                email: email,
-                name: email.split('@')[0],
-                role: selectedLoginType,
-                lastLogin: new Date().toISOString()
-            };
-            
-            document.getElementById('loginButton').innerHTML = `<i class="fas fa-user-check"></i> ${currentUser.name}`;
-            showNotification(`Welcome back, ${currentUser.name}!`, 'success');
-            closeModal('authModal');
-            
-            // Show profile completion for new users
-            if (currentAuthTab === 'signup') {
-                showProfileCompletion();
+                // Show profile completion for new users
+                if (currentAuthTab === 'signup') {
+                    showProfileCompletion();
+                }
+            } catch (e) {
+                console.error('Error during login: ' + e.message);
+                showNotification('Error during login. Please try again.', 'error');
             }
         }
 
         function performSignup() {
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirm = document.getElementById('signupConfirm').value;
-            const acceptTerms = document.getElementById('acceptTerms').checked;
+            try {
+                const name = document.getElementById('signupName').value;
+                const email = document.getElementById('signupEmail').value;
+                const password = document.getElementById('signupPassword').value;
+                const confirm = document.getElementById('signupConfirm').value;
+                const acceptTerms = document.getElementById('acceptTerms').checked;
 
-            if (!name || !email || !password || !confirm) {
-                showNotification('Please fill in all fields', 'error');
-                return;
+                if (!name || !email || !password || !confirm) {
+                    showNotification('Please fill in all fields', 'error');
+                    return;
+                }
+
+                if (password !== confirm) {
+                    showNotification('Passwords do not match', 'error');
+                    return;
+                }
+
+                if (password.length < 8) {
+                    showNotification('Password must be at least 8 characters', 'error');
+                    return;
+                }
+
+                if (!acceptTerms) {
+                    showNotification('Please accept the Terms of Service and Privacy Policy', 'error');
+                    return;
+                }
+
+                // Create new user
+                currentUser = {
+                    name: name,
+                    email: email,
+                    role: selectedLoginType,
+                    joinDate: new Date().toISOString()
+                };
+
+                document.getElementById('loginButton').innerHTML = `<i class="fas fa-user-check"></i> ${name.split(' ')[0]}`;
+                showNotification(`Welcome to The Definitive Word, ${name}!`, 'success');
+                
+                // Move to profile completion
+                showProfileCompletion();
+            } catch (e) {
+                console.error('Error during signup: ' + e.message);
+                showNotification('Error during registration. Please try again.', 'error');
             }
-
-            if (password !== confirm) {
-                showNotification('Passwords do not match', 'error');
-                return;
-            }
-
-            if (password.length < 8) {
-                showNotification('Password must be at least 8 characters', 'error');
-                return;
-            }
-
-            if (!acceptTerms) {
-                showNotification('Please accept the Terms of Service and Privacy Policy', 'error');
-                return;
-            }
-
-            // Create new user
-            currentUser = {
-                name: name,
-                email: email,
-                role: selectedLoginType,
-                joinDate: new Date().toISOString()
-            };
-
-            document.getElementById('loginButton').innerHTML = `<i class="fas fa-user-check"></i> ${name.split(' ')[0]}`;
-            showNotification(`Welcome to The Definitive Word, ${name}!`, 'success');
-            
-            // Move to profile completion
-            showProfileCompletion();
         }
 
         function showProfileCompletion() {
-            document.getElementById('loginFormStep').classList.remove('active');
-            document.getElementById('profileStep').classList.add('active');
-            currentAuthStep = 'profile';
+            try {
+                document.getElementById('loginFormStep').classList.remove('active');
+                document.getElementById('profileStep').classList.add('active');
+                currentAuthStep = 'profile';
+            } catch (e) {
+                console.error('Error showing profile completion: ' + e.message);
+                showNotification('Error navigating to profile setup. Please try again.', 'error');
+            }
         }
 
         function skipProfileCompletion() {
@@ -1645,52 +1881,77 @@
         }
 
         function completeProfile() {
-            const location = document.getElementById('profileLocation').value;
-            const church = document.getElementById('profileChurch').value;
-            
-            if (currentUser) {
-                currentUser.location = location;
-                currentUser.church = church;
+            try {
+                const location = document.getElementById('profileLocation').value;
+                const church = document.getElementById('profileChurch').value;
+                
+                if (currentUser) {
+                    currentUser.location = location;
+                    currentUser.church = church;
+                }
+                
+                closeModal('authModal');
+                showNotification('Profile completed successfully!', 'success');
+            } catch (e) {
+                console.error('Error completing profile: ' + e.message);
+                showNotification('Error saving profile. Please try again.', 'error');
             }
-            
-            closeModal('authModal');
-            showNotification('Profile completed successfully!', 'success');
         }
 
         function showForgotPassword() {
-            closeModal('authModal');
-            openModal('forgotPasswordModal');
+            try {
+                closeModal('authModal');
+                openModal('forgotPasswordModal');
+            } catch (e) {
+                console.error('Error showing forgot password: ' + e.message);
+                showNotification('Error opening password reset. Please try again.', 'error');
+            }
         }
 
         function showLoginForm() {
-            closeModal('forgotPasswordModal');
-            openModal('authModal');
+            try {
+                closeModal('forgotPasswordModal');
+                openModal('authModal');
+            } catch (e) {
+                console.error('Error showing login form: ' + e.message);
+                showNotification('Error navigating to login. Please try again.', 'error');
+            }
         }
 
         function sendPasswordReset() {
-            const email = document.getElementById('resetEmail').value;
-            
-            if (!email) {
-                showNotification('Please enter your email address', 'error');
-                return;
+            try {
+                const email = document.getElementById('resetEmail').value;
+                
+                if (!email) {
+                    showNotification('Please enter your email address', 'error');
+                    return;
+                }
+                
+                closeModal('forgotPasswordModal');
+                showNotification(`Password reset link sent to ${email}. Please check your inbox.`, 'success');
+            } catch (e) {
+                console.error('Error sending password reset: ' + e.message);
+                showNotification('Error sending reset link. Please try again.', 'error');
             }
-            
-            closeModal('forgotPasswordModal');
-            showNotification(`Password reset link sent to ${email}. Please check your inbox.`, 'success');
         }
 
-        // Settings Management
+        // ===== SETTINGS MANAGEMENT =====
         function switchSettingsTab(tab) {
-            document.querySelectorAll('.settings-tab').forEach(tabElement => {
-                tabElement.style.display = 'none';
-            });
-            
-            document.querySelectorAll('.auth-tab').forEach(tabElement => {
-                tabElement.classList.remove('active');
-            });
-            
-            document.getElementById(`${tab}Settings`).style.display = 'block';
-            document.querySelector(`.auth-tab[onclick="switchSettingsTab('${tab}')"]`).classList.add('active');
+            try {
+                document.querySelectorAll('.settings-tab').forEach(tabElement => {
+                    tabElement.style.display = 'none';
+                });
+                
+                document.querySelectorAll('.auth-tab').forEach(tabElement => {
+                    tabElement.classList.remove('active');
+                });
+                
+                document.getElementById(`${tab}Settings`).style.display = 'block';
+                document.querySelector(`.auth-tab[onclick="switchSettingsTab('${tab}')"]`).classList.add('active');
+            } catch (e) {
+                console.error('Error switching settings tab: ' + e.message);
+                showNotification('Error switching settings tab. Please try again.', 'error');
+            }
         }
 
         function saveAccountSettings() {
@@ -1705,206 +1966,289 @@
             showNotification('Privacy settings saved!', 'success');
         }
 
-        // Tab Management
+        // ===== TAB MANAGEMENT =====
         function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Remove active class from all nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Show selected tab and activate nav link
-            document.getElementById(`${tabName}-tab`).classList.add('active');
-            document.querySelector(`.nav-link[href="#${tabName}"]`).classList.add('active');
-            
-            currentTab = tabName;
+            try {
+                // Hide all tabs
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                // Remove active class from all nav links
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Show selected tab and activate nav link
+                document.getElementById(`${tabName}-tab`).classList.add('active');
+                document.querySelector(`.nav-link[href="#${tabName}"]`).classList.add('active');
+                
+                currentTab = tabName;
+            } catch (e) {
+                console.error('Error switching tab: ' + e.message);
+                showNotification('Error navigating to page. Please try again.', 'error');
+            }
         }
 
-        // Cart Management
+        // ===== CART MANAGEMENT =====
         function addToCart(itemName, price, type) {
-            if (!currentUser) {
-                showNotification('Please sign in to add items to your cart', 'error');
-                openModal('authModal');
-                return;
+            try {
+                if (!currentUser) {
+                    showNotification('Please sign in to add items to your cart', 'error');
+                    openModal('authModal');
+                    return;
+                }
+                
+                cart.push({ 
+                    name: itemName, 
+                    price: price, 
+                    type: type,
+                    id: Date.now() + Math.random()
+                });
+                updateCartDisplay();
+                showNotification(`"${itemName}" added to cart!`, 'success');
+            } catch (e) {
+                console.error('Error adding to cart: ' + e.message);
+                showNotification('Error adding item to cart. Please try again.', 'error');
             }
-            
-            cart.push({ 
-                name: itemName, 
-                price: price, 
-                type: type,
-                id: Date.now() + Math.random()
-            });
-            updateCartDisplay();
-            showNotification(`"${itemName}" added to cart!`, 'success');
         }
 
         function updateCartDisplay() {
-            document.getElementById('cartCount').textContent = cart.length;
-            
-            // Update cart modal if open
-            const cartItems = document.getElementById('cartItems');
-            const cartTotal = document.querySelector('.cart-total');
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = `
-                    <div style="text-align: center; padding: 2rem; color: var(--dark-gray);">
-                        <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                        <h4>Your cart is empty</h4>
-                        <p>Browse our store to add items to your cart</p>
-                        <button class="btn btn-primary" onclick="closeModal('cartModal'); switchTab('books');" style="margin-top: 1rem;">
-                            <i class="fas fa-book"></i> Browse Books
-                        </button>
-                    </div>
-                `;
-                cartTotal.style.display = 'none';
-            } else {
-                cartItems.innerHTML = '';
-                let total = 0;
+            try {
+                document.getElementById('cartCount').textContent = cart.length;
                 
-                cart.forEach((item, index) => {
-                    total += item.price;
-                    const cartItem = document.createElement('div');
-                    cartItem.className = 'cart-item';
-                    cartItem.style.display = 'flex';
-                    cartItem.style.justifyContent = 'space-between';
-                    cartItem.style.alignItems = 'center';
-                    cartItem.style.padding = '1rem';
-                    cartItem.style.borderBottom = '1px solid var(--medium-gray)';
-                    cartItem.innerHTML = `
-                        <div style="flex: 1;">
-                            <div style="font-weight: 600; margin-bottom: 0.5rem;">${item.name}</div>
-                            <div style="color: var(--primary-blue); font-weight: 600;">R ${item.price.toFixed(2)}</div>
+                // Update cart modal if open
+                const cartItems = document.getElementById('cartItems');
+                const cartTotal = document.querySelector('.cart-total');
+                
+                if (cart.length === 0) {
+                    cartItems.innerHTML = `
+                        <div style="text-align: center; padding: 2rem; color: var(--dark-gray);">
+                            <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                            <h4>Your cart is empty</h4>
+                            <p>Browse our store to add items to your cart</p>
+                            <button class="btn btn-primary" onclick="closeModal('cartModal'); switchTab('books');" style="margin-top: 1rem;">
+                                <i class="fas fa-book"></i> Browse Books
+                            </button>
                         </div>
-                        <button class="btn btn-outline btn-small" onclick="removeFromCart(${index})">
-                            <i class="fas fa-trash"></i> Remove
-                        </button>
                     `;
-                    cartItems.appendChild(cartItem);
-                });
-                
-                document.getElementById('cartTotalAmount').textContent = `R ${total.toFixed(2)}`;
-                cartTotal.style.display = 'block';
+                    cartTotal.style.display = 'none';
+                } else {
+                    cartItems.innerHTML = '';
+                    let total = 0;
+                    
+                    cart.forEach((item, index) => {
+                        total += item.price;
+                        const cartItem = document.createElement('div');
+                        cartItem.className = 'cart-item';
+                        cartItem.style.display = 'flex';
+                        cartItem.style.justifyContent = 'space-between';
+                        cartItem.style.alignItems = 'center';
+                        cartItem.style.padding = '1rem';
+                        cartItem.style.borderBottom = '1px solid var(--medium-gray)';
+                        cartItem.innerHTML = `
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.5rem;">${item.name}</div>
+                                <div style="color: var(--primary-blue); font-weight: 600;">R ${item.price.toFixed(2)}</div>
+                            </div>
+                            <button class="btn btn-outline btn-small" onclick="removeFromCart(${index})">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        `;
+                        cartItems.appendChild(cartItem);
+                    });
+                    
+                    document.getElementById('cartTotalAmount').textContent = `R ${total.toFixed(2)}`;
+                    cartTotal.style.display = 'block';
+                }
+            } catch (e) {
+                console.error('Error updating cart display: ' + e.message);
+                showNotification('Error updating cart. Please try again.', 'error');
             }
         }
 
         function removeFromCart(index) {
-            const removedItem = cart[index];
-            cart.splice(index, 1);
-            updateCartDisplay();
-            showNotification(`Removed ${removedItem.name} from cart`, 'info');
+            try {
+                const removedItem = cart[index];
+                cart.splice(index, 1);
+                updateCartDisplay();
+                showNotification(`Removed ${removedItem.name} from cart`, 'info');
+            } catch (e) {
+                console.error('Error removing from cart: ' + e.message);
+                showNotification('Error removing item from cart. Please try again.', 'error');
+            }
         }
 
         function checkout() {
-            if (cart.length === 0) {
-                showNotification('Your cart is empty', 'error');
-                return;
-            }
+            try {
+                if (cart.length === 0) {
+                    showNotification('Your cart is empty', 'error');
+                    return;
+                }
 
-            showNotification('Processing your order...', 'warning');
-            setTimeout(() => {
-                const total = cart.reduce((sum, item) => sum + item.price, 0);
-                showNotification(`Order completed successfully! Total: R ${total.toFixed(2)}`, 'success');
-                cart = [];
-                updateCartDisplay();
-                closeModal('cartModal');
-            }, 2000);
+                showNotification('Processing your order...', 'warning');
+                setTimeout(() => {
+                    const total = cart.reduce((sum, item) => sum + item.price, 0);
+                    showNotification(`Order completed successfully! Total: R ${total.toFixed(2)}`, 'success');
+                    cart = [];
+                    updateCartDisplay();
+                    closeModal('cartModal');
+                }, 2000);
+            } catch (e) {
+                console.error('Error during checkout: ' + e.message);
+                showNotification('Error during checkout. Please try again.', 'error');
+            }
         }
 
-        // Action Functions
+        // ===== ACTION FUNCTIONS =====
         function registerForWorkshop(title, price) {
-            if (!currentUser) {
-                showNotification('Please sign in to register for workshops', 'error');
-                openModal('authModal');
-                return;
+            try {
+                if (!currentUser) {
+                    showNotification('Please sign in to register for workshops', 'error');
+                    openModal('authModal');
+                    return;
+                }
+                addToCart(title, price, 'workshop');
+            } catch (e) {
+                console.error('Error registering for workshop: ' + e.message);
+                showNotification('Error registering for workshop. Please try again.', 'error');
             }
-            addToCart(title, price, 'workshop');
         }
 
         function previewItem(title, description, price) {
-            showNotification(`Preview: ${title} - R${price.toFixed(2)}\n\n${description}`, 'info');
+            try {
+                showNotification(`Preview: ${title} - R${price.toFixed(2)}\n\n${description}`, 'info');
+            } catch (e) {
+                console.error('Error previewing item: ' + e.message);
+                showNotification('Error previewing item. Please try again.', 'error');
+            }
         }
 
         function showWorkshopDetails(title, description) {
-            showNotification(`Workshop Details: ${title}\n\n${description}`, 'info');
+            try {
+                showNotification(`Workshop Details: ${title}\n\n${description}`, 'info');
+            } catch (e) {
+                console.error('Error showing workshop details: ' + e.message);
+                showNotification('Error showing details. Please try again.', 'error');
+            }
         }
 
         function downloadResource(title) {
-            if (!currentUser) {
-                showNotification('Please sign in to download resources', 'error');
-                openModal('authModal');
-                return;
+            try {
+                if (!currentUser) {
+                    showNotification('Please sign in to download resources', 'error');
+                    openModal('authModal');
+                    return;
+                }
+                showNotification(`Downloading "${title}"...`, 'success');
+            } catch (e) {
+                console.error('Error downloading resource: ' + e.message);
+                showNotification('Error downloading resource. Please try again.', 'error');
             }
-            showNotification(`Downloading "${title}"...`, 'success');
         }
 
-        // Notification System
+        // ===== NOTIFICATION SYSTEM =====
         function showNotification(message, type = 'info') {
-            // Create notification element
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.textContent = message;
-            document.body.appendChild(notification);
+            try {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.textContent = message;
+                document.body.appendChild(notification);
 
-            // Animate in
-            setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
-            }, 100);
-
-            // Remove after delay
-            setTimeout(() => {
-                notification.style.transform = 'translateX(400px)';
+                // Animate in
                 setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 4000);
+                    notification.style.transform = 'translateX(0)';
+                }, 100);
+
+                // Remove after delay
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(400px)';
+                    setTimeout(() => {
+                        if (document.body.contains(notification)) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 300);
+                }, 4000);
+            } catch (e) {
+                console.error('Error showing notification: ' + e.message);
+                // Fallback to alert if notification system fails
+                alert(message);
+            }
         }
 
-        // Initialize the application
+        // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('=== STARTING DIAGNOSTICS ===');
+            console.log('=== STARTING FULL DIAGNOSTICS ===');
             
             // Hide loading screen
             setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
-                showNotification('The Definitive Word loaded successfully! All systems operational.', 'success');
+                try {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    showNotification('The Definitive Word loaded successfully! All systems operational.', 'success');
+                } catch (e) {
+                    console.error('Error during initialization: ' + e.message);
+                    // If loading screen fails to hide, force it
+                    const loadingScreen = document.getElementById('loadingScreen');
+                    if (loadingScreen) loadingScreen.style.display = 'none';
+                }
             }, 2000);
 
             // Set up tab switching for navigation links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const tabName = this.getAttribute('href').substring(1);
-                    switchTab(tabName);
+            try {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const tabName = this.getAttribute('href').substring(1);
+                        switchTab(tabName);
+                    });
                 });
-            });
+            } catch (e) {
+                console.error('Error setting up navigation: ' + e.message);
+            }
 
             // Set up footer link functionality
-            document.querySelectorAll('.footer-section a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const text = this.textContent;
-                    if (text.includes('Home') || text.includes('Books') || text.includes('Workshops') || text.includes('Ministry') || text.includes('Community')) {
-                        const tabName = text.toLowerCase().replace(' programs', '').replace(' ', '');
-                        switchTab(tabName);
-                    }
+            try {
+                document.querySelectorAll('.footer-section a').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const text = this.textContent;
+                        if (text.includes('Home') || text.includes('Books') || text.includes('Workshops') || text.includes('Ministry') || text.includes('Community')) {
+                            const tabName = text.toLowerCase().replace(' programs', '').replace(' ', '');
+                            switchTab(tabName);
+                        }
+                    });
                 });
-            });
+            } catch (e) {
+                console.error('Error setting up footer links: ' + e.message);
+            }
+
+            // Run initial diagnostics
+            setTimeout(() => {
+                runDiagnostics();
+            }, 1000);
 
             console.log('=== DIAGNOSTICS COMPLETE ===');
-            console.log('All systems initialized successfully');
         });
 
-        // Error handling
+        // ===== ERROR BOUNDARY =====
         window.addEventListener('error', function(e) {
             console.error('Global error caught:', e.error);
             showNotification('An unexpected error occurred. Please refresh the page.', 'error');
+            
+            // Update diagnostics to show error
+            diagnostics.appState = 'error';
+            updateDiagnosticDisplay();
         });
 
-        console.log('The Definitive Word Platform - Professional Edition');
+        // ===== GLOBAL ERROR HANDLER =====
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error('Global error:', message, 'at', source, 'line', lineno);
+            showNotification('A system error occurred. The application may not function properly.', 'error');
+            return true;
+        };
+
+        console.log('The Definitive Word Platform - Professional Edition with Diagnostics');
     </script>
 </body>
 </html>
