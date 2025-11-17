@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -141,6 +140,25 @@
             justify-content: center;
             font-size: 0.8rem;
             font-weight: bold;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--white);
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--dark-blue);
         }
         
         /* Main Content */
@@ -356,6 +374,7 @@
             font-weight: 500;
             transition: all 0.3s ease;
             cursor: pointer;
+            border: none;
         }
         
         .btn-preview {
@@ -512,6 +531,53 @@
             margin-top: 1rem;
         }
         
+        /* Order History */
+        .order-history {
+            margin-top: 2rem;
+        }
+        
+        .order-item {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-id {
+            font-weight: 600;
+            color: var(--prophetic-blue);
+        }
+        
+        .order-date {
+            color: #666;
+        }
+        
+        .order-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-completed {
+            background-color: #e6f7ee;
+            color: #0d6832;
+        }
+        
+        .status-pending {
+            background-color: #fff8e6;
+            color: #8a6d0d;
+        }
+        
         /* Footer */
         footer {
             background: linear-gradient(135deg, var(--prophetic-blue), var(--dark-blue));
@@ -562,6 +628,38 @@
             color: rgba(255, 255, 255, 0.7);
         }
         
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--prophetic-blue);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .toast.success {
+            background-color: #0d6832;
+        }
+        
+        .toast.error {
+            background-color: #8a0d0d;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .header-container {
@@ -610,9 +708,14 @@
             </nav>
             
             <div class="header-actions">
-                <div class="auth-buttons">
+                <div class="auth-buttons" id="authButtons">
                     <button class="btn btn-login" id="loginBtn">Login</button>
                     <button class="btn btn-register" id="registerBtn">Register</button>
+                </div>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <span id="userName">User</span>
+                    <button class="btn btn-login" id="logoutBtn" style="margin-left: 10px;">Logout</button>
                 </div>
                 <div class="cart-icon" id="cartIcon">
                     <i class="fas fa-shopping-cart"></i>
@@ -999,6 +1102,12 @@
         </div>
     </div>
 
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Operation completed successfully</span>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="footer-container">
@@ -1029,10 +1138,10 @@
             <div class="footer-section">
                 <h3>Connect With Us</h3>
                 <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
-                    <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
-                    <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
-                    <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-youtube"></i></a>
+                    <a href="https://facebook.com" target="_blank" style="color: white; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+                    <a href="https://twitter.com" target="_blank" style="color: white; font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" target="_blank" style="color: white; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com" target="_blank" style="color: white; font-size: 1.5rem;"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -1044,8 +1153,8 @@
 
     <script>
         // Data storage for the application
-        let cart = [];
-        let books = [
+        let cart = JSON.parse(localStorage.getItem('ministryCart')) || [];
+        let books = JSON.parse(localStorage.getItem('ministryBooks')) || [
             {
                 id: 1,
                 title: "The Definitive Word: Volume 1",
@@ -1069,7 +1178,7 @@
             }
         ];
         
-        let workshops = [
+        let workshops = JSON.parse(localStorage.getItem('ministryWorkshops')) || [
             {
                 id: 1,
                 title: "Biblical Interpretation Workshop",
@@ -1093,6 +1202,10 @@
             }
         ];
 
+        let users = JSON.parse(localStorage.getItem('ministryUsers')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let orders = JSON.parse(localStorage.getItem('ministryOrders')) || [];
+
         // DOM Elements
         const loginModal = document.getElementById('loginModal');
         const cartModal = document.getElementById('cartModal');
@@ -1113,6 +1226,13 @@
         const cartItems = document.getElementById('cartItems');
         const cartTotal = document.getElementById('cartTotal');
         const cartCount = document.querySelector('.cart-count');
+        const authButtons = document.getElementById('authButtons');
+        const userInfo = document.getElementById('userInfo');
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
 
         // Initialize the application
         function init() {
@@ -1122,6 +1242,9 @@
             
             // Load saved footer content
             loadFooterContent();
+            
+            // Check if user is logged in
+            checkUserStatus();
         }
 
         // Page Navigation
@@ -1190,7 +1313,7 @@
 
         // Button Actions
         beginJourneyBtn.addEventListener('click', () => {
-            alert('Welcome to The Definitive Word Ministry! We\'re excited to have you begin this spiritual journey with us. You will receive an email with next steps shortly.');
+            showToast('Welcome to The Definitive Word Ministry! We\'re excited to have you begin this spiritual journey with us.', 'success');
             // Navigate to registration page
             document.querySelectorAll('.nav-link').forEach(nav => {
                 nav.classList.remove('active');
@@ -1213,11 +1336,25 @@
             const followUp = document.getElementById('follow-up').checked;
             
             if (!name || !email || !category || !request) {
-                alert('Please fill in all required fields.');
+                showToast('Please fill in all required fields.', 'error');
                 return;
             }
             
-            alert(`Thank you, ${name}! Your prayer request has been submitted. Our prayer team will be lifting you up in prayer. ${followUp ? 'You will be contacted for follow-up prayer.' : ''}`);
+            // Save prayer request to localStorage
+            const prayerRequests = JSON.parse(localStorage.getItem('prayerRequests')) || [];
+            const newRequest = {
+                id: Date.now(),
+                name,
+                email,
+                category,
+                request,
+                followUp,
+                date: new Date().toISOString()
+            };
+            prayerRequests.push(newRequest);
+            localStorage.setItem('prayerRequests', JSON.stringify(prayerRequests));
+            
+            showToast(`Thank you, ${name}! Your prayer request has been submitted. Our prayer team will be lifting you up in prayer.`, 'success');
             
             // Reset form
             document.getElementById('prayer-name').value = '';
@@ -1228,7 +1365,7 @@
         });
         
         joinPrayerBtn.addEventListener('click', () => {
-            alert('Thank you for your interest in joining our prayer community! You will receive an email with details about our prayer groups and meeting times.');
+            showToast('Thank you for your interest in joining our prayer community! You will receive an email with details about our prayer groups and meeting times.', 'success');
         });
         
         createAccountBtn.addEventListener('click', () => {
@@ -1240,18 +1377,44 @@
             const confirm = document.getElementById('reg-confirm').value;
             
             if (!firstName || !lastName || !email || !password || !confirm) {
-                alert('Please fill in all required fields.');
+                showToast('Please fill in all required fields.', 'error');
                 return;
             }
             
             if (password !== confirm) {
-                alert('Passwords do not match.');
+                showToast('Passwords do not match.', 'error');
+                return;
+            }
+            
+            // Check if user already exists
+            if (users.find(user => user.email === email)) {
+                showToast('An account with this email already exists.', 'error');
                 return;
             }
             
             const interests = Array.from(document.querySelectorAll('.interest:checked')).map(cb => cb.value);
             
-            alert(`Thank you, ${firstName} ${lastName}! Your account has been created successfully. Welcome to The Definitive Word Ministry!`);
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                firstName,
+                lastName,
+                email,
+                phone,
+                password, // In a real app, this would be hashed
+                interests,
+                date: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('ministryUsers', JSON.stringify(users));
+            
+            // Log the user in
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            checkUserStatus();
+            
+            showToast(`Thank you, ${firstName} ${lastName}! Your account has been created successfully. Welcome to The Definitive Word Ministry!`, 'success');
             
             // Reset form
             document.getElementById('reg-firstname').value = '';
@@ -1261,6 +1424,17 @@
             document.getElementById('reg-password').value = '';
             document.getElementById('reg-confirm').value = '';
             document.querySelectorAll('.interest').forEach(cb => cb.checked = false);
+            
+            // Navigate to home page
+            document.querySelectorAll('.nav-link').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            document.querySelector('[data-page="home"]').classList.add('active');
+            
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById('home').classList.add('active');
         });
         
         addBookBtn.addEventListener('click', () => {
@@ -1270,12 +1444,12 @@
             const icon = document.getElementById('book-icon').value;
             
             if (!title || !description || !price || !icon) {
-                alert('Please fill in all fields.');
+                showToast('Please fill in all fields.', 'error');
                 return;
             }
             
             const newBook = {
-                id: books.length + 1,
+                id: Date.now(),
                 title,
                 description,
                 price,
@@ -1283,9 +1457,10 @@
             };
             
             books.push(newBook);
+            localStorage.setItem('ministryBooks', JSON.stringify(books));
             renderBooks();
             
-            alert('Book added successfully!');
+            showToast('Book added successfully!', 'success');
             
             // Reset form
             document.getElementById('book-title').value = '';
@@ -1301,12 +1476,12 @@
             const icon = document.getElementById('workshop-icon').value;
             
             if (!title || !description || !price || !icon) {
-                alert('Please fill in all fields.');
+                showToast('Please fill in all fields.', 'error');
                 return;
             }
             
             const newWorkshop = {
-                id: workshops.length + 1,
+                id: Date.now(),
                 title,
                 description,
                 price,
@@ -1314,9 +1489,10 @@
             };
             
             workshops.push(newWorkshop);
+            localStorage.setItem('ministryWorkshops', JSON.stringify(workshops));
             renderWorkshops();
             
-            alert('Workshop added successfully!');
+            showToast('Workshop added successfully!', 'success');
             
             // Reset form
             document.getElementById('workshop-title').value = '';
@@ -1340,7 +1516,7 @@
             // Update footer display
             loadFooterContent();
             
-            alert('Footer content updated successfully!');
+            showToast('Footer content updated successfully!', 'success');
             
             // Reset form
             document.getElementById('footer-about').value = '';
@@ -1351,7 +1527,7 @@
         
         checkoutBtn.addEventListener('click', () => {
             if (cart.length === 0) {
-                alert('Your cart is empty. Please add items before checking out.');
+                showToast('Your cart is empty. Please add items before checking out.', 'error');
                 return;
             }
             
@@ -1360,17 +1536,30 @@
             const cvv = document.getElementById('cvv').value;
             
             if (!cardNumber || !expiryDate || !cvv) {
-                alert('Please fill in all payment details.');
+                showToast('Please fill in all payment details.', 'error');
                 return;
             }
             
-            // In a real application, you would process the payment here
-            alert('Payment processed successfully! Thank you for your purchase. You will receive a confirmation email shortly.');
+            // Create order
+            const order = {
+                id: 'ORD-' + Date.now(),
+                items: [...cart],
+                total: cart.reduce((total, item) => total + (item.price * item.quantity), 0),
+                date: new Date().toISOString(),
+                status: 'completed',
+                userId: currentUser ? currentUser.id : null
+            };
+            
+            orders.push(order);
+            localStorage.setItem('ministryOrders', JSON.stringify(orders));
             
             // Clear cart
             cart = [];
+            localStorage.setItem('ministryCart', JSON.stringify(cart));
             updateCartCount();
             cartModal.classList.remove('active');
+            
+            showToast('Payment processed successfully! Thank you for your purchase. You will receive a confirmation email shortly.', 'success');
         });
 
         // Payment Method Selection
@@ -1386,9 +1575,29 @@
         // Login Form Submission
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // In a real application, you would handle authentication here
-            alert('Login functionality would be implemented with backend services');
-            loginModal.classList.remove('active');
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Find user
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                checkUserStatus();
+                loginModal.classList.remove('active');
+                showToast(`Welcome back, ${user.firstName}!`, 'success');
+            } else {
+                showToast('Invalid email or password. Please try again.', 'error');
+            }
+        });
+
+        // Logout functionality
+        logoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            checkUserStatus();
+            showToast('You have been logged out successfully.', 'success');
         });
 
         // Remember Me functionality
@@ -1510,6 +1719,29 @@
             if (phone) document.getElementById('footer-phone-text').textContent = phone;
             if (address) document.getElementById('footer-address-text').textContent = address;
         }
+        
+        function checkUserStatus() {
+            if (currentUser) {
+                authButtons.style.display = 'none';
+                userInfo.style.display = 'flex';
+                userName.textContent = currentUser.firstName;
+                userAvatar.textContent = currentUser.firstName.charAt(0);
+            } else {
+                authButtons.style.display = 'flex';
+                userInfo.style.display = 'none';
+            }
+        }
+        
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast';
+            toast.classList.add(type);
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
+        }
 
         // Cart Functions
         function addToCart(type, id) {
@@ -1534,12 +1766,14 @@
                 });
             }
             
+            localStorage.setItem('ministryCart', JSON.stringify(cart));
             updateCartCount();
-            alert(`${item.title} has been added to your cart!`);
+            showToast(`${item.title} has been added to your cart!`, 'success');
         }
         
         function removeFromCart(id) {
             cart = cart.filter(item => item.id !== id);
+            localStorage.setItem('ministryCart', JSON.stringify(cart));
             updateCartCount();
             renderCartItems();
         }
@@ -1551,6 +1785,7 @@
                 if (item.quantity <= 0) {
                     removeFromCart(id);
                 } else {
+                    localStorage.setItem('ministryCart', JSON.stringify(cart));
                     updateCartCount();
                     renderCartItems();
                 }
@@ -1572,7 +1807,7 @@
             
             if (!item) return;
             
-            alert(`Preview: ${item.title}\n\n${item.description}\n\nPrice: $${item.price.toFixed(2)}`);
+            showToast(`Preview: ${item.title}\n\n${item.description}\n\nPrice: $${item.price.toFixed(2)}`, 'success');
         }
 
         // Initialize the application
