@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,6 +84,12 @@
             color: var(--gold);
         }
         
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
         .auth-buttons {
             display: flex;
             gap: 1rem;
@@ -113,11 +120,35 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
+        .cart-icon {
+            position: relative;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--gold);
+            color: var(--dark-blue);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
         /* Main Content */
         .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1.5rem;
+            min-height: 70vh;
         }
         
         .page {
@@ -324,6 +355,7 @@
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .btn-preview {
@@ -334,6 +366,86 @@
         .btn-buy {
             background-color: var(--gold);
             color: var(--dark-blue);
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            width: 90%;
+            max-width: 800px;
+        }
+        
+        .cart-items {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-details {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-blue);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .cart-item-info h4 {
+            color: var(--prophetic-blue);
+            margin-bottom: 0.3rem;
+        }
+        
+        .cart-item-price {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 1rem 0;
+            border-top: 2px solid #eee;
         }
         
         /* Payment System */
@@ -371,6 +483,33 @@
         .payment-method i {
             font-size: 1.5rem;
             color: var(--prophetic-blue);
+        }
+        
+        /* Content Management */
+        .content-management {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .content-form {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .btn-save {
+            background-color: var(--gold);
+            color: var(--dark-blue);
+            padding: 0.8rem 1.5rem;
+            margin-top: 1rem;
         }
         
         /* Footer */
@@ -443,6 +582,10 @@
             .payment-methods {
                 flex-direction: column;
             }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -462,12 +605,19 @@
                     <li><a href="#" class="nav-link" data-page="workshops">Workshops</a></li>
                     <li><a href="#" class="nav-link" data-page="prayer">Intercessory Prayer</a></li>
                     <li><a href="#" class="nav-link" data-page="registration">Registration</a></li>
+                    <li><a href="#" class="nav-link" data-page="admin">Admin Panel</a></li>
                 </ul>
             </nav>
             
-            <div class="auth-buttons">
-                <button class="btn btn-login" id="loginBtn">Login</button>
-                <button class="btn btn-register" id="registerBtn">Register</button>
+            <div class="header-actions">
+                <div class="auth-buttons">
+                    <button class="btn btn-login" id="loginBtn">Login</button>
+                    <button class="btn btn-register" id="registerBtn">Register</button>
+                </div>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
             </div>
         </div>
     </header>
@@ -485,7 +635,7 @@
                 <div style="background: linear-gradient(135deg, var(--prophetic-blue), var(--dark-blue)); color: white; padding: 3rem; border-radius: 8px;">
                     <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Experience The Definitive Word</h2>
                     <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">Join our growing community of believers dedicated to studying God's Word, developing spiritual gifts, and supporting one another in faith.</p>
-                    <button class="btn" style="background-color: var(--gold); color: var(--dark-blue); margin-top: 2rem; padding: 0.8rem 2rem;">Begin Your Journey</button>
+                    <button class="btn" style="background-color: var(--gold); color: var(--dark-blue); margin-top: 2rem; padding: 0.8rem 2rem;" id="beginJourneyBtn">Begin Your Journey</button>
                 </div>
             </div>
             
@@ -532,95 +682,8 @@
                 <p>Biblically-based resources to strengthen your faith and understanding</p>
             </div>
             
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-img" style="background-color: #2a4da7;">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">The Definitive Word: Volume 1</h3>
-                        <p class="card-text">Foundational teachings on key biblical principles for Christian living.</p>
-                        <div class="card-price">$24.99</div>
-                        <div class="card-actions">
-                            <a href="#" class="btn-card btn-preview">Preview</a>
-                            <a href="#" class="btn-card btn-buy">Purchase</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-img" style="background-color: #1a3a8f;">
-                        <i class="fas fa-bible"></i>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">Prophetic Insights</h3>
-                        <p class="card-text">Understanding God's voice and prophetic ministry in the modern church.</p>
-                        <div class="card-price">$19.99</div>
-                        <div class="card-actions">
-                            <a href="#" class="btn-card btn-preview">Preview</a>
-                            <a href="#" class="btn-card btn-buy">Purchase</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-img" style="background-color: #0d2568;">
-                        <i class="fas fa-praying-hands"></i>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">Prayer That Moves Mountains</h3>
-                        <p class="card-text">A practical guide to developing a powerful and effective prayer life.</p>
-                        <div class="card-price">$29.99</div>
-                        <div class="card-actions">
-                            <a href="#" class="btn-card btn-preview">Preview</a>
-                            <a href="#" class="btn-card btn-buy">Purchase</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Payment System -->
-            <div class="payment-section">
-                <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">Secure Payment Options</h3>
-                <p>All transactions are encrypted and secure. Choose your preferred payment method:</p>
-                
-                <div class="payment-methods">
-                    <div class="payment-method active">
-                        <i class="fab fa-cc-visa"></i>
-                        <span>Credit/Debit Card</span>
-                    </div>
-                    <div class="payment-method">
-                        <i class="fab fa-paypal"></i>
-                        <span>PayPal</span>
-                    </div>
-                    <div class="payment-method">
-                        <i class="fas fa-mobile-alt"></i>
-                        <span>Mobile Money</span>
-                    </div>
-                    <div class="payment-method">
-                        <i class="fas fa-university"></i>
-                        <span>Bank Transfer</span>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="card-number">Card Number</label>
-                    <input type="text" id="card-number" class="form-control" placeholder="1234 5678 9012 3456">
-                </div>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                    <div class="form-group">
-                        <label for="expiry-date">Expiry Date</label>
-                        <input type="text" id="expiry-date" class="form-control" placeholder="MM/YY">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="cvv">CVV</label>
-                        <input type="text" id="cvv" class="form-control" placeholder="123">
-                    </div>
-                </div>
-                
-                <button class="btn btn-login-submit">Complete Purchase</button>
+            <div class="card-grid" id="booksGrid">
+                <!-- Books will be dynamically loaded here -->
             </div>
         </section>
 
@@ -631,51 +694,8 @@
                 <p>Transformative biblical training for spiritual growth and ministry development</p>
             </div>
             
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-img" style="background-color: #2a4da7;">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">Biblical Interpretation Workshop</h3>
-                        <p class="card-text">Learn proper hermeneutics and exegesis for accurate Bible study.</p>
-                        <div class="card-price">$149.99</div>
-                        <div class="card-actions">
-                            <a href="#" class="btn-card btn-preview">Details</a>
-                            <a href="#" class="btn-card btn-buy">Register</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-img" style="background-color: #1a3a8f;">
-                        <i class="fas fa-hands-helping"></i>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">Intercessory Prayer Workshop</h3>
-                        <p class="card-text">Develop effective prayer strategies based on biblical principles.</p>
-                        <div class="card-price">$99.99</div>
-                        <div class="card-actions">
-                            <a href="#" class="btn-card btn-preview">Details</a>
-                            <a href="#" class="btn-card btn-buy">Register</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-img" style="background-color: #0d2568;">
-                        <i class="fas fa-church"></i>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">Ministry Leadership Intensive</h3>
-                        <p class="card-text">Equipping leaders for effective ministry based on biblical models.</p>
-                        <div class="card-price">$199.99</div>
-                        <div class="card-actions">
-                            <a href="#" class="btn-card btn-preview">Details</a>
-                            <a href="#" class="btn-card btn-buy">Register</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="card-grid" id="workshopsGrid">
+                <!-- Workshops will be dynamically loaded here -->
             </div>
         </section>
 
@@ -719,17 +739,17 @@
                 
                 <div class="form-group">
                     <label>
-                        <input type="checkbox"> I would like to be contacted for follow-up prayer
+                        <input type="checkbox" id="follow-up"> I would like to be contacted for follow-up prayer
                     </label>
                 </div>
                 
-                <button class="btn btn-login-submit">Submit Prayer Request</button>
+                <button class="btn btn-login-submit" id="submitPrayerBtn">Submit Prayer Request</button>
             </div>
             
             <div style="margin-top: 3rem; text-align: center;">
                 <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">Join Our Prayer Community</h3>
                 <p>Participate in our weekly prayer sessions and connect with other believers.</p>
-                <button class="btn" style="background-color: var(--gold); color: var(--dark-blue); margin-top: 1rem;">Join Prayer Group</button>
+                <button class="btn" style="background-color: var(--gold); color: var(--dark-blue); margin-top: 1rem;" id="joinPrayerBtn">Join Prayer Group</button>
             </div>
         </section>
 
@@ -778,14 +798,107 @@
                 <div class="form-group">
                     <label>Interests (Select all that apply)</label>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.5rem;">
-                        <label><input type="checkbox"> Ministry Books</label>
-                        <label><input type="checkbox"> Workshops</label>
-                        <label><input type="checkbox"> Prayer Groups</label>
-                        <label><input type="checkbox"> Online Community</label>
+                        <label><input type="checkbox" class="interest" value="books"> Ministry Books</label>
+                        <label><input type="checkbox" class="interest" value="workshops"> Workshops</label>
+                        <label><input type="checkbox" class="interest" value="prayer"> Prayer Groups</label>
+                        <label><input type="checkbox" class="interest" value="community"> Online Community</label>
                     </div>
                 </div>
                 
-                <button class="btn btn-login-submit">Create Account</button>
+                <button class="btn btn-login-submit" id="createAccountBtn">Create Account</button>
+            </div>
+        </section>
+
+        <!-- Admin Panel -->
+        <section id="admin" class="page">
+            <div class="page-header">
+                <h2>Admin Panel</h2>
+                <p>Manage your ministry content and website settings</p>
+            </div>
+            
+            <div class="content-management">
+                <h3 style="color: var(--prophetic-blue); margin-bottom: 1.5rem;">Add New Book</h3>
+                <div class="content-form">
+                    <div class="form-group">
+                        <label for="book-title">Book Title</label>
+                        <input type="text" id="book-title" class="form-control" placeholder="Enter book title">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="book-description">Description</label>
+                        <textarea id="book-description" class="form-control" rows="3" placeholder="Enter book description"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="book-price">Price ($)</label>
+                            <input type="number" id="book-price" class="form-control" placeholder="Enter price">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="book-icon">Icon Class (Font Awesome)</label>
+                            <input type="text" id="book-icon" class="form-control" placeholder="fas fa-book">
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-save" id="addBookBtn">Add Book</button>
+                </div>
+            </div>
+            
+            <div class="content-management">
+                <h3 style="color: var(--prophetic-blue); margin-bottom: 1.5rem;">Add New Workshop</h3>
+                <div class="content-form">
+                    <div class="form-group">
+                        <label for="workshop-title">Workshop Title</label>
+                        <input type="text" id="workshop-title" class="form-control" placeholder="Enter workshop title">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="workshop-description">Description</label>
+                        <textarea id="workshop-description" class="form-control" rows="3" placeholder="Enter workshop description"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="workshop-price">Price ($)</label>
+                            <input type="number" id="workshop-price" class="form-control" placeholder="Enter price">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="workshop-icon">Icon Class (Font Awesome)</label>
+                            <input type="text" id="workshop-icon" class="form-control" placeholder="fas fa-users">
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-save" id="addWorkshopBtn">Add Workshop</button>
+                </div>
+            </div>
+            
+            <div class="content-management">
+                <h3 style="color: var(--prophetic-blue); margin-bottom: 1.5rem;">Edit Footer Content</h3>
+                <div class="content-form">
+                    <div class="form-group">
+                        <label for="footer-about">About Text</label>
+                        <textarea id="footer-about" class="form-control" rows="3" placeholder="Enter about text"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="footer-contact">Contact Email</label>
+                        <input type="email" id="footer-contact" class="form-control" placeholder="Enter contact email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="footer-phone">Contact Phone</label>
+                        <input type="text" id="footer-phone" class="form-control" placeholder="Enter contact phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="footer-address">Address</label>
+                        <input type="text" id="footer-address" class="form-control" placeholder="Enter address">
+                    </div>
+                    
+                    <button class="btn btn-save" id="saveFooterBtn">Save Footer Changes</button>
+                </div>
             </div>
         </section>
     </main>
@@ -823,12 +936,75 @@
         </div>
     </div>
 
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content cart-modal">
+            <div class="modal-header">
+                <h3>Your Shopping Cart</h3>
+                <p>Review your items and proceed to checkout</p>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be dynamically loaded here -->
+                </div>
+                
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                
+                <div class="payment-section">
+                    <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">Payment Method</h3>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-method active">
+                            <i class="fab fa-cc-visa"></i>
+                            <span>Credit/Debit Card</span>
+                        </div>
+                        <div class="payment-method">
+                            <i class="fab fa-paypal"></i>
+                            <span>PayPal</span>
+                        </div>
+                        <div class="payment-method">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Mobile Money</span>
+                        </div>
+                        <div class="payment-method">
+                            <i class="fas fa-university"></i>
+                            <span>Bank Transfer</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" class="form-control" placeholder="1234 5678 9012 3456">
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="expiry-date">Expiry Date</label>
+                            <input type="text" id="expiry-date" class="form-control" placeholder="MM/YY">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" class="form-control" placeholder="123">
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-login-submit" id="checkoutBtn">Complete Purchase</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-section">
                 <h3>The Definitive Word Ministry</h3>
-                <p>Providing biblically-based spiritual guidance, resources, and community for believers worldwide.</p>
+                <p id="footer-about-text">Providing biblically-based spiritual guidance, resources, and community for believers worldwide.</p>
             </div>
             
             <div class="footer-section">
@@ -844,9 +1020,9 @@
             <div class="footer-section">
                 <h3>Contact Us</h3>
                 <ul class="footer-links">
-                    <li><i class="fas fa-map-marker-alt"></i> 123 Faith Avenue, Spiritual City</li>
-                    <li><i class="fas fa-phone"></i> (555) 123-4567</li>
-                    <li><i class="fas fa-envelope"></i> contact@definitiveword.org</li>
+                    <li><i class="fas fa-map-marker-alt"></i> <span id="footer-address-text">123 Faith Avenue, Spiritual City</span></li>
+                    <li><i class="fas fa-phone"></i> <span id="footer-phone-text">(555) 123-4567</span></li>
+                    <li><i class="fas fa-envelope"></i> <span id="footer-email-text">contact@definitiveword.org</span></li>
                 </ul>
             </div>
             
@@ -867,6 +1043,87 @@
     </footer>
 
     <script>
+        // Data storage for the application
+        let cart = [];
+        let books = [
+            {
+                id: 1,
+                title: "The Definitive Word: Volume 1",
+                description: "Foundational teachings on key biblical principles for Christian living.",
+                price: 24.99,
+                icon: "fas fa-book-open"
+            },
+            {
+                id: 2,
+                title: "Prophetic Insights",
+                description: "Understanding God's voice and prophetic ministry in the modern church.",
+                price: 19.99,
+                icon: "fas fa-bible"
+            },
+            {
+                id: 3,
+                title: "Prayer That Moves Mountains",
+                description: "A practical guide to developing a powerful and effective prayer life.",
+                price: 29.99,
+                icon: "fas fa-praying-hands"
+            }
+        ];
+        
+        let workshops = [
+            {
+                id: 1,
+                title: "Biblical Interpretation Workshop",
+                description: "Learn proper hermeneutics and exegesis for accurate Bible study.",
+                price: 149.99,
+                icon: "fas fa-users"
+            },
+            {
+                id: 2,
+                title: "Intercessory Prayer Workshop",
+                description: "Develop effective prayer strategies based on biblical principles.",
+                price: 99.99,
+                icon: "fas fa-hands-helping"
+            },
+            {
+                id: 3,
+                title: "Ministry Leadership Intensive",
+                description: "Equipping leaders for effective ministry based on biblical models.",
+                price: 199.99,
+                icon: "fas fa-church"
+            }
+        ];
+
+        // DOM Elements
+        const loginModal = document.getElementById('loginModal');
+        const cartModal = document.getElementById('cartModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const cartIcon = document.getElementById('cartIcon');
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+        const beginJourneyBtn = document.getElementById('beginJourneyBtn');
+        const submitPrayerBtn = document.getElementById('submitPrayerBtn');
+        const joinPrayerBtn = document.getElementById('joinPrayerBtn');
+        const createAccountBtn = document.getElementById('createAccountBtn');
+        const addBookBtn = document.getElementById('addBookBtn');
+        const addWorkshopBtn = document.getElementById('addWorkshopBtn');
+        const saveFooterBtn = document.getElementById('saveFooterBtn');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const booksGrid = document.getElementById('booksGrid');
+        const workshopsGrid = document.getElementById('workshopsGrid');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const cartCount = document.querySelector('.cart-count');
+
+        // Initialize the application
+        function init() {
+            renderBooks();
+            renderWorkshops();
+            updateCartCount();
+            
+            // Load saved footer content
+            loadFooterContent();
+        }
+
         // Page Navigation
         document.querySelectorAll('.nav-link, .btn-preview[data-page]').forEach(link => {
             link.addEventListener('click', function(e) {
@@ -890,12 +1147,7 @@
             });
         });
 
-        // Login Modal
-        const loginModal = document.getElementById('loginModal');
-        const loginBtn = document.getElementById('loginBtn');
-        const registerBtn = document.getElementById('registerBtn');
-        const closeModal = document.querySelector('.close-modal');
-        
+        // Modal Controls
         loginBtn.addEventListener('click', () => {
             loginModal.classList.add('active');
         });
@@ -915,14 +1167,220 @@
             window.scrollTo(0, 0);
         });
         
-        closeModal.addEventListener('click', () => {
-            loginModal.classList.remove('active');
+        cartIcon.addEventListener('click', () => {
+            renderCartItems();
+            cartModal.classList.add('active');
+        });
+        
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                loginModal.classList.remove('active');
+                cartModal.classList.remove('active');
+            });
         });
         
         window.addEventListener('click', (e) => {
             if (e.target === loginModal) {
                 loginModal.classList.remove('active');
             }
+            if (e.target === cartModal) {
+                cartModal.classList.remove('active');
+            }
+        });
+
+        // Button Actions
+        beginJourneyBtn.addEventListener('click', () => {
+            alert('Welcome to The Definitive Word Ministry! We\'re excited to have you begin this spiritual journey with us. You will receive an email with next steps shortly.');
+            // Navigate to registration page
+            document.querySelectorAll('.nav-link').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            document.querySelector('[data-page="registration"]').classList.add('active');
+            
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById('registration').classList.add('active');
+            
+            window.scrollTo(0, 0);
+        });
+        
+        submitPrayerBtn.addEventListener('click', () => {
+            const name = document.getElementById('prayer-name').value;
+            const email = document.getElementById('prayer-email').value;
+            const category = document.getElementById('prayer-category').value;
+            const request = document.getElementById('prayer-request').value;
+            const followUp = document.getElementById('follow-up').checked;
+            
+            if (!name || !email || !category || !request) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            alert(`Thank you, ${name}! Your prayer request has been submitted. Our prayer team will be lifting you up in prayer. ${followUp ? 'You will be contacted for follow-up prayer.' : ''}`);
+            
+            // Reset form
+            document.getElementById('prayer-name').value = '';
+            document.getElementById('prayer-email').value = '';
+            document.getElementById('prayer-category').value = '';
+            document.getElementById('prayer-request').value = '';
+            document.getElementById('follow-up').checked = false;
+        });
+        
+        joinPrayerBtn.addEventListener('click', () => {
+            alert('Thank you for your interest in joining our prayer community! You will receive an email with details about our prayer groups and meeting times.');
+        });
+        
+        createAccountBtn.addEventListener('click', () => {
+            const firstName = document.getElementById('reg-firstname').value;
+            const lastName = document.getElementById('reg-lastname').value;
+            const email = document.getElementById('reg-email').value;
+            const phone = document.getElementById('reg-phone').value;
+            const password = document.getElementById('reg-password').value;
+            const confirm = document.getElementById('reg-confirm').value;
+            
+            if (!firstName || !lastName || !email || !password || !confirm) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            if (password !== confirm) {
+                alert('Passwords do not match.');
+                return;
+            }
+            
+            const interests = Array.from(document.querySelectorAll('.interest:checked')).map(cb => cb.value);
+            
+            alert(`Thank you, ${firstName} ${lastName}! Your account has been created successfully. Welcome to The Definitive Word Ministry!`);
+            
+            // Reset form
+            document.getElementById('reg-firstname').value = '';
+            document.getElementById('reg-lastname').value = '';
+            document.getElementById('reg-email').value = '';
+            document.getElementById('reg-phone').value = '';
+            document.getElementById('reg-password').value = '';
+            document.getElementById('reg-confirm').value = '';
+            document.querySelectorAll('.interest').forEach(cb => cb.checked = false);
+        });
+        
+        addBookBtn.addEventListener('click', () => {
+            const title = document.getElementById('book-title').value;
+            const description = document.getElementById('book-description').value;
+            const price = parseFloat(document.getElementById('book-price').value);
+            const icon = document.getElementById('book-icon').value;
+            
+            if (!title || !description || !price || !icon) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            
+            const newBook = {
+                id: books.length + 1,
+                title,
+                description,
+                price,
+                icon
+            };
+            
+            books.push(newBook);
+            renderBooks();
+            
+            alert('Book added successfully!');
+            
+            // Reset form
+            document.getElementById('book-title').value = '';
+            document.getElementById('book-description').value = '';
+            document.getElementById('book-price').value = '';
+            document.getElementById('book-icon').value = '';
+        });
+        
+        addWorkshopBtn.addEventListener('click', () => {
+            const title = document.getElementById('workshop-title').value;
+            const description = document.getElementById('workshop-description').value;
+            const price = parseFloat(document.getElementById('workshop-price').value);
+            const icon = document.getElementById('workshop-icon').value;
+            
+            if (!title || !description || !price || !icon) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            
+            const newWorkshop = {
+                id: workshops.length + 1,
+                title,
+                description,
+                price,
+                icon
+            };
+            
+            workshops.push(newWorkshop);
+            renderWorkshops();
+            
+            alert('Workshop added successfully!');
+            
+            // Reset form
+            document.getElementById('workshop-title').value = '';
+            document.getElementById('workshop-description').value = '';
+            document.getElementById('workshop-price').value = '';
+            document.getElementById('workshop-icon').value = '';
+        });
+        
+        saveFooterBtn.addEventListener('click', () => {
+            const about = document.getElementById('footer-about').value;
+            const contact = document.getElementById('footer-contact').value;
+            const phone = document.getElementById('footer-phone').value;
+            const address = document.getElementById('footer-address').value;
+            
+            // Save to localStorage
+            if (about) localStorage.setItem('footerAbout', about);
+            if (contact) localStorage.setItem('footerContact', contact);
+            if (phone) localStorage.setItem('footerPhone', phone);
+            if (address) localStorage.setItem('footerAddress', address);
+            
+            // Update footer display
+            loadFooterContent();
+            
+            alert('Footer content updated successfully!');
+            
+            // Reset form
+            document.getElementById('footer-about').value = '';
+            document.getElementById('footer-contact').value = '';
+            document.getElementById('footer-phone').value = '';
+            document.getElementById('footer-address').value = '';
+        });
+        
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Your cart is empty. Please add items before checking out.');
+                return;
+            }
+            
+            const cardNumber = document.getElementById('card-number').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvv = document.getElementById('cvv').value;
+            
+            if (!cardNumber || !expiryDate || !cvv) {
+                alert('Please fill in all payment details.');
+                return;
+            }
+            
+            // In a real application, you would process the payment here
+            alert('Payment processed successfully! Thank you for your purchase. You will receive a confirmation email shortly.');
+            
+            // Clear cart
+            cart = [];
+            updateCartCount();
+            cartModal.classList.remove('active');
+        });
+
+        // Payment Method Selection
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                document.querySelectorAll('.payment-method').forEach(m => {
+                    m.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
         });
 
         // Login Form Submission
@@ -954,15 +1412,171 @@
             }
         });
 
-        // Payment Method Selection
-        document.querySelectorAll('.payment-method').forEach(method => {
-            method.addEventListener('click', function() {
-                document.querySelectorAll('.payment-method').forEach(m => {
-                    m.classList.remove('active');
-                });
-                this.classList.add('active');
+        // Render Functions
+        function renderBooks() {
+            booksGrid.innerHTML = '';
+            books.forEach(book => {
+                const bookCard = document.createElement('div');
+                bookCard.className = 'card';
+                bookCard.innerHTML = `
+                    <div class="card-img" style="background-color: #2a4da7;">
+                        <i class="${book.icon}"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">${book.title}</h3>
+                        <p class="card-text">${book.description}</p>
+                        <div class="card-price">$${book.price.toFixed(2)}</div>
+                        <div class="card-actions">
+                            <button class="btn-card btn-preview" onclick="previewItem('book', ${book.id})">Preview</button>
+                            <button class="btn-card btn-buy" onclick="addToCart('book', ${book.id})">Add to Cart</button>
+                        </div>
+                    </div>
+                `;
+                booksGrid.appendChild(bookCard);
             });
-        });
+        }
+        
+        function renderWorkshops() {
+            workshopsGrid.innerHTML = '';
+            workshops.forEach(workshop => {
+                const workshopCard = document.createElement('div');
+                workshopCard.className = 'card';
+                workshopCard.innerHTML = `
+                    <div class="card-img" style="background-color: #2a4da7;">
+                        <i class="${workshop.icon}"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">${workshop.title}</h3>
+                        <p class="card-text">${workshop.description}</p>
+                        <div class="card-price">$${workshop.price.toFixed(2)}</div>
+                        <div class="card-actions">
+                            <button class="btn-card btn-preview" onclick="previewItem('workshop', ${workshop.id})">Details</button>
+                            <button class="btn-card btn-buy" onclick="addToCart('workshop', ${workshop.id})">Register</button>
+                        </div>
+                    </div>
+                `;
+                workshopsGrid.appendChild(workshopCard);
+            });
+        }
+        
+        function renderCartItems() {
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; padding: 2rem;">Your cart is empty</p>';
+                cartTotal.textContent = '$0.00';
+                return;
+            }
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-details">
+                        <div class="cart-item-img">
+                            <i class="${item.icon}"></i>
+                        </div>
+                        <div class="cart-item-info">
+                            <h4>${item.title}</h4>
+                            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                        </div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                        </div>
+                        <button class="btn-card btn-preview" onclick="removeFromCart(${item.id})" style="padding: 0.3rem 0.8rem;">Remove</button>
+                    </div>
+                `;
+                cartItems.appendChild(cartItem);
+                total += item.price * item.quantity;
+            });
+            
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+        }
+        
+        function loadFooterContent() {
+            const about = localStorage.getItem('footerAbout');
+            const contact = localStorage.getItem('footerContact');
+            const phone = localStorage.getItem('footerPhone');
+            const address = localStorage.getItem('footerAddress');
+            
+            if (about) document.getElementById('footer-about-text').textContent = about;
+            if (contact) document.getElementById('footer-email-text').textContent = contact;
+            if (phone) document.getElementById('footer-phone-text').textContent = phone;
+            if (address) document.getElementById('footer-address-text').textContent = address;
+        }
+
+        // Cart Functions
+        function addToCart(type, id) {
+            let item;
+            if (type === 'book') {
+                item = books.find(book => book.id === id);
+            } else {
+                item = workshops.find(workshop => workshop.id === id);
+            }
+            
+            if (!item) return;
+            
+            const existingItem = cart.find(cartItem => cartItem.id === id && cartItem.type === type);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...item,
+                    type,
+                    quantity: 1
+                });
+            }
+            
+            updateCartCount();
+            alert(`${item.title} has been added to your cart!`);
+        }
+        
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartCount();
+            renderCartItems();
+        }
+        
+        function updateQuantity(id, change) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(id);
+                } else {
+                    updateCartCount();
+                    renderCartItems();
+                }
+            }
+        }
+        
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = count;
+        }
+        
+        function previewItem(type, id) {
+            let item;
+            if (type === 'book') {
+                item = books.find(book => book.id === id);
+            } else {
+                item = workshops.find(workshop => workshop.id === id);
+            }
+            
+            if (!item) return;
+            
+            alert(`Preview: ${item.title}\n\n${item.description}\n\nPrice: $${item.price.toFixed(2)}`);
+        }
+
+        // Initialize the application
+        init();
     </script>
 </body>
 </html>
