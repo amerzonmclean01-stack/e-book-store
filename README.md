@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Divine Light Ministry</title>
+    <title>The Definitive Word Ministry Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -336,6 +336,43 @@
             color: var(--dark-blue);
         }
         
+        /* Payment System */
+        .payment-section {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover, .payment-method.active {
+            border-color: var(--prophetic-blue);
+            background-color: rgba(26, 58, 143, 0.05);
+        }
+        
+        .payment-method i {
+            font-size: 1.5rem;
+            color: var(--prophetic-blue);
+        }
+        
         /* Footer */
         footer {
             background: linear-gradient(135deg, var(--prophetic-blue), var(--dark-blue));
@@ -395,10 +432,16 @@
             
             nav ul {
                 gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
             .card-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .payment-methods {
+                flex-direction: column;
             }
         }
     </style>
@@ -408,8 +451,8 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <i class="fas fa-cross"></i>
-                <h1>Divine Light Ministry</h1>
+                <i class="fas fa-bible"></i>
+                <h1>The Definitive Word Ministry</h1>
             </div>
             
             <nav>
@@ -434,15 +477,15 @@
         <!-- Home Page -->
         <section id="home" class="page active">
             <div class="page-header">
-                <h2>Welcome to Divine Light Ministry</h2>
-                <p>Spiritual growth, guidance, and community for your journey of faith</p>
+                <h2>Welcome to The Definitive Word Ministry</h2>
+                <p>Where God's Word Comes to Life Through Teaching, Prayer, and Community</p>
             </div>
             
             <div class="hero-section" style="text-align: center; margin: 3rem 0;">
                 <div style="background: linear-gradient(135deg, var(--prophetic-blue), var(--dark-blue)); color: white; padding: 3rem; border-radius: 8px;">
-                    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Experience Divine Guidance</h2>
-                    <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">Join our community of believers and access spiritual resources, workshops, and prayer support to strengthen your faith journey.</p>
-                    <button class="btn" style="background-color: var(--gold); color: var(--dark-blue); margin-top: 2rem; padding: 0.8rem 2rem;">Get Started</button>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Experience The Definitive Word</h2>
+                    <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">Join our growing community of believers dedicated to studying God's Word, developing spiritual gifts, and supporting one another in faith.</p>
+                    <button class="btn" style="background-color: var(--gold); color: var(--dark-blue); margin-top: 2rem; padding: 0.8rem 2rem;">Begin Your Journey</button>
                 </div>
             </div>
             
@@ -453,7 +496,7 @@
                     </div>
                     <div class="card-body">
                         <h3 class="card-title">Ministry Books</h3>
-                        <p class="card-text">Explore our collection of spiritually enriching books and publications.</p>
+                        <p class="card-text">Explore our collection of biblically sound books and publications for spiritual growth.</p>
                         <a href="#" class="btn-card btn-preview" data-page="books">Browse Books</a>
                     </div>
                 </div>
@@ -464,7 +507,7 @@
                     </div>
                     <div class="card-body">
                         <h3 class="card-title">Workshops & Training</h3>
-                        <p class="card-text">Join our transformative workshops and training programs.</p>
+                        <p class="card-text">Join our biblically-based workshops and training programs for spiritual development.</p>
                         <a href="#" class="btn-card btn-preview" data-page="workshops">View Programs</a>
                     </div>
                 </div>
@@ -475,7 +518,7 @@
                     </div>
                     <div class="card-body">
                         <h3 class="card-title">Intercessory Prayer</h3>
-                        <p class="card-text">Submit prayer requests and join our prayer community.</p>
+                        <p class="card-text">Submit prayer requests and join our dedicated prayer warriors community.</p>
                         <a href="#" class="btn-card btn-preview" data-page="prayer">Pray With Us</a>
                     </div>
                 </div>
@@ -485,8 +528,8 @@
         <!-- Ministry Books Page -->
         <section id="books" class="page">
             <div class="page-header">
-                <h2>Ministry Books</h2>
-                <p>Spiritual literature to guide and inspire your faith journey</p>
+                <h2>Ministry Books & Publications</h2>
+                <p>Biblically-based resources to strengthen your faith and understanding</p>
             </div>
             
             <div class="card-grid">
@@ -495,8 +538,8 @@
                         <i class="fas fa-book-open"></i>
                     </div>
                     <div class="card-body">
-                        <h3 class="card-title">Path to Enlightenment</h3>
-                        <p class="card-text">A comprehensive guide to spiritual growth and divine connection.</p>
+                        <h3 class="card-title">The Definitive Word: Volume 1</h3>
+                        <p class="card-text">Foundational teachings on key biblical principles for Christian living.</p>
                         <div class="card-price">$24.99</div>
                         <div class="card-actions">
                             <a href="#" class="btn-card btn-preview">Preview</a>
@@ -510,8 +553,8 @@
                         <i class="fas fa-bible"></i>
                     </div>
                     <div class="card-body">
-                        <h3 class="card-title">Divine Revelations</h3>
-                        <p class="card-text">Understanding prophetic visions and their significance in modern faith.</p>
+                        <h3 class="card-title">Prophetic Insights</h3>
+                        <p class="card-text">Understanding God's voice and prophetic ministry in the modern church.</p>
                         <div class="card-price">$19.99</div>
                         <div class="card-actions">
                             <a href="#" class="btn-card btn-preview">Preview</a>
@@ -525,8 +568,8 @@
                         <i class="fas fa-praying-hands"></i>
                     </div>
                     <div class="card-body">
-                        <h3 class="card-title">The Power of Prayer</h3>
-                        <p class="card-text">Deepen your prayer life and experience transformative communication with God.</p>
+                        <h3 class="card-title">Prayer That Moves Mountains</h3>
+                        <p class="card-text">A practical guide to developing a powerful and effective prayer life.</p>
                         <div class="card-price">$29.99</div>
                         <div class="card-actions">
                             <a href="#" class="btn-card btn-preview">Preview</a>
@@ -535,13 +578,57 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Payment System -->
+            <div class="payment-section">
+                <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">Secure Payment Options</h3>
+                <p>All transactions are encrypted and secure. Choose your preferred payment method:</p>
+                
+                <div class="payment-methods">
+                    <div class="payment-method active">
+                        <i class="fab fa-cc-visa"></i>
+                        <span>Credit/Debit Card</span>
+                    </div>
+                    <div class="payment-method">
+                        <i class="fab fa-paypal"></i>
+                        <span>PayPal</span>
+                    </div>
+                    <div class="payment-method">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Mobile Money</span>
+                    </div>
+                    <div class="payment-method">
+                        <i class="fas fa-university"></i>
+                        <span>Bank Transfer</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" class="form-control" placeholder="1234 5678 9012 3456">
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="expiry-date">Expiry Date</label>
+                        <input type="text" id="expiry-date" class="form-control" placeholder="MM/YY">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" class="form-control" placeholder="123">
+                    </div>
+                </div>
+                
+                <button class="btn btn-login-submit">Complete Purchase</button>
+            </div>
         </section>
 
         <!-- Workshops Page -->
         <section id="workshops" class="page">
             <div class="page-header">
                 <h2>Workshops & Training Programs</h2>
-                <p>Transformative learning experiences for spiritual growth</p>
+                <p>Transformative biblical training for spiritual growth and ministry development</p>
             </div>
             
             <div class="card-grid">
@@ -550,8 +637,8 @@
                         <i class="fas fa-users"></i>
                     </div>
                     <div class="card-body">
-                        <h3 class="card-title">Prophetic Ministry Training</h3>
-                        <p class="card-text">Learn to recognize and operate in prophetic gifts.</p>
+                        <h3 class="card-title">Biblical Interpretation Workshop</h3>
+                        <p class="card-text">Learn proper hermeneutics and exegesis for accurate Bible study.</p>
                         <div class="card-price">$149.99</div>
                         <div class="card-actions">
                             <a href="#" class="btn-card btn-preview">Details</a>
@@ -566,7 +653,7 @@
                     </div>
                     <div class="card-body">
                         <h3 class="card-title">Intercessory Prayer Workshop</h3>
-                        <p class="card-text">Develop effective prayer strategies for yourself and others.</p>
+                        <p class="card-text">Develop effective prayer strategies based on biblical principles.</p>
                         <div class="card-price">$99.99</div>
                         <div class="card-actions">
                             <a href="#" class="btn-card btn-preview">Details</a>
@@ -580,8 +667,8 @@
                         <i class="fas fa-church"></i>
                     </div>
                     <div class="card-body">
-                        <h3 class="card-title">Spiritual Leadership Intensive</h3>
-                        <p class="card-text">Equipping leaders for effective ministry in today's world.</p>
+                        <h3 class="card-title">Ministry Leadership Intensive</h3>
+                        <p class="card-text">Equipping leaders for effective ministry based on biblical models.</p>
                         <div class="card-price">$199.99</div>
                         <div class="card-actions">
                             <a href="#" class="btn-card btn-preview">Details</a>
@@ -610,6 +697,19 @@
                 <div class="form-group">
                     <label for="prayer-email">Email Address</label>
                     <input type="email" id="prayer-email" class="form-control" placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="prayer-category">Prayer Category</label>
+                    <select id="prayer-category" class="form-control">
+                        <option value="">Select a category</option>
+                        <option value="healing">Healing</option>
+                        <option value="guidance">Guidance</option>
+                        <option value="family">Family</option>
+                        <option value="finances">Finances</option>
+                        <option value="salvation">Salvation</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
                 
                 <div class="form-group">
@@ -727,8 +827,8 @@
     <footer>
         <div class="footer-container">
             <div class="footer-section">
-                <h3>Divine Light Ministry</h3>
-                <p>Providing spiritual guidance, resources, and community for believers worldwide.</p>
+                <h3>The Definitive Word Ministry</h3>
+                <p>Providing biblically-based spiritual guidance, resources, and community for believers worldwide.</p>
             </div>
             
             <div class="footer-section">
@@ -746,7 +846,7 @@
                 <ul class="footer-links">
                     <li><i class="fas fa-map-marker-alt"></i> 123 Faith Avenue, Spiritual City</li>
                     <li><i class="fas fa-phone"></i> (555) 123-4567</li>
-                    <li><i class="fas fa-envelope"></i> contact@divinelight.org</li>
+                    <li><i class="fas fa-envelope"></i> contact@definitiveword.org</li>
                 </ul>
             </div>
             
@@ -762,7 +862,7 @@
         </div>
         
         <div class="copyright">
-            <p>&copy; 2023 Divine Light Ministry. All rights reserved.</p>
+            <p>&copy; 2023 The Definitive Word Ministry. All rights reserved.</p>
         </div>
     </footer>
 
@@ -852,6 +952,16 @@
                 localStorage.removeItem('rememberMe');
                 localStorage.removeItem('rememberedEmail');
             }
+        });
+
+        // Payment Method Selection
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                document.querySelectorAll('.payment-method').forEach(m => {
+                    m.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
         });
     </script>
 </body>
