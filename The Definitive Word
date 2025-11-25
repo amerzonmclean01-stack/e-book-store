@@ -14,6 +14,7 @@
             --dark-gray: #333333;
             --medium-gray: #666666;
             --success-green: #28a745;
+            --gold: #ffd700;
         }
         
         * {
@@ -229,6 +230,8 @@
             font-weight: 600;
             transition: all 0.3s;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            border: none;
         }
         
         .cta-button:hover {
@@ -567,6 +570,7 @@
             text-decoration: none;
             font-size: 14px;
             transition: background-color 0.3s;
+            cursor: pointer;
         }
         
         .read-sample:hover {
@@ -745,6 +749,103 @@
             margin-bottom: 15px;
         }
         
+        /* Login Modal */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+        
+        .form-group input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--prophetic-blue);
+            outline: none;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .forgot-password {
+            color: var(--prophetic-blue);
+            text-decoration: none;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .form-footer a {
+            color: var(--prophetic-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        /* User Profile */
+        .user-profile {
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--prophetic-blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .user-name {
+            font-weight: 600;
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--medium-gray);
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .logout-btn:hover {
+            color: var(--crimson-red);
+        }
+        
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -803,6 +904,53 @@
             opacity: 1;
         }
         
+        /* Live Activity */
+        .live-activity {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: var(--prophetic-blue);
+            color: var(--white);
+            padding: 10px 15px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            animation: pulse 2s infinite;
+        }
+        
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--crimson-red);
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(26, 115, 232, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(26, 115, 232, 0);
+            }
+        }
+        
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-top {
@@ -830,6 +978,12 @@
             .books-grid {
                 grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             }
+            
+            .live-activity {
+                bottom: 70px;
+                left: 10px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -846,7 +1000,12 @@
                     <button><i class="fas fa-search"></i></button>
                 </div>
                 <div class="user-actions">
-                    <a href="#"><i class="fas fa-user"></i> Account</a>
+                    <a href="#" id="login-link"><i class="fas fa-user"></i> Login</a>
+                    <div class="user-profile" id="user-profile">
+                        <div class="user-avatar" id="user-avatar">U</div>
+                        <span class="user-name" id="user-name">User</span>
+                        <button class="logout-btn" id="logout-btn">Logout</button>
+                    </div>
                     <a href="#" class="cart-icon">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">3</span>
@@ -1167,6 +1326,39 @@
         </div>
     </footer>
 
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to Your Account</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="login-form" id="login-form">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%; margin-top: 10px;">Login</button>
+                    <div class="form-footer">
+                        <p>Don't have an account? <a href="#" id="signup-link">Sign up</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Sample Book Modal -->
     <div class="modal" id="sample-modal">
         <div class="modal-content">
@@ -1186,6 +1378,12 @@
     <div class="toast" id="toast">
         <i class="fas fa-check-circle"></i>
         <span id="toast-message">Item added to cart!</span>
+    </div>
+
+    <!-- Live Activity Indicator -->
+    <div class="live-activity">
+        <div class="live-dot"></div>
+        <span>Live: 5 people reading samples</span>
     </div>
 
     <script>
@@ -1273,6 +1471,9 @@
             // Initialize animations
             initAnimations();
             
+            // Initialize user state
+            let currentUser = null;
+            
             // Cart functionality
             const addToCartButtons = document.querySelectorAll('.add-to-cart');
             const cartCount = document.querySelector('.cart-count');
@@ -1314,7 +1515,7 @@
             // Sample book functionality
             const readSampleButtons = document.querySelectorAll('.read-sample');
             const sampleModal = document.getElementById('sample-modal');
-            const closeModal = document.querySelector('.close-modal');
+            const closeModalButtons = document.querySelectorAll('.close-modal');
             const sampleTitle = document.getElementById('sample-title');
             const sampleContent = document.getElementById('sample-content');
             
@@ -1325,14 +1526,17 @@
                 });
             });
             
-            closeModal.addEventListener('click', function() {
-                closeSampleModal();
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    closeModal(modal);
+                });
             });
             
             // Close modal when clicking outside
             window.addEventListener('click', function(e) {
-                if (e.target === sampleModal) {
-                    closeSampleModal();
+                if (e.target.classList.contains('modal')) {
+                    closeModal(e.target);
                 }
             });
             
@@ -1356,6 +1560,50 @@
                 });
             });
             
+            // Login functionality
+            const loginLink = document.getElementById('login-link');
+            const loginModal = document.getElementById('login-modal');
+            const loginForm = document.getElementById('login-form');
+            const userProfile = document.getElementById('user-profile');
+            const userAvatar = document.getElementById('user-avatar');
+            const userName = document.getElementById('user-name');
+            const logoutBtn = document.getElementById('logout-btn');
+            
+            loginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal(loginModal);
+            });
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                // Simple login simulation
+                if (email && password) {
+                    currentUser = {
+                        name: email.split('@')[0],
+                        email: email
+                    };
+                    
+                    // Update UI
+                    userAvatar.textContent = currentUser.name.charAt(0).toUpperCase();
+                    userName.textContent = currentUser.name;
+                    userProfile.style.display = 'flex';
+                    loginLink.style.display = 'none';
+                    
+                    closeModal(loginModal);
+                    showToast(`Welcome back, ${currentUser.name}!`);
+                }
+            });
+            
+            logoutBtn.addEventListener('click', function() {
+                currentUser = null;
+                userProfile.style.display = 'none';
+                loginLink.style.display = 'block';
+                showToast('You have been logged out.');
+            });
+            
             // Function to perform search
             function performSearch() {
                 if (searchInput.value.trim() !== '') {
@@ -1369,14 +1617,19 @@
                 if (sampleContents[sampleId]) {
                     sampleTitle.textContent = sampleContents[sampleId].title;
                     sampleContent.innerHTML = sampleContents[sampleId].content;
-                    sampleModal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
+                    openModal(sampleModal);
                 }
             }
             
-            // Function to close sample modal
-            function closeSampleModal() {
-                sampleModal.style.display = 'none';
+            // Function to open modal
+            function openModal(modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // Function to close modal
+            function closeModal(modal) {
+                modal.style.display = 'none';
                 document.body.style.overflow = 'auto';
             }
             
@@ -1409,6 +1662,13 @@
                 fadeElements.forEach(element => {
                     observer.observe(element);
                 });
+                
+                // Simulate live activity updates
+                setInterval(() => {
+                    const liveActivity = document.querySelector('.live-activity span');
+                    const readerCount = Math.floor(Math.random() * 10) + 1;
+                    liveActivity.textContent = `Live: ${readerCount} people reading samples`;
+                }, 5000);
             }
         });
     </script>
