@@ -36,7 +36,7 @@
         header {
             background: linear-gradient(135deg, var(--prophetic-blue), var(--prophetic-red));
             color: var(--white);
-            padding: 1rem 0;
+            padding: 0.5rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -49,11 +49,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
         }
 
         .logo h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -61,15 +66,21 @@
         }
 
         .logo p {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-style: italic;
             opacity: 0.9;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.5rem;
             align-items: center;
         }
 
@@ -81,6 +92,8 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 0.9rem;
+            white-space: nowrap;
         }
 
         .nav-links a:hover {
@@ -129,6 +142,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 0.9rem;
         }
 
         .btn-outline {
@@ -166,7 +180,7 @@
             background-position: center;
             color: var(--white);
             text-align: center;
-            padding: 8rem 2rem;
+            padding: 6rem 2rem;
             position: relative;
         }
 
@@ -176,13 +190,13 @@
         }
 
         .hero h2 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin-bottom: 2rem;
             font-style: italic;
         }
@@ -191,12 +205,12 @@
         section {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 3rem 1.5rem;
         }
 
         section h2 {
             color: var(--prophetic-blue);
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 2rem;
             text-align: center;
             position: relative;
@@ -427,7 +441,7 @@
             color: #6b7280;
         }
 
-        /* Auth Modal */
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -449,8 +463,10 @@
             background-color: var(--white);
             padding: 2rem;
             border-radius: 10px;
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             position: relative;
         }
@@ -477,66 +493,6 @@
             color: var(--dark-gray);
         }
 
-        .auth-tabs {
-            display: flex;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .auth-tab {
-            padding: 0.75rem 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--dark-gray);
-            border-bottom: 3px solid transparent;
-        }
-
-        .auth-tab.active {
-            color: var(--prophetic-blue);
-            border-bottom: 3px solid var(--prophetic-blue);
-        }
-
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--prophetic-blue);
-            font-weight: bold;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #d1d5db;
-            border-radius: 5px;
-            font-family: inherit;
-        }
-
-        .form-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1.5rem;
-        }
-
-        .forgot-password {
-            color: var(--prophetic-blue);
-            text-decoration: none;
-        }
-
         /* Admin Panel */
         .admin-panel {
             display: none;
@@ -554,6 +510,7 @@
             display: flex;
             gap: 1rem;
             margin-bottom: 1.5rem;
+            flex-wrap: wrap;
         }
 
         .admin-tab {
@@ -601,6 +558,7 @@
             border-radius: 3px;
             cursor: pointer;
             font-size: 0.8rem;
+            margin-right: 0.5rem;
         }
 
         .edit-btn {
@@ -611,6 +569,57 @@
         .delete-btn {
             background: var(--error);
             color: var(--white);
+        }
+
+        /* Content Management */
+        .content-management {
+            margin-top: 2rem;
+        }
+
+        .content-type-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .content-type-tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .content-type-tab.active {
+            background: var(--prophetic-blue);
+            color: var(--white);
+        }
+
+        .content-list {
+            margin-top: 1.5rem;
+        }
+
+        .content-item {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-item h4 {
+            color: var(--prophetic-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .content-item-actions {
+            display: flex;
+            gap: 0.5rem;
         }
 
         /* Footer */
@@ -694,30 +703,64 @@
             display: none !important;
         }
 
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--prophetic-blue);
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
             }
 
-            .nav-links {
-                display: none;
+            .nav-container {
                 flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
                 position: absolute;
                 top: 100%;
                 left: 0;
-                right: 0;
                 background: var(--prophetic-blue);
                 padding: 1rem;
-                gap: 1rem;
+                display: none;
             }
 
-            .nav-links.active {
+            .nav-container.active {
                 display: flex;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+                gap: 1rem;
             }
 
             .user-actions {
                 flex-direction: column;
+                width: 100%;
                 gap: 0.5rem;
             }
 
@@ -738,6 +781,10 @@
             .social-links {
                 justify-content: center;
             }
+
+            .admin-tabs, .content-type-tabs {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -754,14 +801,16 @@
                 <i class="fas fa-bars"></i>
             </button>
             
-            <ul class="nav-links" id="navMenu">
-                <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#products"><i class="fas fa-book"></i> Products</a></li>
-                <li><a href="#coaching"><i class="fas fa-hands-helping"></i> Coaching</a></li>
-                <li><a href="#blog"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="#workshops"><i class="fas fa-users"></i> Workshops</a></li>
-                <li><a href="#ministry"><i class="fas fa-church"></i> Ministry</a></li>
-                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            <div class="nav-container" id="navContainer">
+                <ul class="nav-links">
+                    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#products"><i class="fas fa-book"></i> Products</a></li>
+                    <li><a href="#coaching"><i class="fas fa-hands-helping"></i> Coaching</a></li>
+                    <li><a href="#blog"><i class="fas fa-blog"></i> Blog</a></li>
+                    <li><a href="#workshops"><i class="fas fa-users"></i> Workshops</a></li>
+                    <li><a href="#ministry"><i class="fas fa-church"></i> Ministry</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
                 
                 <div class="user-actions">
                     <div class="cart-icon" onclick="toggleCart()">
@@ -778,7 +827,7 @@
                         </button>
                     </div>
                 </div>
-            </ul>
+            </div>
         </nav>
     </header>
 
@@ -836,32 +885,7 @@
     <section id="blog">
         <h2>Latest from the Blog</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
-            <article style="background: var(--light-gray); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--prophetic-blue);">
-                <h3 style="color: var(--prophetic-blue); margin-bottom: 0.5rem;">Walking in Your Prophetic Purpose</h3>
-                <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">November 20, 2025</p>
-                <p style="margin-bottom: 1rem;">Discovering how to align your daily life with the prophetic words spoken over you...</p>
-                <a href="#" style="color: var(--prophetic-blue); text-decoration: none; font-weight: bold;">
-                    Read More <i class="fas fa-arrow-right"></i>
-                </a>
-            </article>
-
-            <article style="background: var(--light-gray); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--prophetic-blue);">
-                <h3 style="color: var(--prophetic-blue); margin-bottom: 0.5rem;">The Power of Declared Destiny</h3>
-                <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">November 15, 2025</p>
-                <p style="margin-bottom: 1rem;">Understanding how God's written word over your life shapes your future...</p>
-                <a href="#" style="color: var(--prophetic-blue); text-decoration: none; font-weight: bold;">
-                    Read More <i class="fas fa-arrow-right"></i>
-                </a>
-            </article>
-
-            <article style="background: var(--light-gray); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--prophetic-blue);">
-                <h3 style="color: var(--prophetic-blue); margin-bottom: 0.5rem;">Breaking Through Limitations</h3>
-                <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">November 10, 2025</p>
-                <p style="margin-bottom: 1rem;">Practical steps to overcome the barriers standing between you and your destiny...</p>
-                <a href="#" style="color: var(--prophetic-blue); text-decoration: none; font-weight: bold;">
-                    Read More <i class="fas fa-arrow-right"></i>
-                </a>
-            </article>
+            <!-- Blog posts will be dynamically generated -->
         </div>
     </section>
 
@@ -869,39 +893,7 @@
     <section id="workshops" class="alt-bg">
         <h2>Upcoming Workshops</h2>
         <div style="display: grid; gap: 2rem; margin-top: 2rem;">
-            <div style="background: var(--white); border: 2px solid var(--prophetic-blue); padding: 2rem; border-radius: 10px; display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;">
-                <div style="background: var(--prophetic-red); color: var(--white); padding: 2rem; text-align: center; border-radius: 10px;">
-                    <div style="font-size: 3rem; font-weight: bold;">15</div>
-                    <div style="font-size: 1.2rem;">DEC 2025</div>
-                </div>
-                <div>
-                    <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">Prophetic Activation Workshop</h3>
-                    <p style="margin-bottom: 1rem;">A powerful one-day intensive designed to activate and strengthen your prophetic gifting. Learn to hear God's voice clearly and minister prophetically with confidence.</p>
-                    <p><strong>Location:</strong> Virtual (Zoom)</p>
-                    <p><strong>Time:</strong> 9:00 AM - 4:00 PM</p>
-                    <p><strong>Cost:</strong> R 499.99</p>
-                    <button class="btn btn-primary" onclick="addToCart('Prophetic Activation Workshop', 499.99, 'workshop')">
-                        <i class="fas fa-ticket-alt"></i> Register Now
-                    </button>
-                </div>
-            </div>
-
-            <div style="background: var(--white); border: 2px solid var(--prophetic-blue); padding: 2rem; border-radius: 10px; display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;">
-                <div style="background: var(--prophetic-red); color: var(--white); padding: 2rem; text-align: center; border-radius: 10px;">
-                    <div style="font-size: 3rem; font-weight: bold;">22</div>
-                    <div style="font-size: 1.2rem;">JAN 2026</div>
-                </div>
-                <div>
-                    <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">Destiny Mapping Masterclass</h3>
-                    <p style="margin-bottom: 1rem;">Discover God's blueprint for your life and create a practical roadmap to walk in your divine purpose. Limited to 20 participants for personalized attention.</p>
-                    <p><strong>Location:</strong> Cape Town, South Africa</p>
-                    <p><strong>Time:</strong> 6:00 PM - 9:00 PM</p>
-                    <p><strong>Cost:</strong> R 799.99</p>
-                    <button class="btn btn-primary" onclick="addToCart('Destiny Mapping Masterclass', 799.99, 'workshop')">
-                        <i class="fas fa-ticket-alt"></i> Register Now
-                    </button>
-                </div>
-            </div>
+            <!-- Workshop cards will be dynamically generated -->
         </div>
     </section>
 
@@ -944,17 +936,17 @@
         <h2>Get In Touch</h2>
         <div style="max-width: 600px; margin: 2rem auto; background: var(--white); padding: 2rem; border-radius: 10px;">
             <form id="contactForm">
-                <div style="margin-bottom: 1.5rem;">
-                    <label for="name" style="display: block; margin-bottom: 0.5rem; color: var(--prophetic-blue); font-weight: bold;">Name</label>
-                    <input type="text" id="name" name="name" style="width: 100%; padding: 0.8rem; border: 1px solid #d1d5db; border-radius: 5px;" required>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
-                <div style="margin-bottom: 1.5rem;">
-                    <label for="email" style="display: block; margin-bottom: 0.5rem; color: var(--prophetic-blue); font-weight: bold;">Email</label>
-                    <input type="email" id="email" name="email" style="width: 100%; padding: 0.8rem; border: 1px solid #d1d5db; border-radius: 5px;" required>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
-                <div style="margin-bottom: 1.5rem;">
-                    <label for="subject" style="display: block; margin-bottom: 0.5rem; color: var(--prophetic-blue); font-weight: bold;">Subject</label>
-                    <select id="subject" name="subject" style="width: 100%; padding: 0.8rem; border: 1px solid #d1d5db; border-radius: 5px;" required>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <select id="subject" name="subject" required>
                         <option value="">Select a topic...</option>
                         <option value="products">Products</option>
                         <option value="coaching">Life Coaching</option>
@@ -963,9 +955,9 @@
                         <option value="other">Other</option>
                     </select>
                 </div>
-                <div style="margin-bottom: 1.5rem;">
-                    <label for="message" style="display: block; margin-bottom: 0.5rem; color: var(--prophetic-blue); font-weight: bold;">Message</label>
-                    <textarea id="message" name="message" style="width: 100%; padding: 0.8rem; border: 1px solid #d1d5db; border-radius: 5px; min-height: 120px;" required></textarea>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">
                     <i class="fas fa-paper-plane"></i> Send Message
@@ -982,6 +974,8 @@
                 <button class="admin-tab active" onclick="switchAdminTab('products')">Products</button>
                 <button class="admin-tab" onclick="switchAdminTab('users')">Users</button>
                 <button class="admin-tab" onclick="switchAdminTab('orders')">Orders</button>
+                <button class="admin-tab" onclick="switchAdminTab('content')">Content Management</button>
+                <button class="admin-tab" onclick="switchAdminTab('settings')">Settings</button>
             </div>
             
             <div class="admin-content">
@@ -1038,6 +1032,67 @@
                             <!-- Orders will be populated here -->
                         </tbody>
                     </table>
+                </div>
+                
+                <div id="admin-content" class="admin-tab-content">
+                    <h3>Content Management</h3>
+                    <div class="content-management">
+                        <div class="content-type-tabs">
+                            <button class="content-type-tab active" onclick="switchContentType('blog')">Blog Posts</button>
+                            <button class="content-type-tab" onclick="switchContentType('workshops')">Workshops</button>
+                            <button class="content-type-tab" onclick="switchContentType('ministry')">Ministry Info</button>
+                        </div>
+                        
+                        <div id="content-blog" class="content-type-content active">
+                            <button class="btn btn-primary" onclick="openContentModal('blog')">
+                                <i class="fas fa-plus"></i> Add Blog Post
+                            </button>
+                            <div class="content-list" id="blog-list">
+                                <!-- Blog posts will be populated here -->
+                            </div>
+                        </div>
+                        
+                        <div id="content-workshops" class="content-type-content">
+                            <button class="btn btn-primary" onclick="openContentModal('workshop')">
+                                <i class="fas fa-plus"></i> Add Workshop
+                            </button>
+                            <div class="content-list" id="workshops-list">
+                                <!-- Workshops will be populated here -->
+                            </div>
+                        </div>
+                        
+                        <div id="content-ministry" class="content-type-content">
+                            <button class="btn btn-primary" onclick="openContentModal('ministry')">
+                                <i class="fas fa-plus"></i> Add Ministry Info
+                            </button>
+                            <div class="content-list" id="ministry-list">
+                                <!-- Ministry info will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="admin-settings" class="admin-tab-content">
+                    <h3>Website Settings</h3>
+                    <div class="form-group">
+                        <label for="siteTitle">Site Title</label>
+                        <input type="text" id="siteTitle" value="The Definitive Word">
+                    </div>
+                    <div class="form-group">
+                        <label for="siteTagline">Site Tagline</label>
+                        <input type="text" id="siteTagline" value="Your Destiny Has Been Written">
+                    </div>
+                    <div class="form-group">
+                        <label for="primaryColor">Primary Color</label>
+                        <input type="color" id="primaryColor" value="#1e3a8a">
+                    </div>
+                    <div class="form-group">
+                        <label for="secondaryColor">Secondary Color</label>
+                        <input type="color" id="secondaryColor" value="#dc2626">
+                    </div>
+                    <button class="btn btn-primary" onclick="saveSettings()">
+                        <i class="fas fa-save"></i> Save Settings
+                    </button>
                 </div>
             </div>
         </div>
@@ -1177,7 +1232,7 @@
                 </div>
                 <div class="form-group">
                     <label for="productDescription">Description</label>
-                    <textarea id="productDescription" required style="width: 100%; padding: 0.8rem; border: 1px solid #d1d5db; border-radius: 5px; min-height: 100px;"></textarea>
+                    <textarea id="productDescription" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="productPrice">Price (ZAR)</label>
@@ -1197,6 +1252,46 @@
                     <input type="text" id="productImage">
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Save Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Content Modal (for admin) -->
+    <div class="modal" id="contentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="contentModalTitle">Add New Content</h3>
+                <button class="close-modal" onclick="closeContentModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="contentForm">
+                <div class="form-group">
+                    <label for="contentTitle">Title</label>
+                    <input type="text" id="contentTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="contentDescription">Description</label>
+                    <textarea id="contentDescription" required></textarea>
+                </div>
+                <div class="form-group" id="contentDateGroup">
+                    <label for="contentDate">Date</label>
+                    <input type="date" id="contentDate">
+                </div>
+                <div class="form-group" id="contentPriceGroup">
+                    <label for="contentPrice">Price (ZAR)</label>
+                    <input type="number" id="contentPrice" step="0.01">
+                </div>
+                <div class="form-group" id="contentLocationGroup">
+                    <label for="contentLocation">Location</label>
+                    <input type="text" id="contentLocation">
+                </div>
+                <div class="form-group" id="contentTimeGroup">
+                    <label for="contentTime">Time</label>
+                    <input type="text" id="contentTime" placeholder="e.g., 9:00 AM - 4:00 PM">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Content</button>
             </form>
         </div>
     </div>
@@ -1256,6 +1351,61 @@
                     image: "🙏"
                 }
             ],
+            blogPosts: [
+                {
+                    id: 1,
+                    title: "Walking in Your Prophetic Purpose",
+                    description: "Discovering how to align your daily life with the prophetic words spoken over you...",
+                    date: "2025-11-20",
+                    content: "Full blog post content would go here..."
+                },
+                {
+                    id: 2,
+                    title: "The Power of Declared Destiny",
+                    description: "Understanding how God's written word over your life shapes your future...",
+                    date: "2025-11-15",
+                    content: "Full blog post content would go here..."
+                },
+                {
+                    id: 3,
+                    title: "Breaking Through Limitations",
+                    description: "Practical steps to overcome the barriers standing between you and your destiny...",
+                    date: "2025-11-10",
+                    content: "Full blog post content would go here..."
+                }
+            ],
+            workshops: [
+                {
+                    id: 1,
+                    title: "Prophetic Activation Workshop",
+                    description: "A powerful one-day intensive designed to activate and strengthen your prophetic gifting. Learn to hear God's voice clearly and minister prophetically with confidence.",
+                    date: "2025-12-15",
+                    price: 499.99,
+                    location: "Virtual (Zoom)",
+                    time: "9:00 AM - 4:00 PM"
+                },
+                {
+                    id: 2,
+                    title: "Destiny Mapping Masterclass",
+                    description: "Discover God's blueprint for your life and create a practical roadmap to walk in your divine purpose. Limited to 20 participants for personalized attention.",
+                    date: "2026-01-22",
+                    price: 799.99,
+                    location: "Cape Town, South Africa",
+                    time: "6:00 PM - 9:00 PM"
+                }
+            ],
+            ministryInfo: [
+                {
+                    id: 1,
+                    title: "Our Mission",
+                    description: "To help believers understand that their destiny has already been written by God and equip them to walk confidently in their divine calling."
+                },
+                {
+                    id: 2,
+                    title: "Our Vision",
+                    description: "To see every believer living out their God-given purpose through prophetic teaching, life coaching, and biblical resources."
+                }
+            ],
             users: [
                 {
                     id: 1,
@@ -1265,7 +1415,13 @@
                     password: "admin123"
                 }
             ],
-            orders: []
+            orders: [],
+            settings: {
+                siteTitle: "The Definitive Word",
+                siteTagline: "Your Destiny Has Been Written",
+                primaryColor: "#1e3a8a",
+                secondaryColor: "#dc2626"
+            }
         };
 
         // DOM Elements
@@ -1276,23 +1432,31 @@
             cartCount: document.querySelector('.cart-count'),
             authModal: document.getElementById('authModal'),
             productModal: document.getElementById('productModal'),
+            contentModal: document.getElementById('contentModal'),
             paymentModal: document.getElementById('paymentModal'),
             productsGrid: document.querySelector('.products-grid'),
+            blogSection: document.getElementById('blog'),
+            workshopsSection: document.getElementById('workshops'),
             adminSection: document.getElementById('admin'),
-            checkoutBtn: document.getElementById('checkoutBtn')
+            checkoutBtn: document.getElementById('checkoutBtn'),
+            navContainer: document.getElementById('navContainer')
         };
 
         // Initialize the application
         function init() {
             renderProducts();
+            renderBlogPosts();
+            renderWorkshops();
             updateCartUI();
             checkAuthState();
+            loadSettings();
             
             // Set up event listeners
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
             document.getElementById('registerForm').addEventListener('submit', handleRegister);
             document.getElementById('contactForm').addEventListener('submit', handleContact);
             document.getElementById('productForm').addEventListener('submit', handleProductSubmit);
+            document.getElementById('contentForm').addEventListener('submit', handleContentSubmit);
             
             // Check if user is admin
             if (state.user && state.user.role === 'admin') {
@@ -1303,7 +1467,7 @@
 
         // Navigation Functions
         function toggleMenu() {
-            document.getElementById('navMenu').classList.toggle('active');
+            elements.navContainer.classList.toggle('active');
         }
 
         function scrollToSection(sectionId) {
@@ -1427,6 +1591,61 @@
                     </div>
                 `;
                 elements.productsGrid.appendChild(productCard);
+            });
+        }
+
+        // Blog Functions
+        function renderBlogPosts() {
+            const blogContainer = document.querySelector('#blog > div');
+            blogContainer.innerHTML = '';
+            
+            state.blogPosts.forEach(post => {
+                const blogPost = document.createElement('article');
+                blogPost.style.cssText = 'background: var(--light-gray); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--prophetic-blue);';
+                blogPost.innerHTML = `
+                    <h3 style="color: var(--prophetic-blue); margin-bottom: 0.5rem;">${post.title}</h3>
+                    <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">${formatDate(post.date)}</p>
+                    <p style="margin-bottom: 1rem;">${post.description}</p>
+                    <a href="#" style="color: var(--prophetic-blue); text-decoration: none; font-weight: bold;" onclick="readBlogPost(${post.id}); return false;">
+                        Read More <i class="fas fa-arrow-right"></i>
+                    </a>
+                `;
+                blogContainer.appendChild(blogPost);
+            });
+        }
+
+        function readBlogPost(id) {
+            const post = state.blogPosts.find(p => p.id === id);
+            if (post) {
+                alert(`Opening blog post: "${post.title}"\n\n${post.content || "Full content would be displayed here in a complete implementation."}`);
+            }
+        }
+
+        // Workshop Functions
+        function renderWorkshops() {
+            const workshopsContainer = document.querySelector('#workshops > div');
+            workshopsContainer.innerHTML = '';
+            
+            state.workshops.forEach(workshop => {
+                const workshopCard = document.createElement('div');
+                workshopCard.style.cssText = 'background: var(--white); border: 2px solid var(--prophetic-blue); padding: 2rem; border-radius: 10px; display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;';
+                workshopCard.innerHTML = `
+                    <div style="background: var(--prophetic-red); color: var(--white); padding: 2rem; text-align: center; border-radius: 10px;">
+                        <div style="font-size: 3rem; font-weight: bold;">${new Date(workshop.date).getDate()}</div>
+                        <div style="font-size: 1.2rem;">${new Date(workshop.date).toLocaleString('en-US', { month: 'short', year: 'numeric' }).toUpperCase()}</div>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">${workshop.title}</h3>
+                        <p style="margin-bottom: 1rem;">${workshop.description}</p>
+                        <p><strong>Location:</strong> ${workshop.location}</p>
+                        <p><strong>Time:</strong> ${workshop.time}</p>
+                        <p><strong>Cost:</strong> R ${workshop.price.toFixed(2)}</p>
+                        <button class="btn btn-primary" onclick="addToCart('${workshop.title}', ${workshop.price}, 'workshop', ${workshop.id})">
+                            <i class="fas fa-ticket-alt"></i> Register Now
+                        </button>
+                    </div>
+                `;
+                workshopsContainer.appendChild(workshopCard);
             });
         }
 
@@ -1579,7 +1798,17 @@
             
             // Activate selected tab
             document.getElementById(`admin-${tab}`).classList.add('active');
-            document.querySelector(`.admin-tab:nth-child(${tab === 'products' ? 1 : tab === 'users' ? 2 : 3})`).classList.add('active');
+            document.querySelector(`.admin-tab[onclick="switchAdminTab('${tab}')"]`).classList.add('active');
+        }
+
+        function switchContentType(type) {
+            // Update tabs
+            document.querySelectorAll('.content-type-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.content-type-content').forEach(c => c.classList.remove('active'));
+            
+            // Activate selected tab
+            document.getElementById(`content-${type}`).classList.add('active');
+            document.querySelector(`.content-type-tab[onclick="switchContentType('${type}')"]`).classList.add('active');
         }
 
         function renderAdminData() {
@@ -1646,6 +1875,80 @@
                     </td>
                 `;
                 ordersTable.appendChild(row);
+            });
+            
+            // Render blog posts
+            const blogList = document.getElementById('blog-list');
+            blogList.innerHTML = '';
+            
+            state.blogPosts.forEach(post => {
+                const blogItem = document.createElement('div');
+                blogItem.className = 'content-item';
+                blogItem.innerHTML = `
+                    <div>
+                        <h4>${post.title}</h4>
+                        <p>${post.description}</p>
+                        <small>${formatDate(post.date)}</small>
+                    </div>
+                    <div class="content-item-actions">
+                        <button class="action-btn edit-btn" onclick="editContent('blog', ${post.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteContent('blog', ${post.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                `;
+                blogList.appendChild(blogItem);
+            });
+            
+            // Render workshops
+            const workshopsList = document.getElementById('workshops-list');
+            workshopsList.innerHTML = '';
+            
+            state.workshops.forEach(workshop => {
+                const workshopItem = document.createElement('div');
+                workshopItem.className = 'content-item';
+                workshopItem.innerHTML = `
+                    <div>
+                        <h4>${workshop.title}</h4>
+                        <p>${workshop.description}</p>
+                        <small>${formatDate(workshop.date)} | ${workshop.location} | R ${workshop.price.toFixed(2)}</small>
+                    </div>
+                    <div class="content-item-actions">
+                        <button class="action-btn edit-btn" onclick="editContent('workshop', ${workshop.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteContent('workshop', ${workshop.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                `;
+                workshopsList.appendChild(workshopItem);
+            });
+            
+            // Render ministry info
+            const ministryList = document.getElementById('ministry-list');
+            ministryList.innerHTML = '';
+            
+            state.ministryInfo.forEach(info => {
+                const ministryItem = document.createElement('div');
+                ministryItem.className = 'content-item';
+                ministryItem.innerHTML = `
+                    <div>
+                        <h4>${info.title}</h4>
+                        <p>${info.description}</p>
+                    </div>
+                    <div class="content-item-actions">
+                        <button class="action-btn edit-btn" onclick="editContent('ministry', ${info.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteContent('ministry', ${info.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                `;
+                ministryList.appendChild(ministryItem);
             });
         }
 
@@ -1731,6 +2034,180 @@
             }
         }
 
+        // Content Management Functions
+        function openContentModal(type, content = null) {
+            elements.contentModal.classList.add('active');
+            
+            // Show/hide fields based on content type
+            document.getElementById('contentDateGroup').style.display = type === 'blog' || type === 'workshop' ? 'block' : 'none';
+            document.getElementById('contentPriceGroup').style.display = type === 'workshop' ? 'block' : 'none';
+            document.getElementById('contentLocationGroup').style.display = type === 'workshop' ? 'block' : 'none';
+            document.getElementById('contentTimeGroup').style.display = type === 'workshop' ? 'block' : 'none';
+            
+            if (content) {
+                document.getElementById('contentModalTitle').textContent = `Edit ${type === 'blog' ? 'Blog Post' : type === 'workshop' ? 'Workshop' : 'Ministry Info'}`;
+                document.getElementById('contentTitle').value = content.title;
+                document.getElementById('contentDescription').value = content.description;
+                
+                if (type === 'blog' || type === 'workshop') {
+                    document.getElementById('contentDate').value = content.date;
+                }
+                
+                if (type === 'workshop') {
+                    document.getElementById('contentPrice').value = content.price;
+                    document.getElementById('contentLocation').value = content.location;
+                    document.getElementById('contentTime').value = content.time;
+                }
+                
+                // Store content ID and type for updating
+                document.getElementById('contentForm').dataset.contentId = content.id;
+                document.getElementById('contentForm').dataset.contentType = type;
+            } else {
+                document.getElementById('contentModalTitle').textContent = `Add New ${type === 'blog' ? 'Blog Post' : type === 'workshop' ? 'Workshop' : 'Ministry Info'}`;
+                document.getElementById('contentForm').reset();
+                delete document.getElementById('contentForm').dataset.contentId;
+                document.getElementById('contentForm').dataset.contentType = type;
+            }
+        }
+
+        function closeContentModal() {
+            elements.contentModal.classList.remove('active');
+        }
+
+        function handleContentSubmit(e) {
+            e.preventDefault();
+            
+            const contentId = document.getElementById('contentForm').dataset.contentId;
+            const contentType = document.getElementById('contentForm').dataset.contentType;
+            const title = document.getElementById('contentTitle').value;
+            const description = document.getElementById('contentDescription').value;
+            const date = document.getElementById('contentDate').value;
+            const price = parseFloat(document.getElementById('contentPrice').value) || 0;
+            const location = document.getElementById('contentLocation').value;
+            const time = document.getElementById('contentTime').value;
+            
+            let contentArray, contentObject;
+            
+            switch(contentType) {
+                case 'blog':
+                    contentArray = state.blogPosts;
+                    contentObject = {
+                        id: contentId ? parseInt(contentId) : Date.now(),
+                        title,
+                        description,
+                        date,
+                        content: "Full content would be added here in a complete implementation."
+                    };
+                    break;
+                case 'workshop':
+                    contentArray = state.workshops;
+                    contentObject = {
+                        id: contentId ? parseInt(contentId) : Date.now(),
+                        title,
+                        description,
+                        date,
+                        price,
+                        location,
+                        time
+                    };
+                    break;
+                case 'ministry':
+                    contentArray = state.ministryInfo;
+                    contentObject = {
+                        id: contentId ? parseInt(contentId) : Date.now(),
+                        title,
+                        description
+                    };
+                    break;
+            }
+            
+            if (contentId) {
+                // Update existing content
+                const index = contentArray.findIndex(c => c.id === parseInt(contentId));
+                if (index !== -1) {
+                    contentArray[index] = {
+                        ...contentArray[index],
+                        ...contentObject
+                    };
+                }
+            } else {
+                // Add new content
+                contentArray.push(contentObject);
+            }
+            
+            closeContentModal();
+            
+            // Update the appropriate section
+            if (contentType === 'blog') {
+                renderBlogPosts();
+            } else if (contentType === 'workshop') {
+                renderWorkshops();
+            }
+            
+            renderAdminData();
+            showNotification(`${contentType === 'blog' ? 'Blog post' : contentType === 'workshop' ? 'Workshop' : 'Ministry info'} ${contentId ? 'updated' : 'added'} successfully!`, 'success');
+        }
+
+        function editContent(type, id) {
+            let content;
+            
+            switch(type) {
+                case 'blog':
+                    content = state.blogPosts.find(p => p.id === id);
+                    break;
+                case 'workshop':
+                    content = state.workshops.find(w => w.id === id);
+                    break;
+                case 'ministry':
+                    content = state.ministryInfo.find(m => m.id === id);
+                    break;
+            }
+            
+            if (content) {
+                openContentModal(type, content);
+            }
+        }
+
+        function deleteContent(type, id) {
+            if (confirm(`Are you sure you want to delete this ${type}?`)) {
+                let contentArray;
+                
+                switch(type) {
+                    case 'blog':
+                        contentArray = state.blogPosts;
+                        break;
+                    case 'workshop':
+                        contentArray = state.workshops;
+                        break;
+                    case 'ministry':
+                        contentArray = state.ministryInfo;
+                        break;
+                }
+                
+                if (contentArray) {
+                    contentArray = contentArray.filter(c => c.id !== id);
+                    
+                    // Update the state
+                    switch(type) {
+                        case 'blog':
+                            state.blogPosts = contentArray;
+                            renderBlogPosts();
+                            break;
+                        case 'workshop':
+                            state.workshops = contentArray;
+                            renderWorkshops();
+                            break;
+                        case 'ministry':
+                            state.ministryInfo = contentArray;
+                            break;
+                    }
+                    
+                    renderAdminData();
+                    showNotification(`${type} deleted successfully!`, 'success');
+                }
+            }
+        }
+
         function editUser(id) {
             // In a real app, this would open a user edit form
             alert('User edit functionality would be implemented here');
@@ -1747,6 +2224,40 @@
         function viewOrder(id) {
             // In a real app, this would show order details
             alert('Order details would be shown here');
+        }
+
+        // Settings Functions
+        function loadSettings() {
+            const storedSettings = localStorage.getItem('siteSettings');
+            if (storedSettings) {
+                state.settings = JSON.parse(storedSettings);
+            }
+            
+            document.getElementById('siteTitle').value = state.settings.siteTitle;
+            document.getElementById('siteTagline').value = state.settings.siteTagline;
+            document.getElementById('primaryColor').value = state.settings.primaryColor;
+            document.getElementById('secondaryColor').value = state.settings.secondaryColor;
+            
+            applySettings();
+        }
+
+        function saveSettings() {
+            state.settings.siteTitle = document.getElementById('siteTitle').value;
+            state.settings.siteTagline = document.getElementById('siteTagline').value;
+            state.settings.primaryColor = document.getElementById('primaryColor').value;
+            state.settings.secondaryColor = document.getElementById('secondaryColor').value;
+            
+            localStorage.setItem('siteSettings', JSON.stringify(state.settings));
+            applySettings();
+            showNotification('Settings saved successfully!', 'success');
+        }
+
+        function applySettings() {
+            document.documentElement.style.setProperty('--prophetic-blue', state.settings.primaryColor);
+            document.documentElement.style.setProperty('--prophetic-red', state.settings.secondaryColor);
+            
+            document.querySelector('.logo h1').textContent = state.settings.siteTitle;
+            document.querySelector('.logo p').textContent = state.settings.siteTagline;
         }
 
         // Checkout and Payment Functions
@@ -1951,6 +2462,11 @@
         }
 
         // Utility Functions
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
         function showNotification(message, type = 'info') {
             // Create notification element
             const notification = document.createElement('div');
