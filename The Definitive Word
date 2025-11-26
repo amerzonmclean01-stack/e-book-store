@@ -453,6 +453,7 @@
             z-index: 1200;
             align-items: center;
             justify-content: center;
+            padding: 1rem;
         }
 
         .modal.active {
@@ -463,8 +464,8 @@
             background-color: var(--white);
             padding: 2rem;
             border-radius: 10px;
-            max-width: 600px;
-            width: 90%;
+            max-width: 800px;
+            width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -493,6 +494,38 @@
             color: var(--dark-gray);
         }
 
+        /* Auth Tabs */
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            overflow-x: auto;
+        }
+
+        .auth-tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-gray);
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .auth-tab.active {
+            color: var(--prophetic-blue);
+            border-bottom: 3px solid var(--prophetic-blue);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
         /* Admin Panel */
         .admin-panel {
             display: none;
@@ -511,6 +544,7 @@
             gap: 1rem;
             margin-bottom: 1.5rem;
             flex-wrap: wrap;
+            overflow-x: auto;
         }
 
         .admin-tab {
@@ -521,6 +555,7 @@
             cursor: pointer;
             font-weight: 600;
             color: var(--dark-gray);
+            white-space: nowrap;
         }
 
         .admin-tab.active {
@@ -553,12 +588,15 @@
         }
 
         .action-btn {
-            padding: 0.25rem 0.5rem;
+            padding: 0.5rem 0.75rem;
             border: none;
             border-radius: 3px;
             cursor: pointer;
             font-size: 0.8rem;
             margin-right: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
         }
 
         .edit-btn {
@@ -568,6 +606,11 @@
 
         .delete-btn {
             background: var(--error);
+            color: var(--white);
+        }
+
+        .preview-btn {
+            background: var(--prophetic-blue);
             color: var(--white);
         }
 
@@ -581,6 +624,7 @@
             gap: 1rem;
             margin-bottom: 1.5rem;
             flex-wrap: wrap;
+            overflow-x: auto;
         }
 
         .content-type-tab {
@@ -591,6 +635,7 @@
             cursor: pointer;
             font-weight: 600;
             color: var(--dark-gray);
+            white-space: nowrap;
         }
 
         .content-type-tab.active {
@@ -620,6 +665,20 @@
         .content-item-actions {
             display: flex;
             gap: 0.5rem;
+        }
+
+        /* Preview Section */
+        .preview-section {
+            margin-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 1.5rem;
+        }
+
+        .preview-content {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-top: 1rem;
         }
 
         /* Footer */
@@ -784,6 +843,10 @@
 
             .admin-tabs, .content-type-tabs {
                 flex-direction: column;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -972,13 +1035,16 @@
         <div class="admin-panel">
             <div class="admin-tabs">
                 <button class="admin-tab active" onclick="switchAdminTab('products')">Products</button>
+                <button class="admin-tab" onclick="switchAdminTab('blog')">Blog Posts</button>
+                <button class="admin-tab" onclick="switchAdminTab('workshops')">Workshops</button>
+                <button class="admin-tab" onclick="switchAdminTab('ministry')">Ministry</button>
                 <button class="admin-tab" onclick="switchAdminTab('users')">Users</button>
                 <button class="admin-tab" onclick="switchAdminTab('orders')">Orders</button>
-                <button class="admin-tab" onclick="switchAdminTab('content')">Content Management</button>
                 <button class="admin-tab" onclick="switchAdminTab('settings')">Settings</button>
             </div>
             
             <div class="admin-content">
+                <!-- Products Tab -->
                 <div id="admin-products" class="admin-tab-content active">
                     <h3>Manage Products</h3>
                     <button class="btn btn-primary" onclick="openProductModal()">
@@ -999,6 +1065,40 @@
                     </table>
                 </div>
                 
+                <!-- Blog Posts Tab -->
+                <div id="admin-blog" class="admin-tab-content">
+                    <h3>Manage Blog Posts</h3>
+                    <button class="btn btn-primary" onclick="openContentModal('blog')">
+                        <i class="fas fa-plus"></i> Add New Blog Post
+                    </button>
+                    <div class="content-list" id="admin-blog-list">
+                        <!-- Blog posts will be populated here -->
+                    </div>
+                </div>
+                
+                <!-- Workshops Tab -->
+                <div id="admin-workshops" class="admin-tab-content">
+                    <h3>Manage Workshops</h3>
+                    <button class="btn btn-primary" onclick="openContentModal('workshop')">
+                        <i class="fas fa-plus"></i> Add New Workshop
+                    </button>
+                    <div class="content-list" id="admin-workshops-list">
+                        <!-- Workshops will be populated here -->
+                    </div>
+                </div>
+                
+                <!-- Ministry Tab -->
+                <div id="admin-ministry" class="admin-tab-content">
+                    <h3>Manage Ministry Content</h3>
+                    <button class="btn btn-primary" onclick="openContentModal('ministry')">
+                        <i class="fas fa-plus"></i> Add Ministry Content
+                    </button>
+                    <div class="content-list" id="admin-ministry-list">
+                        <!-- Ministry content will be populated here -->
+                    </div>
+                </div>
+                
+                <!-- Users Tab -->
                 <div id="admin-users" class="admin-tab-content">
                     <h3>Manage Users</h3>
                     <table class="admin-table">
@@ -1016,6 +1116,7 @@
                     </table>
                 </div>
                 
+                <!-- Orders Tab -->
                 <div id="admin-orders" class="admin-tab-content">
                     <h3>Manage Orders</h3>
                     <table class="admin-table">
@@ -1034,44 +1135,7 @@
                     </table>
                 </div>
                 
-                <div id="admin-content" class="admin-tab-content">
-                    <h3>Content Management</h3>
-                    <div class="content-management">
-                        <div class="content-type-tabs">
-                            <button class="content-type-tab active" onclick="switchContentType('blog')">Blog Posts</button>
-                            <button class="content-type-tab" onclick="switchContentType('workshops')">Workshops</button>
-                            <button class="content-type-tab" onclick="switchContentType('ministry')">Ministry Info</button>
-                        </div>
-                        
-                        <div id="content-blog" class="content-type-content active">
-                            <button class="btn btn-primary" onclick="openContentModal('blog')">
-                                <i class="fas fa-plus"></i> Add Blog Post
-                            </button>
-                            <div class="content-list" id="blog-list">
-                                <!-- Blog posts will be populated here -->
-                            </div>
-                        </div>
-                        
-                        <div id="content-workshops" class="content-type-content">
-                            <button class="btn btn-primary" onclick="openContentModal('workshop')">
-                                <i class="fas fa-plus"></i> Add Workshop
-                            </button>
-                            <div class="content-list" id="workshops-list">
-                                <!-- Workshops will be populated here -->
-                            </div>
-                        </div>
-                        
-                        <div id="content-ministry" class="content-type-content">
-                            <button class="btn btn-primary" onclick="openContentModal('ministry')">
-                                <i class="fas fa-plus"></i> Add Ministry Info
-                            </button>
-                            <div class="content-list" id="ministry-list">
-                                <!-- Ministry info will be populated here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+                <!-- Settings Tab -->
                 <div id="admin-settings" class="admin-tab-content">
                     <h3>Website Settings</h3>
                     <div class="form-group">
@@ -1251,7 +1315,16 @@
                     <label for="productImage">Image URL</label>
                     <input type="text" id="productImage">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Product</button>
+                
+                <!-- Preview Section -->
+                <div class="preview-section">
+                    <h4>Preview</h4>
+                    <div class="preview-content" id="productPreview">
+                        <p><strong>Product Preview:</strong> Your product will appear here as you type.</p>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Product</button>
             </form>
         </div>
     </div>
@@ -1291,7 +1364,16 @@
                     <label for="contentTime">Time</label>
                     <input type="text" id="contentTime" placeholder="e.g., 9:00 AM - 4:00 PM">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Content</button>
+                
+                <!-- Preview Section -->
+                <div class="preview-section">
+                    <h4>Preview</h4>
+                    <div class="preview-content" id="contentPreview">
+                        <p><strong>Content Preview:</strong> Your content will appear here as you type.</p>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Content</button>
             </form>
         </div>
     </div>
@@ -1308,6 +1390,22 @@
             
             <div id="paymentContent">
                 <!-- Payment content will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div class="modal" id="previewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="previewModalTitle">Content Preview</h3>
+                <button class="close-modal" onclick="closePreviewModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="previewContent">
+                <!-- Preview content will be dynamically added here -->
             </div>
         </div>
     </div>
@@ -1434,6 +1532,7 @@
             productModal: document.getElementById('productModal'),
             contentModal: document.getElementById('contentModal'),
             paymentModal: document.getElementById('paymentModal'),
+            previewModal: document.getElementById('previewModal'),
             productsGrid: document.querySelector('.products-grid'),
             blogSection: document.getElementById('blog'),
             workshopsSection: document.getElementById('workshops'),
@@ -1457,6 +1556,19 @@
             document.getElementById('contactForm').addEventListener('submit', handleContact);
             document.getElementById('productForm').addEventListener('submit', handleProductSubmit);
             document.getElementById('contentForm').addEventListener('submit', handleContentSubmit);
+            
+            // Add preview functionality
+            document.getElementById('productName').addEventListener('input', updateProductPreview);
+            document.getElementById('productDescription').addEventListener('input', updateProductPreview);
+            document.getElementById('productPrice').addEventListener('input', updateProductPreview);
+            document.getElementById('productCategory').addEventListener('change', updateProductPreview);
+            
+            document.getElementById('contentTitle').addEventListener('input', updateContentPreview);
+            document.getElementById('contentDescription').addEventListener('input', updateContentPreview);
+            document.getElementById('contentDate').addEventListener('input', updateContentPreview);
+            document.getElementById('contentPrice').addEventListener('input', updateContentPreview);
+            document.getElementById('contentLocation').addEventListener('input', updateContentPreview);
+            document.getElementById('contentTime').addEventListener('input', updateContentPreview);
             
             // Check if user is admin
             if (state.user && state.user.role === 'admin') {
@@ -1801,16 +1913,6 @@
             document.querySelector(`.admin-tab[onclick="switchAdminTab('${tab}')"]`).classList.add('active');
         }
 
-        function switchContentType(type) {
-            // Update tabs
-            document.querySelectorAll('.content-type-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.content-type-content').forEach(c => c.classList.remove('active'));
-            
-            // Activate selected tab
-            document.getElementById(`content-${type}`).classList.add('active');
-            document.querySelector(`.content-type-tab[onclick="switchContentType('${type}')"]`).classList.add('active');
-        }
-
         function renderAdminData() {
             // Render products table
             const productsTable = document.getElementById('admin-products-table');
@@ -1823,6 +1925,9 @@
                     <td>R ${product.price.toFixed(2)}</td>
                     <td>${product.category}</td>
                     <td>
+                        <button class="action-btn preview-btn" onclick="previewProduct(${product.id})">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
                         <button class="action-btn edit-btn" onclick="editProduct(${product.id})">
                             <i class="fas fa-edit"></i> Edit
                         </button>
@@ -1832,6 +1937,89 @@
                     </td>
                 `;
                 productsTable.appendChild(row);
+            });
+            
+            // Render blog posts
+            const blogList = document.getElementById('admin-blog-list');
+            blogList.innerHTML = '';
+            
+            state.blogPosts.forEach(post => {
+                const blogItem = document.createElement('div');
+                blogItem.className = 'content-item';
+                blogItem.innerHTML = `
+                    <div>
+                        <h4>${post.title}</h4>
+                        <p>${post.description}</p>
+                        <small>${formatDate(post.date)}</small>
+                    </div>
+                    <div class="content-item-actions">
+                        <button class="action-btn preview-btn" onclick="previewContent('blog', ${post.id})">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                        <button class="action-btn edit-btn" onclick="editContent('blog', ${post.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteContent('blog', ${post.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                `;
+                blogList.appendChild(blogItem);
+            });
+            
+            // Render workshops
+            const workshopsList = document.getElementById('admin-workshops-list');
+            workshopsList.innerHTML = '';
+            
+            state.workshops.forEach(workshop => {
+                const workshopItem = document.createElement('div');
+                workshopItem.className = 'content-item';
+                workshopItem.innerHTML = `
+                    <div>
+                        <h4>${workshop.title}</h4>
+                        <p>${workshop.description}</p>
+                        <small>${formatDate(workshop.date)} | ${workshop.location} | R ${workshop.price.toFixed(2)}</small>
+                    </div>
+                    <div class="content-item-actions">
+                        <button class="action-btn preview-btn" onclick="previewContent('workshop', ${workshop.id})">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                        <button class="action-btn edit-btn" onclick="editContent('workshop', ${workshop.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteContent('workshop', ${workshop.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                `;
+                workshopsList.appendChild(workshopItem);
+            });
+            
+            // Render ministry info
+            const ministryList = document.getElementById('admin-ministry-list');
+            ministryList.innerHTML = '';
+            
+            state.ministryInfo.forEach(info => {
+                const ministryItem = document.createElement('div');
+                ministryItem.className = 'content-item';
+                ministryItem.innerHTML = `
+                    <div>
+                        <h4>${info.title}</h4>
+                        <p>${info.description}</p>
+                    </div>
+                    <div class="content-item-actions">
+                        <button class="action-btn preview-btn" onclick="previewContent('ministry', ${info.id})">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                        <button class="action-btn edit-btn" onclick="editContent('ministry', ${info.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteContent('ministry', ${info.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                `;
+                ministryList.appendChild(ministryItem);
             });
             
             // Render users table
@@ -1876,80 +2064,6 @@
                 `;
                 ordersTable.appendChild(row);
             });
-            
-            // Render blog posts
-            const blogList = document.getElementById('blog-list');
-            blogList.innerHTML = '';
-            
-            state.blogPosts.forEach(post => {
-                const blogItem = document.createElement('div');
-                blogItem.className = 'content-item';
-                blogItem.innerHTML = `
-                    <div>
-                        <h4>${post.title}</h4>
-                        <p>${post.description}</p>
-                        <small>${formatDate(post.date)}</small>
-                    </div>
-                    <div class="content-item-actions">
-                        <button class="action-btn edit-btn" onclick="editContent('blog', ${post.id})">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" onclick="deleteContent('blog', ${post.id})">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </div>
-                `;
-                blogList.appendChild(blogItem);
-            });
-            
-            // Render workshops
-            const workshopsList = document.getElementById('workshops-list');
-            workshopsList.innerHTML = '';
-            
-            state.workshops.forEach(workshop => {
-                const workshopItem = document.createElement('div');
-                workshopItem.className = 'content-item';
-                workshopItem.innerHTML = `
-                    <div>
-                        <h4>${workshop.title}</h4>
-                        <p>${workshop.description}</p>
-                        <small>${formatDate(workshop.date)} | ${workshop.location} | R ${workshop.price.toFixed(2)}</small>
-                    </div>
-                    <div class="content-item-actions">
-                        <button class="action-btn edit-btn" onclick="editContent('workshop', ${workshop.id})">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" onclick="deleteContent('workshop', ${workshop.id})">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </div>
-                `;
-                workshopsList.appendChild(workshopItem);
-            });
-            
-            // Render ministry info
-            const ministryList = document.getElementById('ministry-list');
-            ministryList.innerHTML = '';
-            
-            state.ministryInfo.forEach(info => {
-                const ministryItem = document.createElement('div');
-                ministryItem.className = 'content-item';
-                ministryItem.innerHTML = `
-                    <div>
-                        <h4>${info.title}</h4>
-                        <p>${info.description}</p>
-                    </div>
-                    <div class="content-item-actions">
-                        <button class="action-btn edit-btn" onclick="editContent('ministry', ${info.id})">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" onclick="deleteContent('ministry', ${info.id})">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </div>
-                `;
-                ministryList.appendChild(ministryItem);
-            });
         }
 
         function openProductModal(product = null) {
@@ -1970,6 +2084,9 @@
                 document.getElementById('productForm').reset();
                 delete document.getElementById('productForm').dataset.productId;
             }
+            
+            // Update preview
+            updateProductPreview();
         }
 
         function closeProductModal() {
@@ -2034,6 +2151,34 @@
             }
         }
 
+        function previewProduct(id) {
+            const product = state.products.find(p => p.id === id);
+            if (product) {
+                document.getElementById('previewModalTitle').textContent = 'Product Preview';
+                document.getElementById('previewContent').innerHTML = `
+                    <div class="product-card">
+                        <div class="product-image">${product.image}</div>
+                        <div class="product-content">
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            <div class="product-footer">
+                                <div class="price">R ${product.price.toFixed(2)}</div>
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <button class="btn btn-outline" onclick="closePreviewModal()">
+                            Close Preview
+                        </button>
+                    </div>
+                `;
+                elements.previewModal.classList.add('active');
+            }
+        }
+
         // Content Management Functions
         function openContentModal(type, content = null) {
             elements.contentModal.classList.add('active');
@@ -2068,6 +2213,9 @@
                 delete document.getElementById('contentForm').dataset.contentId;
                 document.getElementById('contentForm').dataset.contentType = type;
             }
+            
+            // Update preview
+            updateContentPreview();
         }
 
         function closeContentModal() {
@@ -2206,6 +2354,160 @@
                     showNotification(`${type} deleted successfully!`, 'success');
                 }
             }
+        }
+
+        function previewContent(type, id) {
+            let content, previewHTML;
+            
+            switch(type) {
+                case 'blog':
+                    content = state.blogPosts.find(p => p.id === id);
+                    if (content) {
+                        previewHTML = `
+                            <article style="background: var(--light-gray); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--prophetic-blue);">
+                                <h3 style="color: var(--prophetic-blue); margin-bottom: 0.5rem;">${content.title}</h3>
+                                <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">${formatDate(content.date)}</p>
+                                <p style="margin-bottom: 1rem;">${content.description}</p>
+                                <a href="#" style="color: var(--prophetic-blue); text-decoration: none; font-weight: bold;">
+                                    Read More <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </article>
+                        `;
+                    }
+                    break;
+                case 'workshop':
+                    content = state.workshops.find(w => w.id === id);
+                    if (content) {
+                        previewHTML = `
+                            <div style="background: var(--white); border: 2px solid var(--prophetic-blue); padding: 2rem; border-radius: 10px; display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;">
+                                <div style="background: var(--prophetic-red); color: var(--white); padding: 2rem; text-align: center; border-radius: 10px;">
+                                    <div style="font-size: 3rem; font-weight: bold;">${new Date(content.date).getDate()}</div>
+                                    <div style="font-size: 1.2rem;">${new Date(content.date).toLocaleString('en-US', { month: 'short', year: 'numeric' }).toUpperCase()}</div>
+                                </div>
+                                <div>
+                                    <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">${content.title}</h3>
+                                    <p style="margin-bottom: 1rem;">${content.description}</p>
+                                    <p><strong>Location:</strong> ${content.location}</p>
+                                    <p><strong>Time:</strong> ${content.time}</p>
+                                    <p><strong>Cost:</strong> R ${content.price.toFixed(2)}</p>
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-ticket-alt"></i> Register Now
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    break;
+                case 'ministry':
+                    content = state.ministryInfo.find(m => m.id === id);
+                    if (content) {
+                        previewHTML = `
+                            <div style="background: var(--light-gray); padding: 2rem; border-radius: 10px;">
+                                <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">${content.title}</h3>
+                                <p>${content.description}</p>
+                            </div>
+                        `;
+                    }
+                    break;
+            }
+            
+            if (content) {
+                document.getElementById('previewModalTitle').textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Preview`;
+                document.getElementById('previewContent').innerHTML = previewHTML + `
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <button class="btn btn-outline" onclick="closePreviewModal()">
+                            Close Preview
+                        </button>
+                    </div>
+                `;
+                elements.previewModal.classList.add('active');
+            }
+        }
+
+        function closePreviewModal() {
+            elements.previewModal.classList.remove('active');
+        }
+
+        // Preview Functions
+        function updateProductPreview() {
+            const name = document.getElementById('productName').value || 'Product Name';
+            const description = document.getElementById('productDescription').value || 'Product description will appear here.';
+            const price = document.getElementById('productPrice').value || '0';
+            const category = document.getElementById('productCategory').value || 'ebook';
+            const image = document.getElementById('productImage').value || getProductIcon(category);
+            
+            document.getElementById('productPreview').innerHTML = `
+                <div class="product-card">
+                    <div class="product-image">${image}</div>
+                    <div class="product-content">
+                        <h3>${name}</h3>
+                        <p>${description}</p>
+                        <div class="product-footer">
+                            <div class="price">R ${parseFloat(price).toFixed(2)}</div>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateContentPreview() {
+            const contentType = document.getElementById('contentForm').dataset.contentType;
+            const title = document.getElementById('contentTitle').value || 'Content Title';
+            const description = document.getElementById('contentDescription').value || 'Content description will appear here.';
+            const date = document.getElementById('contentDate').value;
+            const price = document.getElementById('contentPrice').value || '0';
+            const location = document.getElementById('contentLocation').value || 'Location';
+            const time = document.getElementById('contentTime').value || 'Time';
+            
+            let previewHTML = '';
+            
+            switch(contentType) {
+                case 'blog':
+                    previewHTML = `
+                        <article style="background: var(--light-gray); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--prophetic-blue);">
+                            <h3 style="color: var(--prophetic-blue); margin-bottom: 0.5rem;">${title}</h3>
+                            <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">${date ? formatDate(date) : 'Date will appear here'}</p>
+                            <p style="margin-bottom: 1rem;">${description}</p>
+                            <a href="#" style="color: var(--prophetic-blue); text-decoration: none; font-weight: bold;">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </article>
+                    `;
+                    break;
+                case 'workshop':
+                    previewHTML = `
+                        <div style="background: var(--white); border: 2px solid var(--prophetic-blue); padding: 2rem; border-radius: 10px; display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;">
+                            <div style="background: var(--prophetic-red); color: var(--white); padding: 2rem; text-align: center; border-radius: 10px;">
+                                <div style="font-size: 3rem; font-weight: bold;">${date ? new Date(date).getDate() : 'DD'}</div>
+                                <div style="font-size: 1.2rem;">${date ? new Date(date).toLocaleString('en-US', { month: 'short', year: 'numeric' }).toUpperCase() : 'MON YYYY'}</div>
+                            </div>
+                            <div>
+                                <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">${title}</h3>
+                                <p style="margin-bottom: 1rem;">${description}</p>
+                                <p><strong>Location:</strong> ${location}</p>
+                                <p><strong>Time:</strong> ${time}</p>
+                                <p><strong>Cost:</strong> R ${parseFloat(price).toFixed(2)}</p>
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-ticket-alt"></i> Register Now
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'ministry':
+                    previewHTML = `
+                        <div style="background: var(--light-gray); padding: 2rem; border-radius: 10px;">
+                            <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">${title}</h3>
+                            <p>${description}</p>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            document.getElementById('contentPreview').innerHTML = previewHTML;
         }
 
         function editUser(id) {
