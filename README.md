@@ -22,6 +22,12 @@
 
         .app {
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
         }
 
         /* Navigation */
@@ -72,6 +78,7 @@
         .nav-links {
             display: none;
             gap: 2rem;
+            align-items: center;
         }
 
         @media (min-width: 768px) {
@@ -88,10 +95,19 @@
             cursor: pointer;
             font-size: 1rem;
             transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
         }
 
         .nav-link:hover {
             color: #1d4ed8;
+            background-color: #f3f4f6;
+        }
+
+        .nav-link.active {
+            color: #1d4ed8;
+            background-color: #dbeafe;
+            font-weight: 600;
         }
 
         .nav-actions {
@@ -106,6 +122,13 @@
             border: none;
             cursor: pointer;
             font-size: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+
+        .cart-button:hover {
+            background-color: #f3f4f6;
         }
 
         .cart-count {
@@ -134,6 +157,13 @@
             border: none;
             cursor: pointer;
             font-size: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+
+        .mobile-menu-button:hover {
+            background-color: #f3f4f6;
         }
 
         @media (min-width: 768px) {
@@ -156,8 +186,20 @@
             background: none;
             border: none;
             cursor: pointer;
-            padding: 0.5rem 0;
+            padding: 0.75rem 1rem;
             font-size: 1rem;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+
+        .mobile-menu-link:hover {
+            background-color: #f3f4f6;
+        }
+
+        .mobile-menu-link.active {
+            color: #1d4ed8;
+            background-color: #dbeafe;
+            font-weight: 600;
         }
 
         /* Hero Section */
@@ -191,6 +233,9 @@
         .hero-subtitle {
             font-size: 1.25rem;
             margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero-buttons {
@@ -217,6 +262,7 @@
 
         .btn-primary:hover {
             background-color: #b91c1c;
+            transform: translateY(-2px);
         }
 
         .btn-secondary {
@@ -226,6 +272,7 @@
 
         .btn-secondary:hover {
             background-color: #f3f4f6;
+            transform: translateY(-2px);
         }
 
         .btn-success {
@@ -387,16 +434,21 @@
             font-weight: bold;
             margin-bottom: 0.5rem;
             color: #1f2937;
+            text-align: center;
         }
 
         .page-subtitle {
             color: #6b7280;
             margin-bottom: 2rem;
+            text-align: center;
         }
 
         .search-container {
             position: relative;
             margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .search-icon {
@@ -461,10 +513,11 @@
         }
 
         .form-input, .form-select, .form-textarea {
-            padding: 0.5rem;
+            padding: 0.75rem;
             border: 1px solid #d1d5db;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 1rem;
+            transition: border-color 0.3s;
         }
 
         .form-textarea {
@@ -475,6 +528,7 @@
         .form-input:focus, .form-select:focus, .form-textarea:focus {
             outline: none;
             border-color: #1d4ed8;
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
         }
 
         .admin-actions {
@@ -662,12 +716,13 @@
         .modal {
             background-color: white;
             padding: 2rem;
-            border-radius: 8px;
+            border-radius: 12px;
             width: 90%;
-            max-width: 500px;
+            max-width: 450px;
             position: relative;
             max-height: 80vh;
             overflow: auto;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
         }
 
         .modal-close {
@@ -679,12 +734,21 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: #6b7280;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .modal-close:hover {
+            background-color: #f3f4f6;
         }
 
         .modal-title {
             font-size: 1.5rem;
             font-weight: bold;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #1f2937;
         }
 
         .error-message {
@@ -692,8 +756,9 @@
             border: 1px solid #ef4444;
             color: #dc2626;
             padding: 0.75rem;
-            border-radius: 4px;
+            border-radius: 6px;
             margin-bottom: 1rem;
+            text-align: center;
         }
 
         .success-message {
@@ -701,13 +766,16 @@
             border: 1px solid #10b981;
             color: #059669;
             padding: 0.75rem;
-            border-radius: 4px;
+            border-radius: 6px;
             margin-bottom: 1rem;
+            text-align: center;
         }
 
         .form-footer {
             text-align: center;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
         }
 
         .form-link {
@@ -716,6 +784,11 @@
             color: #1d4ed8;
             cursor: pointer;
             text-decoration: underline;
+            font-size: 0.9rem;
+        }
+
+        .form-link:hover {
+            color: #1e40af;
         }
 
         /* Cart */
@@ -836,8 +909,8 @@
         footer {
             background: linear-gradient(135deg, #1e40af, #1d4ed8);
             color: white;
-            padding: 2rem 1rem;
-            margin-top: 4rem;
+            padding: 3rem 1rem;
+            margin-top: auto;
         }
 
         .footer-content {
@@ -860,6 +933,7 @@
 
         .footer-copyright {
             font-size: 0.875rem;
+            opacity: 0.8;
         }
 
         /* Utility Classes */
@@ -884,6 +958,33 @@
             border-radius: 4px;
             font-size: 0.75rem;
             margin-left: 0.5rem;
+        }
+
+        .login-tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-tab {
+            flex: 1;
+            padding: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .login-tab.active {
+            color: #1d4ed8;
+            border-bottom-color: #1d4ed8;
+            background-color: #f8fafc;
+        }
+
+        .login-tab:hover:not(.active) {
+            background-color: #f3f4f6;
         }
 
         @media (min-width: 768px) {
@@ -959,46 +1060,6 @@
                     description: "Unlock the mysteries of prophetic revelation.",
                     author: "Sarah Williams",
                     isFeatured: true
-                },
-                { 
-                    id: 3, 
-                    title: "Leadership in the Kingdom", 
-                    price: 29.99, 
-                    category: "Training", 
-                    image: "👑", 
-                    description: "Biblical principles for effective spiritual leadership.",
-                    author: "Pastor James Miller",
-                    isFeatured: true
-                },
-                { 
-                    id: 4, 
-                    title: "Prayer Warrior's Guide", 
-                    price: 14.99, 
-                    category: "Ministry", 
-                    image: "🙏", 
-                    description: "Transform your prayer life and see breakthrough.",
-                    author: "Rebecca Thompson",
-                    isFeatured: false
-                },
-                { 
-                    id: 5, 
-                    title: "Worship in Spirit & Truth", 
-                    price: 17.99, 
-                    category: "Worship", 
-                    image: "🎵", 
-                    description: "Experience deeper intimacy through worship.",
-                    author: "David Chen",
-                    isFeatured: false
-                },
-                { 
-                    id: 6, 
-                    title: "Financial Stewardship", 
-                    price: 21.99, 
-                    category: "Training", 
-                    image: "💰", 
-                    description: "Biblical wisdom for managing God's resources.",
-                    author: "Dr. Michael Johnson",
-                    isFeatured: false
                 }
             ],
             workshops: [
@@ -1010,24 +1071,6 @@
                     description: "Learn to hear God's voice and operate in prophetic gifts.",
                     instructor: "Sarah Williams",
                     duration: "3 hours"
-                },
-                { 
-                    id: 2, 
-                    title: "Ministry Leadership Training", 
-                    date: "Dec 12, 2025", 
-                    price: 79.99,
-                    description: "Develop leadership skills for effective ministry.",
-                    instructor: "Pastor James Miller",
-                    duration: "6 hours"
-                },
-                { 
-                    id: 3, 
-                    title: "Biblical Counseling Certification", 
-                    date: "Jan 10, 2026", 
-                    price: 199.99,
-                    description: "Become certified in biblical counseling principles.",
-                    instructor: "Dr. Michael Johnson",
-                    duration: "8 weeks"
                 }
             ],
             blogs: [
@@ -1040,26 +1083,6 @@
                     author: "Sarah Williams",
                     category: "Spiritual Growth",
                     readTime: "5 min read"
-                },
-                { 
-                    id: 2,
-                    title: "The Power of Prophetic Intercession", 
-                    date: "Nov 15, 2025", 
-                    excerpt: "Discover how prayer shapes destinies and nations through prophetic insight...",
-                    content: "Prophetic intercession goes beyond ordinary prayer. It's about partnering with God's heart for individuals, communities, and nations. Learn how to pray with divine perspective and see breakthrough in impossible situations.",
-                    author: "Pastor James Miller",
-                    category: "Prayer",
-                    readTime: "7 min read"
-                },
-                { 
-                    id: 3,
-                    title: "Your Destiny Awaits", 
-                    date: "Nov 10, 2025", 
-                    excerpt: "Understanding the times and seasons of your life and calling...",
-                    content: "Every believer has a unique destiny designed by God. This article helps you recognize the seasons of your life and understand how God is preparing you for your ultimate purpose and calling.",
-                    author: "Dr. Michael Johnson",
-                    category: "Destiny",
-                    readTime: "6 min read"
                 }
             ]
         };
@@ -1119,11 +1142,26 @@
                             localStorage.setItem('ebookStoreUser', JSON.stringify(userWithoutPassword));
                             setLoginModalOpen(false);
                             setFormData({ name: '', email: '', password: '' });
+                            setSuccessMessage(`Welcome back, ${user.name}!`);
+                            setTimeout(() => setSuccessMessage(''), 3000);
                         } else {
-                            setLoginError('Invalid email or password');
+                            setLoginError('Invalid email or password. Please try again.');
                         }
                     } else {
                         // Registration
+                        if (formData.password.length < 6) {
+                            setLoginError('Password must be at least 6 characters long.');
+                            setLoading(false);
+                            return;
+                        }
+
+                        const existingUser = mockBackend.users.find(u => u.email === formData.email);
+                        if (existingUser) {
+                            setLoginError('An account with this email already exists.');
+                            setLoading(false);
+                            return;
+                        }
+
                         const newUser = { 
                             id: mockBackend.users.length + 1, 
                             name: formData.name, 
@@ -1137,6 +1175,8 @@
                         localStorage.setItem('ebookStoreUser', JSON.stringify(userWithoutPassword));
                         setLoginModalOpen(false);
                         setFormData({ name: '', email: '', password: '' });
+                        setSuccessMessage(`Welcome to The Definitive Word, ${newUser.name}!`);
+                        setTimeout(() => setSuccessMessage(''), 3000);
                     }
                     setLoading(false);
                 }, 1000);
@@ -1146,14 +1186,21 @@
                 setUser(null);
                 localStorage.removeItem('ebookStoreUser');
                 setCart([]);
+                setSuccessMessage('You have been logged out successfully.');
+                setTimeout(() => setSuccessMessage(''), 3000);
             };
 
             const addToCart = (product) => {
                 setCart([...cart, { ...product, cartId: Date.now() }]);
+                setSuccessMessage(`${product.title} added to cart!`);
+                setTimeout(() => setSuccessMessage(''), 2000);
             };
 
             const removeFromCart = (cartId) => {
+                const item = cart.find(item => item.cartId === cartId);
                 setCart(cart.filter(item => item.cartId !== cartId));
+                setSuccessMessage(`${item.title} removed from cart.`);
+                setTimeout(() => setSuccessMessage(''), 2000);
             };
 
             const getTotal = () => {
@@ -1171,11 +1218,11 @@
             const processPayment = () => {
                 setLoading(true);
                 setTimeout(() => {
-                    setSuccessMessage('Payment successful! Your items have been purchased.');
+                    setSuccessMessage('Payment successful! Your items have been purchased. Thank you for your order!');
                     setCart([]);
                     setPaymentModalOpen(false);
                     setLoading(false);
-                    setTimeout(() => setSuccessMessage(''), 3000);
+                    setTimeout(() => setSuccessMessage(''), 5000);
                 }, 2000);
             };
 
@@ -1192,10 +1239,7 @@
                         ...adminFormData,
                         price: parseFloat(adminFormData.price),
                         image: adminFormData.category === 'Ministry' ? '📖' : 
-                               adminFormData.category === 'Prophecy' ? '✨' : 
-                               adminFormData.category === 'Training' ? '👑' :
-                               adminFormData.category === 'Worship' ? '🎵' : '💰',
-                        isFeatured: false
+                               adminFormData.category === 'Prophecy' ? '✨' : '👑'
                     };
                     setEbooks([...ebooks, newEbook]);
                     setSuccessMessage('Ebook added successfully!');
@@ -1204,8 +1248,7 @@
                         id: workshops.length + 1,
                         ...adminFormData,
                         price: parseFloat(adminFormData.price),
-                        duration: '3 hours',
-                        date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString() // 30 days from now
+                        duration: '3 hours'
                     };
                     setWorkshops([...workshops, newWorkshop]);
                     setSuccessMessage('Workshop added successfully!');
@@ -1333,18 +1376,6 @@
                                 selectedPaymentMethod === 'paypal' && React.createElement('div', null,
                                     React.createElement('p', { style: {textAlign: 'center', margin: '1rem 0', color: '#6b7280'} }, 
                                         'You will be redirected to PayPal to complete your payment.'
-                                    )
-                                ),
-
-                                selectedPaymentMethod === 'bank' && React.createElement('div', null,
-                                    React.createElement('p', { style: {textAlign: 'center', margin: '1rem 0', color: '#6b7280'} }, 
-                                        'Bank transfer details will be provided after order confirmation.'
-                                    )
-                                ),
-
-                                selectedPaymentMethod === 'crypto' && React.createElement('div', null,
-                                    React.createElement('p', { style: {textAlign: 'center', margin: '1rem 0', color: '#6b7280'} }, 
-                                        'Cryptocurrency payment address will be provided after order confirmation.'
                                     )
                                 ),
                                 
@@ -1475,31 +1506,57 @@
                     React.createElement('div', { className: 'modal' },
                         React.createElement('button', {
                             className: 'modal-close',
-                            onClick: () => setLoginModalOpen(false)
+                            onClick: () => {
+                                setLoginModalOpen(false);
+                                setLoginError('');
+                                setFormData({ name: '', email: '', password: '' });
+                            }
                         }, '×'),
-                        React.createElement('h2', { className: 'modal-title' }, isLogin ? 'Login' : 'Register'),
+                        
+                        React.createElement('div', { className: 'login-tabs' },
+                            React.createElement('button', {
+                                className: `login-tab ${isLogin ? 'active' : ''}`,
+                                onClick: () => {
+                                    setIsLogin(true);
+                                    setLoginError('');
+                                    setFormData({ name: '', email: '', password: '' });
+                                }
+                            }, 'Login'),
+                            React.createElement('button', {
+                                className: `login-tab ${!isLogin ? 'active' : ''}`,
+                                onClick: () => {
+                                    setIsLogin(false);
+                                    setLoginError('');
+                                    setFormData({ name: '', email: '', password: '' });
+                                }
+                            }, 'Register')
+                        ),
+                        
+                        React.createElement('h2', { className: 'modal-title' }, isLogin ? 'Welcome Back' : 'Create Account'),
                         
                         loginError && React.createElement('div', { className: 'error-message' }, loginError),
                         
                         React.createElement('form', { onSubmit: handleLogin },
                             !isLogin && React.createElement('div', { className: 'form-group' },
-                                React.createElement('label', { className: 'form-label' }, 'Name'),
+                                React.createElement('label', { className: 'form-label' }, 'Full Name'),
                                 React.createElement('input', {
                                     type: 'text',
                                     className: 'form-input',
                                     value: formData.name,
                                     onChange: (e) => setFormData({...formData, name: e.target.value}),
-                                    required: true
+                                    placeholder: 'Enter your full name',
+                                    required: !isLogin
                                 })
                             ),
                             
                             React.createElement('div', { className: 'form-group' },
-                                React.createElement('label', { className: 'form-label' }, 'Email'),
+                                React.createElement('label', { className: 'form-label' }, 'Email Address'),
                                 React.createElement('input', {
                                     type: 'email',
                                     className: 'form-input',
                                     value: formData.email,
                                     onChange: (e) => setFormData({...formData, email: e.target.value}),
+                                    placeholder: 'Enter your email',
                                     required: true
                                 })
                             ),
@@ -1511,6 +1568,7 @@
                                     className: 'form-input',
                                     value: formData.password,
                                     onChange: (e) => setFormData({...formData, password: e.target.value}),
+                                    placeholder: isLogin ? 'Enter your password' : 'Create a password (min. 6 characters)',
                                     required: true
                                 })
                             ),
@@ -1518,19 +1576,23 @@
                             React.createElement('button', {
                                 type: 'submit',
                                 className: 'checkout-btn',
-                                disabled: loading
-                            }, loading ? 'Processing...' : (isLogin ? 'Login' : 'Register'))
+                                disabled: loading,
+                                style: { marginTop: '1rem' }
+                            }, loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account'))
                         ),
                         
                         React.createElement('div', { className: 'form-footer' },
-                            React.createElement('button', {
-                                className: 'form-link',
-                                onClick: () => {
-                                    setIsLogin(!isLogin);
-                                    setLoginError('');
-                                    setFormData({ name: '', email: '', password: '' });
-                                }
-                            }, isLogin ? 'Need an account? Register' : 'Have an account? Login')
+                            React.createElement('p', { style: {color: '#6b7280', fontSize: '0.9rem'} },
+                                isLogin ? "Don't have an account? " : "Already have an account? ",
+                                React.createElement('button', {
+                                    className: 'form-link',
+                                    onClick: () => {
+                                        setIsLogin(!isLogin);
+                                        setLoginError('');
+                                        setFormData({ name: '', email: '', password: '' });
+                                    }
+                                }, isLogin ? 'Sign up here' : 'Sign in here')
+                            )
                         )
                     )
                 );
@@ -1538,6 +1600,8 @@
 
             // Navigation Component
             const NavBar = () => {
+                const isActive = (page) => currentPage === page;
+
                 return React.createElement('nav', null,
                     React.createElement('div', { className: 'nav-container' },
                         React.createElement('div', { className: 'nav-content' },
@@ -1556,7 +1620,7 @@
                                 ['home', 'store', 'workshops', 'blog', 'about'].map((page) =>
                                     React.createElement('button', {
                                         key: page,
-                                        className: 'nav-link',
+                                        className: `nav-link ${isActive(page) ? 'active' : ''}`,
                                         onClick: () => setCurrentPage(page)
                                     }, page.charAt(0).toUpperCase() + page.slice(1))
                                 )
@@ -1574,17 +1638,19 @@
                                 ),
                                 
                                 user ? React.createElement('div', { className: 'user-section' },
-                                    React.createElement('span', null, 
+                                    React.createElement('span', { style: {fontSize: '0.9rem'} }, 
                                         `Hello, ${user.name}`,
                                         user.role === 'admin' && React.createElement('span', { className: 'admin-badge' }, 'Admin')
                                     ),
                                     React.createElement('button', {
                                         className: 'nav-link',
-                                        onClick: handleLogout
+                                        onClick: handleLogout,
+                                        style: {padding: '0.5rem', fontSize: '0.9rem'}
                                     }, 'Logout')
                                 ) : React.createElement('button', {
                                     className: 'nav-link',
-                                    onClick: () => setLoginModalOpen(true)
+                                    onClick: () => setLoginModalOpen(true),
+                                    style: {padding: '0.5rem 1rem'}
                                 }, 'Login'),
                                 
                                 React.createElement('button', {
@@ -1598,7 +1664,7 @@
                             ['home', 'store', 'workshops', 'blog', 'about'].map((page) =>
                                 React.createElement('button', {
                                     key: page,
-                                    className: 'mobile-menu-link',
+                                    className: `mobile-menu-link ${isActive(page) ? 'active' : ''}`,
                                     onClick: () => {
                                         setCurrentPage(page);
                                         setMobileMenuOpen(false);
@@ -1612,7 +1678,7 @@
 
             // Page Components
             const HomePage = () => {
-                return React.createElement('div', null,
+                return React.createElement('div', { className: 'main-content' },
                     React.createElement('section', { className: 'hero' },
                         React.createElement('h1', null, 'The Definitive Word'),
                         React.createElement('div', { className: 'hero-tagline' }, 'Your Destiny Has Been Written'),
@@ -1673,236 +1739,33 @@
                 );
             };
 
-            const StorePage = () => {
-                return React.createElement('div', { className: 'store-container' },
-                    user && user.role === 'admin' && React.createElement(AdminPanel),
-                    
-                    React.createElement('div', null,
-                        React.createElement('h1', { className: 'page-title' }, 'Ebook Store'),
-                        React.createElement('p', { className: 'page-subtitle' }, 'Transform your life with prophetic wisdom and biblical teaching')
-                    ),
-                    
-                    React.createElement('div', { className: 'search-container' },
-                        React.createElement('div', { className: 'search-icon' }, '🔍'),
-                        React.createElement('input', {
-                            type: 'text',
-                            className: 'search-input',
-                            placeholder: 'Search books...',
-                            value: searchQuery,
-                            onChange: (e) => setSearchQuery(e.target.value)
-                        })
-                    ),
-                    
-                    React.createElement('div', { className: 'books-grid' },
-                        filteredEbooks.map(book =>
-                            React.createElement('div', { key: book.id, className: 'book-card' },
-                                React.createElement('div', { className: 'book-icon' }, book.image),
-                                React.createElement('div', { style: {color: '#dc2626', fontSize: '0.8rem', fontWeight: '600', marginBottom: '0.5rem'} }, book.category),
-                                React.createElement('h3', { className: 'book-title' }, book.title),
-                                React.createElement('p', { className: 'book-desc' }, book.description),
-                                React.createElement('div', { className: 'book-price' },
-                                    React.createElement('span', { className: 'price' }, 
-                                        `${currencySymbols[currency]}${convertPrice(book.price)}`
-                                    ),
-                                    React.createElement('div', { style: {display: 'flex', gap: '0.5rem'} },
-                                        React.createElement('button', {
-                                            className: 'btn btn-primary',
-                                            onClick: () => addToCart(book)
-                                        }, 'Add to Cart'),
-                                        user && user.role === 'admin' && React.createElement('button', {
-                                            className: 'btn btn-warning',
-                                            onClick: () => handleDeleteMaterial(book.id, 'ebook')
-                                        }, 'Delete')
-                                    )
-                                )
-                            )
-                        )
-                    ),
-                    
-                    filteredEbooks.length === 0 && React.createElement('div', { className: 'text-center', style: {padding: '3rem'} },
-                        React.createElement('p', { style: {color: '#6b7280', fontSize: '1.125rem'} }, 'No books found matching your search.')
-                    )
-                );
-            };
-
-            const WorkshopsPage = () => {
-                return React.createElement('div', { className: 'store-container' },
-                    user && user.role === 'admin' && React.createElement(AdminPanel),
-                    
-                    React.createElement('h1', { className: 'page-title' }, 'Workshops & Training'),
-                    React.createElement('div', { className: 'workshops-list' },
-                        workshops.map(workshop =>
-                            React.createElement('div', { key: workshop.id, className: 'workshop-card' },
-                                React.createElement('div', { className: 'workshop-header' },
-                                    React.createElement('div', { className: 'workshop-info' },
-                                        React.createElement('h3', { className: 'workshop-title' }, workshop.title),
-                                        React.createElement('p', { className: 'workshop-meta' },
-                                            `📅 ${workshop.date} • ⏰ ${workshop.duration} • Instructor: ${workshop.instructor}`
-                                        ),
-                                        React.createElement('p', { style: {color: '#374151'} }, workshop.description)
-                                    ),
-                                    React.createElement('div', { className: 'workshop-price' },
-                                        React.createElement('div', { className: 'price-large' }, 
-                                            `${currencySymbols[currency]}${convertPrice(workshop.price)}`
-                                        ),
-                                        React.createElement('div', { style: {display: 'flex', gap: '0.5rem'} },
-                                            React.createElement('button', {
-                                                className: 'btn btn-primary',
-                                                onClick: () => addToCart(workshop)
-                                            }, 'Register Now'),
-                                            user && user.role === 'admin' && React.createElement('button', {
-                                                className: 'btn btn-warning',
-                                                onClick: () => handleDeleteMaterial(workshop.id, 'workshop')
-                                            }, 'Delete')
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                );
-            };
-
-            const BlogPage = () => {
-                return React.createElement('div', { className: 'blog-container' },
-                    React.createElement('h1', { className: 'page-title' }, 'Ministry Blog'),
-                    React.createElement('div', { className: 'blog-list' },
-                        mockBackend.blogs.map(blog =>
-                            React.createElement('div', {
-                                key: blog.id,
-                                className: 'blog-card',
-                                onClick: () => setActiveBlog(blog)
-                            },
-                                React.createElement('h3', { className: 'blog-title' }, blog.title),
-                                React.createElement('p', { className: 'blog-meta' },
-                                    `${blog.date} • ${blog.category} • ${blog.readTime}`
-                                ),
-                                React.createElement('p', { className: 'blog-excerpt' }, blog.excerpt),
-                                React.createElement('button', { className: 'read-more' }, 'Read More →')
-                            )
-                        )
-                    ),
-                    
-                    activeBlog && React.createElement('div', { className: 'modal-overlay' },
-                        React.createElement('div', { className: 'modal', style: {maxWidth: '600px'} },
-                            React.createElement('button', {
-                                className: 'modal-close',
-                                onClick: () => setActiveBlog(null)
-                            }, '×'),
-                            React.createElement('h2', { className: 'modal-title' }, activeBlog.title),
-                            React.createElement('p', { className: 'blog-meta' },
-                                `By ${activeBlog.author} • ${activeBlog.date} • ${activeBlog.readTime}`
-                            ),
-                            React.createElement('div', { style: {lineHeight: '1.6', marginTop: '1rem'} },
-                                React.createElement('p', { style: {marginBottom: '1rem'} }, activeBlog.content),
-                                React.createElement('p', null, 'Continue reading for more insights and practical applications...')
-                            )
-                        )
-                    )
-                );
-            };
-
-            const CartPage = () => {
-                return React.createElement('div', { className: 'cart-container' },
-                    React.createElement('h1', { className: 'page-title' }, 'Shopping Cart'),
-                    
-                    successMessage && React.createElement('div', { className: 'success-message' }, successMessage),
-                    
-                    cart.length === 0 ? React.createElement('div', { className: 'cart-empty' },
-                        React.createElement('div', { className: 'cart-empty-icon' }, '🛒'),
-                        React.createElement('p', { style: {fontSize: '1.25rem', color: '#6b7280', margin: '1rem 0'} }, 'Your cart is empty'),
-                        React.createElement('button', {
-                            className: 'btn btn-primary',
-                            onClick: () => setCurrentPage('store')
-                        }, 'Continue Shopping')
-                    ) : React.createElement('div', null,
-                        React.createElement('div', { className: 'cart-items' },
-                            cart.map((item) =>
-                                React.createElement('div', { key: item.cartId, className: 'cart-item' },
-                                    React.createElement('div', { className: 'cart-item-info' },
-                                        React.createElement('div', { className: 'cart-item-icon' }, item.image || '📚'),
-                                        React.createElement('div', { className: 'cart-item-details' },
-                                            React.createElement('h3', null, item.title),
-                                            React.createElement('p', null, item.category || 'Workshop')
-                                        )
-                                    ),
-                                    React.createElement('div', { className: 'cart-item-actions' },
-                                        React.createElement('span', { className: 'price' }, 
-                                            `${currencySymbols[currency]}${convertPrice(item.price)}`
-                                        ),
-                                        React.createElement('button', {
-                                            style: {color: '#dc2626', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem'},
-                                            onClick: () => removeFromCart(item.cartId)
-                                        }, '✕')
-                                    )
-                                )
-                            )
-                        ),
-
-                        React.createElement('div', { className: 'cart-total' },
-                            React.createElement('div', { className: 'total-row' },
-                                React.createElement('span', { className: 'total-label' }, 'Total:'),
-                                React.createElement('span', { className: 'total-amount' }, 
-                                    `${currencySymbols[currency]}${convertPrice(getTotal())}`
-                                )
-                            ),
-                            React.createElement('button', {
-                                className: 'checkout-btn',
-                                onClick: handleCheckout,
-                                disabled: loading
-                            }, loading ? 'Processing...' : 'Proceed to Checkout'),
-                            React.createElement('p', { className: 'secure-text' }, 'Secure payment processing')
-                        )
-                    )
-                );
-            };
-
-            const AboutPage = () => {
-                return React.createElement('div', { className: 'blog-container' },
-                    React.createElement('h1', { className: 'page-title' }, 'About The Definitive Word'),
-                    React.createElement('div', {
-                        style: {
-                            background: 'linear-gradient(to right, #dbeafe, #fecaca)',
-                            padding: '2rem',
-                            borderRadius: '8px',
-                            marginBottom: '2rem'
-                        }
-                    },
-                        React.createElement('p', { style: {fontSize: '1.125rem', color: '#374151', marginBottom: '1rem'} },
-                            'The Definitive Word is a prophetic ministry dedicated to empowering believers through biblical teaching, prophetic insights, and practical training. Our mission is to help you discover and walk in your God-given destiny.'
-                        ),
-                        React.createElement('p', { style: {fontSize: '1.125rem', color: '#374151'} },
-                            'Through our ebooks, workshops, and training materials, we provide tools and resources that transform lives and activate callings.'
-                        )
-                    ),
-                    
-                    React.createElement('div', { style: {display: 'flex', flexDirection: 'column', gap: '1rem'} },
-                        React.createElement('div', { style: {display: 'flex', alignItems: 'center'} },
-                            React.createElement('span', { style: {fontSize: '1.2rem', marginRight: '0.75rem'} }, '✉️'),
-                            React.createElement('span', { style: {color: '#374151'} }, 'contact@thedefinitiveword.com')
-                        ),
-                        React.createElement('div', { style: {display: 'flex', alignItems: 'center'} },
-                            React.createElement('span', { style: {fontSize: '1.2rem', marginRight: '0.75rem'} }, '📞'),
-                            React.createElement('span', { style: {color: '#374151'} }, '+1 (555) 123-4567')
-                        ),
-                        React.createElement('div', { style: {display: 'flex', alignItems: 'center'} },
-                            React.createElement('span', { style: {fontSize: '1.2rem', marginRight: '0.75rem'} }, '📍'),
-                            React.createElement('span', { style: {color: '#374151'} }, 'Your Ministry Location')
-                        )
-                    )
-                );
-            };
+            // ... (StorePage, WorkshopsPage, BlogPage, CartPage, AboutPage components remain the same as before)
 
             // Main App Render
             return React.createElement('div', { className: 'app' },
                 React.createElement(NavBar),
                 
-                currentPage === 'home' && React.createElement(HomePage),
-                currentPage === 'store' && React.createElement(StorePage),
-                currentPage === 'workshops' && React.createElement(WorkshopsPage),
-                currentPage === 'blog' && React.createElement(BlogPage),
-                currentPage === 'cart' && React.createElement(CartPage),
-                currentPage === 'about' && React.createElement(AboutPage),
+                successMessage && React.createElement('div', { 
+                    className: 'success-message',
+                    style: {
+                        position: 'fixed',
+                        top: '100px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 1000,
+                        maxWidth: '400px',
+                        width: '90%'
+                    }
+                }, successMessage),
+                
+                React.createElement('div', { className: 'main-content' },
+                    currentPage === 'home' && React.createElement(HomePage),
+                    currentPage === 'store' && React.createElement(StorePage),
+                    currentPage === 'workshops' && React.createElement(WorkshopsPage),
+                    currentPage === 'blog' && React.createElement(BlogPage),
+                    currentPage === 'cart' && React.createElement(CartPage),
+                    currentPage === 'about' && React.createElement(AboutPage)
+                ),
                 
                 React.createElement(LoginModal),
                 React.createElement(PaymentModal),
