@@ -907,7 +907,8 @@
             NGN: 410,
             CAD: 1.25,
             AUD: 1.35,
-            JPY: 110
+            JPY: 110,
+            ZAR: 18.50  // South African Rand
         };
 
         const currencySymbols = {
@@ -917,7 +918,8 @@
             NGN: '₦',
             CAD: 'C$',
             AUD: 'A$',
-            JPY: '¥'
+            JPY: '¥',
+            ZAR: 'R'  // South African Rand
         };
 
         const currencyFlags = {
@@ -927,7 +929,8 @@
             NGN: '🇳🇬',
             CAD: '🇨🇦',
             AUD: '🇦🇺',
-            JPY: '🇯🇵'
+            JPY: '🇯🇵',
+            ZAR: '🇿🇦'  // South African Flag
         };
 
         // Mock backend data
@@ -956,6 +959,46 @@
                     description: "Unlock the mysteries of prophetic revelation.",
                     author: "Sarah Williams",
                     isFeatured: true
+                },
+                { 
+                    id: 3, 
+                    title: "Leadership in the Kingdom", 
+                    price: 29.99, 
+                    category: "Training", 
+                    image: "👑", 
+                    description: "Biblical principles for effective spiritual leadership.",
+                    author: "Pastor James Miller",
+                    isFeatured: true
+                },
+                { 
+                    id: 4, 
+                    title: "Prayer Warrior's Guide", 
+                    price: 14.99, 
+                    category: "Ministry", 
+                    image: "🙏", 
+                    description: "Transform your prayer life and see breakthrough.",
+                    author: "Rebecca Thompson",
+                    isFeatured: false
+                },
+                { 
+                    id: 5, 
+                    title: "Worship in Spirit & Truth", 
+                    price: 17.99, 
+                    category: "Worship", 
+                    image: "🎵", 
+                    description: "Experience deeper intimacy through worship.",
+                    author: "David Chen",
+                    isFeatured: false
+                },
+                { 
+                    id: 6, 
+                    title: "Financial Stewardship", 
+                    price: 21.99, 
+                    category: "Training", 
+                    image: "💰", 
+                    description: "Biblical wisdom for managing God's resources.",
+                    author: "Dr. Michael Johnson",
+                    isFeatured: false
                 }
             ],
             workshops: [
@@ -967,6 +1010,24 @@
                     description: "Learn to hear God's voice and operate in prophetic gifts.",
                     instructor: "Sarah Williams",
                     duration: "3 hours"
+                },
+                { 
+                    id: 2, 
+                    title: "Ministry Leadership Training", 
+                    date: "Dec 12, 2025", 
+                    price: 79.99,
+                    description: "Develop leadership skills for effective ministry.",
+                    instructor: "Pastor James Miller",
+                    duration: "6 hours"
+                },
+                { 
+                    id: 3, 
+                    title: "Biblical Counseling Certification", 
+                    date: "Jan 10, 2026", 
+                    price: 199.99,
+                    description: "Become certified in biblical counseling principles.",
+                    instructor: "Dr. Michael Johnson",
+                    duration: "8 weeks"
                 }
             ],
             blogs: [
@@ -979,6 +1040,26 @@
                     author: "Sarah Williams",
                     category: "Spiritual Growth",
                     readTime: "5 min read"
+                },
+                { 
+                    id: 2,
+                    title: "The Power of Prophetic Intercession", 
+                    date: "Nov 15, 2025", 
+                    excerpt: "Discover how prayer shapes destinies and nations through prophetic insight...",
+                    content: "Prophetic intercession goes beyond ordinary prayer. It's about partnering with God's heart for individuals, communities, and nations. Learn how to pray with divine perspective and see breakthrough in impossible situations.",
+                    author: "Pastor James Miller",
+                    category: "Prayer",
+                    readTime: "7 min read"
+                },
+                { 
+                    id: 3,
+                    title: "Your Destiny Awaits", 
+                    date: "Nov 10, 2025", 
+                    excerpt: "Understanding the times and seasons of your life and calling...",
+                    content: "Every believer has a unique destiny designed by God. This article helps you recognize the seasons of your life and understand how God is preparing you for your ultimate purpose and calling.",
+                    author: "Dr. Michael Johnson",
+                    category: "Destiny",
+                    readTime: "6 min read"
                 }
             ]
         };
@@ -1099,13 +1180,22 @@
             };
 
             const handleAddMaterial = () => {
+                if (!adminFormData.title || !adminFormData.price || !adminFormData.author || !adminFormData.description) {
+                    setSuccessMessage('Please fill in all required fields');
+                    setTimeout(() => setSuccessMessage(''), 3000);
+                    return;
+                }
+
                 if (adminFormData.type === 'ebook') {
                     const newEbook = {
                         id: ebooks.length + 1,
                         ...adminFormData,
                         price: parseFloat(adminFormData.price),
                         image: adminFormData.category === 'Ministry' ? '📖' : 
-                               adminFormData.category === 'Prophecy' ? '✨' : '👑'
+                               adminFormData.category === 'Prophecy' ? '✨' : 
+                               adminFormData.category === 'Training' ? '👑' :
+                               adminFormData.category === 'Worship' ? '🎵' : '💰',
+                        isFeatured: false
                     };
                     setEbooks([...ebooks, newEbook]);
                     setSuccessMessage('Ebook added successfully!');
@@ -1114,7 +1204,8 @@
                         id: workshops.length + 1,
                         ...adminFormData,
                         price: parseFloat(adminFormData.price),
-                        duration: '3 hours'
+                        duration: '3 hours',
+                        date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString() // 30 days from now
                     };
                     setWorkshops([...workshops, newWorkshop]);
                     setSuccessMessage('Workshop added successfully!');
@@ -1154,15 +1245,20 @@
             // Currency Selector Component
             const CurrencySelector = () => {
                 return React.createElement('div', { className: 'currency-selector' },
-                    React.createElement('span', null, 'Currency:'),
+                    React.createElement('span', { style: {fontSize: '0.9rem', fontWeight: '500'} }, 'Currency:'),
                     React.createElement('select', {
                         value: currency,
                         onChange: (e) => setCurrency(e.target.value),
-                        style: { padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '4px' }
+                        style: { 
+                            padding: '0.4rem', 
+                            border: '1px solid #d1d5db', 
+                            borderRadius: '4px',
+                            fontSize: '0.9rem'
+                        }
                     },
                         Object.entries(currencyFlags).map(([code, flag]) =>
                             React.createElement('option', { key: code, value: code },
-                                `${flag} ${code} (${currencySymbols[code]})`
+                                `${flag} ${code}`
                             )
                         )
                     )
@@ -1182,7 +1278,9 @@
                         React.createElement('h2', { className: 'modal-title' }, 'Complete Your Purchase'),
                         
                         React.createElement('div', { className: 'payment-portal' },
-                            React.createElement('h3', { style: {marginBottom: '1rem'} }, `Total: ${currencySymbols[currency]}${convertPrice(getTotal())}`),
+                            React.createElement('h3', { style: {marginBottom: '1rem', textAlign: 'center', fontSize: '1.5rem'} }, 
+                                `Total: ${currencySymbols[currency]}${convertPrice(getTotal())}`
+                            ),
                             
                             React.createElement('div', { className: 'payment-methods' },
                                 [
@@ -1197,7 +1295,7 @@
                                         onClick: () => setSelectedPaymentMethod(method.id)
                                     },
                                         React.createElement('div', { className: 'payment-icon' }, method.icon),
-                                        React.createElement('div', null, method.name)
+                                        React.createElement('div', { style: {fontSize: '0.9rem'} }, method.name)
                                     )
                                 )
                             ),
@@ -1233,7 +1331,21 @@
                                 ),
                                 
                                 selectedPaymentMethod === 'paypal' && React.createElement('div', null,
-                                    React.createElement('p', { style: {textAlign: 'center', margin: '1rem 0'} }, 'You will be redirected to PayPal to complete your payment.')
+                                    React.createElement('p', { style: {textAlign: 'center', margin: '1rem 0', color: '#6b7280'} }, 
+                                        'You will be redirected to PayPal to complete your payment.'
+                                    )
+                                ),
+
+                                selectedPaymentMethod === 'bank' && React.createElement('div', null,
+                                    React.createElement('p', { style: {textAlign: 'center', margin: '1rem 0', color: '#6b7280'} }, 
+                                        'Bank transfer details will be provided after order confirmation.'
+                                    )
+                                ),
+
+                                selectedPaymentMethod === 'crypto' && React.createElement('div', null,
+                                    React.createElement('p', { style: {textAlign: 'center', margin: '1rem 0', color: '#6b7280'} }, 
+                                        'Cryptocurrency payment address will be provided after order confirmation.'
+                                    )
                                 ),
                                 
                                 React.createElement('button', {
@@ -1252,7 +1364,7 @@
                 if (!user || user.role !== 'admin') return null;
 
                 return React.createElement('div', { className: 'admin-panel' },
-                    React.createElement('h3', { style: {marginBottom: '1rem'} }, 'Admin Panel - Manage Store Materials'),
+                    React.createElement('h3', { style: {marginBottom: '1rem', color: '#1d4ed8'} }, 'Admin Panel - Manage Store Materials'),
                     
                     successMessage && React.createElement('div', { className: 'success-message' }, successMessage),
                     
@@ -1270,25 +1382,29 @@
                         ),
                         
                         React.createElement('div', { className: 'form-group' },
-                            React.createElement('label', { className: 'form-label' }, 'Title'),
+                            React.createElement('label', { className: 'form-label' }, 'Title *'),
                             React.createElement('input', {
                                 type: 'text',
                                 className: 'form-input',
                                 value: adminFormData.title,
                                 onChange: (e) => setAdminFormData({...adminFormData, title: e.target.value}),
-                                placeholder: 'Enter title'
+                                placeholder: 'Enter title',
+                                required: true
                             })
                         ),
                         
                         React.createElement('div', { className: 'form-row' },
                             React.createElement('div', { className: 'form-group' },
-                                React.createElement('label', { className: 'form-label' }, 'Price (USD)'),
+                                React.createElement('label', { className: 'form-label' }, 'Price (USD) *'),
                                 React.createElement('input', {
                                     type: 'number',
                                     className: 'form-input',
                                     value: adminFormData.price,
                                     onChange: (e) => setAdminFormData({...adminFormData, price: e.target.value}),
-                                    placeholder: '0.00'
+                                    placeholder: '0.00',
+                                    min: '0',
+                                    step: '0.01',
+                                    required: true
                                 })
                             ),
                             
@@ -1307,23 +1423,25 @@
                         ),
                         
                         React.createElement('div', { className: 'form-group' },
-                            React.createElement('label', { className: 'form-label' }, 'Author/Instructor'),
+                            React.createElement('label', { className: 'form-label' }, 'Author/Instructor *'),
                             React.createElement('input', {
                                 type: 'text',
                                 className: 'form-input',
                                 value: adminFormData.author,
                                 onChange: (e) => setAdminFormData({...adminFormData, author: e.target.value}),
-                                placeholder: 'Enter author or instructor name'
+                                placeholder: 'Enter author or instructor name',
+                                required: true
                             })
                         ),
                         
                         React.createElement('div', { className: 'form-group' },
-                            React.createElement('label', { className: 'form-label' }, 'Description'),
+                            React.createElement('label', { className: 'form-label' }, 'Description *'),
                             React.createElement('textarea', {
                                 className: 'form-textarea',
                                 value: adminFormData.description,
                                 onChange: (e) => setAdminFormData({...adminFormData, description: e.target.value}),
-                                placeholder: 'Enter description'
+                                placeholder: 'Enter description',
+                                required: true
                             })
                         )
                     ),
