@@ -4,8 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Definitive Word - Your Destiny Has Been Written</title>
+    <meta name="description" content="The Definitive Word Ministry - Your Destiny Has Been Written. Discover God's plan through prophetic teaching, life coaching, and transformative resources.">
+    <meta name="keywords" content="prophetic teaching, life coaching, Christian resources, destiny, ministry, South Africa">
+    <meta name="author" content="The Definitive Word Ministry">
+    <meta property="og:title" content="The Definitive Word - Your Destiny Has Been Written">
+    <meta property="og:description" content="Discover God's plan for your life through prophetic teaching and life coaching">
+    <meta property="og:image" content="https://yourdomain.com/images/og-image.jpg">
+    <meta property="og:url" content="https://yourdomain.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Definitive Word - Your Destiny Has Been Written">
+    <meta name="twitter:description" content="Discover God's plan for your life through prophetic teaching and life coaching">
+    <meta name="csrf-token" content="csrf_token_placeholder">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://js.stripe.com/v3/"></script>
+    
     <style>
         :root {
             --prophetic-blue: #1e3a8a;
@@ -106,12 +120,19 @@
             align-items: center;
         }
 
-        .cart-icon {
+        .user-welcome {
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cart-icon, .wishlist-icon {
             position: relative;
             cursor: pointer;
         }
 
-        .cart-count {
+        .cart-count, .wishlist-count {
             position: absolute;
             top: -8px;
             right: -8px;
@@ -164,6 +185,11 @@
             background: rgba(255,255,255,0.1);
         }
 
+        .btn-danger {
+            background: var(--error);
+            color: var(--white);
+        }
+
         .menu-toggle {
             display: none;
             background: none;
@@ -171,6 +197,46 @@
             color: var(--white);
             font-size: 1.5rem;
             cursor: pointer;
+        }
+
+        /* Search Container */
+        .search-container {
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+
+        .search-result-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-result-item:hover {
+            background: var(--light-gray);
+        }
+
+        .search-result-icon {
+            font-size: 1.2rem;
+            width: 30px;
+            text-align: center;
         }
 
         /* Hero Section */
@@ -242,6 +308,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .product-card:hover {
@@ -258,6 +325,32 @@
             justify-content: center;
             color: var(--white);
             font-size: 3rem;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #ccc;
+            transition: all 0.3s;
+        }
+
+        .wishlist-btn.active {
+            color: var(--prophetic-red);
+        }
+
+        .wishlist-btn:hover {
+            transform: scale(1.1);
         }
 
         .product-content {
@@ -291,8 +384,20 @@
             font-weight: bold;
         }
 
+        .in-stock {
+            color: var(--success);
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .out-of-stock {
+            color: var(--error);
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
         /* Cart Sidebar */
-        .cart-sidebar {
+        .cart-sidebar, .wishlist-sidebar {
             position: fixed;
             top: 0;
             right: -400px;
@@ -306,11 +411,11 @@
             flex-direction: column;
         }
 
-        .cart-sidebar.active {
+        .cart-sidebar.active, .wishlist-sidebar.active {
             right: 0;
         }
 
-        .cart-header {
+        .cart-header, .wishlist-header {
             padding: 1.5rem;
             border-bottom: 1px solid #e5e7eb;
             display: flex;
@@ -320,14 +425,14 @@
             color: var(--white);
         }
 
-        .cart-header h3 {
+        .cart-header h3, .wishlist-header h3 {
             margin: 0;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .close-cart {
+        .close-cart, .close-wishlist {
             background: none;
             border: none;
             color: var(--white);
@@ -335,20 +440,20 @@
             cursor: pointer;
         }
 
-        .cart-items {
+        .cart-items, .wishlist-items {
             flex-grow: 1;
             overflow-y: auto;
             padding: 1rem;
         }
 
-        .cart-item {
+        .cart-item, .wishlist-item {
             display: flex;
             gap: 1rem;
             padding: 1rem 0;
             border-bottom: 1px solid #e5e7eb;
         }
 
-        .cart-item-image {
+        .cart-item-image, .wishlist-item-image {
             width: 80px;
             height: 80px;
             background: linear-gradient(135deg, var(--prophetic-blue), var(--prophetic-red));
@@ -360,11 +465,11 @@
             font-size: 1.5rem;
         }
 
-        .cart-item-details {
+        .cart-item-details, .wishlist-item-details {
             flex-grow: 1;
         }
 
-        .cart-item-details h4 {
+        .cart-item-details h4, .wishlist-item-details h4 {
             color: var(--prophetic-blue);
             margin-bottom: 0.5rem;
         }
@@ -401,7 +506,7 @@
             margin-left: auto;
         }
 
-        .cart-footer {
+        .cart-footer, .wishlist-footer {
             padding: 1.5rem;
             border-top: 1px solid #e5e5e5;
             background: var(--light-gray);
@@ -435,7 +540,7 @@
             background: #b91c1c;
         }
 
-        .empty-cart {
+        .empty-cart, .empty-wishlist {
             text-align: center;
             padding: 2rem;
             color: #6b7280;
@@ -464,7 +569,7 @@
             background-color: var(--white);
             padding: 2rem;
             border-radius: 10px;
-            max-width: 800px;
+            max-width: 500px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -526,242 +631,6 @@
             display: block;
         }
 
-        /* Admin Panel */
-        .admin-panel {
-            display: none;
-            background: var(--light-gray);
-            padding: 2rem;
-            border-radius: 10px;
-            margin-top: 2rem;
-        }
-
-        .admin-panel.active {
-            display: block;
-        }
-
-        .admin-tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            overflow-x: auto;
-        }
-
-        .admin-tab {
-            padding: 0.75rem 1.5rem;
-            background: var(--white);
-            border: 1px solid #d1d5db;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--dark-gray);
-            white-space: nowrap;
-        }
-
-        .admin-tab.active {
-            background: var(--prophetic-blue);
-            color: var(--white);
-        }
-
-        .admin-content {
-            background: var(--white);
-            padding: 1.5rem;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        .admin-table th, .admin-table td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .admin-table th {
-            background: var(--light-gray);
-            color: var(--prophetic-blue);
-        }
-
-        .action-btn {
-            padding: 0.5rem 0.75rem;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            margin-right: 0.5rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .edit-btn {
-            background: var(--warning);
-            color: var(--white);
-        }
-
-        .delete-btn {
-            background: var(--error);
-            color: var(--white);
-        }
-
-        .preview-btn {
-            background: var(--prophetic-blue);
-            color: var(--white);
-        }
-
-        /* Content Management */
-        .content-management {
-            margin-top: 2rem;
-        }
-
-        .content-type-tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            overflow-x: auto;
-        }
-
-        .content-type-tab {
-            padding: 0.75rem 1.5rem;
-            background: var(--white);
-            border: 1px solid #d1d5db;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--dark-gray);
-            white-space: nowrap;
-        }
-
-        .content-type-tab.active {
-            background: var(--prophetic-blue);
-            color: var(--white);
-        }
-
-        .content-list {
-            margin-top: 1.5rem;
-        }
-
-        .content-item {
-            background: var(--light-gray);
-            padding: 1.5rem;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .content-item h4 {
-            color: var(--prophetic-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .content-item-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        /* Preview Section */
-        .preview-section {
-            margin-top: 2rem;
-            border-top: 1px solid #e5e7eb;
-            padding-top: 1.5rem;
-        }
-
-        .preview-content {
-            background: var(--light-gray);
-            padding: 1.5rem;
-            border-radius: 5px;
-            margin-top: 1rem;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--prophetic-blue);
-            color: var(--white);
-            text-align: center;
-            padding: 3rem 2rem;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            text-align: left;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section a {
-            color: var(--white);
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-
-        .footer-section a:hover {
-            opacity: 0.8;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            transition: background 0.3s;
-        }
-
-        .social-links a:hover {
-            background: var(--prophetic-red);
-        }
-
-        .footer-bottom {
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* Utility Classes */
-        .alt-bg {
-            background: var(--light-gray);
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
         /* Form Styles */
         .form-group {
             margin-bottom: 1.5rem;
@@ -787,6 +656,234 @@
         .form-group textarea {
             min-height: 120px;
             resize: vertical;
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .forgot-password {
+            color: var(--prophetic-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* User Profile */
+        .profile-section {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--prophetic-blue), var(--prophetic-red));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+        }
+
+        .profile-info h3 {
+            color: var(--prophetic-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--prophetic-blue);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Order History */
+        .order-history {
+            margin-top: 2rem;
+        }
+
+        .order-card {
+            background: var(--white);
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .order-id {
+            font-weight: bold;
+            color: var(--prophetic-blue);
+        }
+
+        .order-date {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .order-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-completed {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-pending {
+            background: var(--warning);
+            color: white;
+        }
+
+        /* Cookie Consent */
+        #cookieConsent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #333;
+            color: white;
+            padding: 1rem;
+            z-index: 2000;
+            display: none;
+        }
+
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--prophetic-blue);
+            color: var(--white);
+            padding: 3rem 1.5rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--prophetic-gold);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .alt-bg {
+            background-color: var(--light-gray);
         }
 
         /* Responsive */
@@ -827,31 +924,63 @@
                 font-size: 2rem;
             }
 
-            .cart-sidebar {
+            .cart-sidebar, .wishlist-sidebar {
                 width: 100%;
                 right: -100%;
             }
 
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-
-            .admin-tabs, .content-type-tabs {
+            .cookie-content {
                 flex-direction: column;
+                text-align: center;
             }
 
             .modal-content {
                 padding: 1.5rem;
             }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .form-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--prophetic-blue);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsent">
+        <div class="cookie-content">
+            <p>We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.</p>
+            <button onclick="acceptCookies()" class="btn btn-primary">Accept</button>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <nav>
@@ -876,18 +1005,17 @@
                 </ul>
                 
                 <div class="user-actions">
+                    <div class="wishlist-icon" onclick="toggleWishlist()">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count">0</span>
+                    </div>
                     <div class="cart-icon" onclick="toggleCart()">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">0</span>
                     </div>
                     
-                    <div class="auth-buttons">
-                        <button class="btn btn-outline" onclick="openAuthModal()">
-                            <i class="fas fa-user"></i> Login
-                        </button>
-                        <button class="btn btn-primary" onclick="openAuthModal('register')">
-                            <i class="fas fa-user-plus"></i> Sign Up
-                        </button>
+                    <div class="auth-buttons" id="authButtons">
+                        <!-- Will be populated by JavaScript -->
                     </div>
                 </div>
             </div>
@@ -906,6 +1034,66 @@
         </div>
     </section>
 
+    <!-- User Profile Section (Hidden by default) -->
+    <section id="userProfile" class="hidden">
+        <h2>My Account</h2>
+        <div class="profile-section">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h3 id="userProfileName">Loading...</h3>
+                    <p id="userProfileEmail">Loading...</p>
+                    <p>Member since <span id="userJoinDate">2025</span></p>
+                </div>
+            </div>
+            
+            <div class="profile-stats">
+                <div class="stat-card">
+                    <span class="stat-number" id="ordersCount">0</span>
+                    <span class="stat-label">Orders</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="wishlistCount">0</span>
+                    <span class="stat-label">Wishlist Items</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="coachingSessions">0</span>
+                    <span class="stat-label">Coaching Sessions</span>
+                </div>
+            </div>
+
+            <div class="user-actions">
+                <button class="btn btn-primary" onclick="openEditProfileModal()">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+                <button class="btn btn-outline" onclick="openChangePasswordModal()">
+                    <i class="fas fa-key"></i> Change Password
+                </button>
+                <button class="btn btn-danger" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <div class="order-history">
+            <h3>Order History</h3>
+            <div id="orderHistory">
+                <p>No orders yet. <a href="#products" onclick="scrollToSection('products')">Start shopping!</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="alt-bg">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search products, blog posts, workshops..." 
+                   style="width: 100%; padding: 0.8rem; border: 1px solid #d1d5db; border-radius: 5px;">
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </section>
+
     <!-- Products Section -->
     <section id="products">
         <h2>Featured Products</h2>
@@ -913,7 +1101,7 @@
             Dive deep into prophetic wisdom and biblical teaching with our collection of transformative resources.
         </p>
         
-        <div class="products-grid">
+        <div class="products-grid" id="productsGrid">
             <!-- Product cards will be dynamically generated -->
         </div>
     </section>
@@ -947,7 +1135,7 @@
     <!-- Blog Section -->
     <section id="blog">
         <h2>Latest from the Blog</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;" id="blogContainer">
             <!-- Blog posts will be dynamically generated -->
         </div>
     </section>
@@ -955,7 +1143,7 @@
     <!-- Workshops Section -->
     <section id="workshops" class="alt-bg">
         <h2>Upcoming Workshops</h2>
-        <div style="display: grid; gap: 2rem; margin-top: 2rem;">
+        <div style="display: grid; gap: 2rem; margin-top: 2rem;" id="workshopsContainer">
             <!-- Workshop cards will be dynamically generated -->
         </div>
     </section>
@@ -1029,139 +1217,6 @@
         </div>
     </section>
 
-    <!-- Admin Panel (Hidden by default) -->
-    <section id="admin" class="hidden">
-        <h2>Admin Panel</h2>
-        <div class="admin-panel">
-            <div class="admin-tabs">
-                <button class="admin-tab active" onclick="switchAdminTab('products')">Products</button>
-                <button class="admin-tab" onclick="switchAdminTab('blog')">Blog Posts</button>
-                <button class="admin-tab" onclick="switchAdminTab('workshops')">Workshops</button>
-                <button class="admin-tab" onclick="switchAdminTab('ministry')">Ministry</button>
-                <button class="admin-tab" onclick="switchAdminTab('users')">Users</button>
-                <button class="admin-tab" onclick="switchAdminTab('orders')">Orders</button>
-                <button class="admin-tab" onclick="switchAdminTab('settings')">Settings</button>
-            </div>
-            
-            <div class="admin-content">
-                <!-- Products Tab -->
-                <div id="admin-products" class="admin-tab-content active">
-                    <h3>Manage Products</h3>
-                    <button class="btn btn-primary" onclick="openProductModal()">
-                        <i class="fas fa-plus"></i> Add New Product
-                    </button>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Category</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-products-table">
-                            <!-- Products will be populated here -->
-                        </tbody>
-                    </table>
-                </div>
-                
-                <!-- Blog Posts Tab -->
-                <div id="admin-blog" class="admin-tab-content">
-                    <h3>Manage Blog Posts</h3>
-                    <button class="btn btn-primary" onclick="openContentModal('blog')">
-                        <i class="fas fa-plus"></i> Add New Blog Post
-                    </button>
-                    <div class="content-list" id="admin-blog-list">
-                        <!-- Blog posts will be populated here -->
-                    </div>
-                </div>
-                
-                <!-- Workshops Tab -->
-                <div id="admin-workshops" class="admin-tab-content">
-                    <h3>Manage Workshops</h3>
-                    <button class="btn btn-primary" onclick="openContentModal('workshop')">
-                        <i class="fas fa-plus"></i> Add New Workshop
-                    </button>
-                    <div class="content-list" id="admin-workshops-list">
-                        <!-- Workshops will be populated here -->
-                    </div>
-                </div>
-                
-                <!-- Ministry Tab -->
-                <div id="admin-ministry" class="admin-tab-content">
-                    <h3>Manage Ministry Content</h3>
-                    <button class="btn btn-primary" onclick="openContentModal('ministry')">
-                        <i class="fas fa-plus"></i> Add Ministry Content
-                    </button>
-                    <div class="content-list" id="admin-ministry-list">
-                        <!-- Ministry content will be populated here -->
-                    </div>
-                </div>
-                
-                <!-- Users Tab -->
-                <div id="admin-users" class="admin-tab-content">
-                    <h3>Manage Users</h3>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-users-table">
-                            <!-- Users will be populated here -->
-                        </tbody>
-                    </table>
-                </div>
-                
-                <!-- Orders Tab -->
-                <div id="admin-orders" class="admin-tab-content">
-                    <h3>Manage Orders</h3>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Customer</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-orders-table">
-                            <!-- Orders will be populated here -->
-                        </tbody>
-                    </table>
-                </div>
-                
-                <!-- Settings Tab -->
-                <div id="admin-settings" class="admin-tab-content">
-                    <h3>Website Settings</h3>
-                    <div class="form-group">
-                        <label for="siteTitle">Site Title</label>
-                        <input type="text" id="siteTitle" value="The Definitive Word">
-                    </div>
-                    <div class="form-group">
-                        <label for="siteTagline">Site Tagline</label>
-                        <input type="text" id="siteTagline" value="Your Destiny Has Been Written">
-                    </div>
-                    <div class="form-group">
-                        <label for="primaryColor">Primary Color</label>
-                        <input type="color" id="primaryColor" value="#1e3a8a">
-                    </div>
-                    <div class="form-group">
-                        <label for="secondaryColor">Secondary Color</label>
-                        <input type="color" id="secondaryColor" value="#dc2626">
-                    </div>
-                    <button class="btn btn-primary" onclick="saveSettings()">
-                        <i class="fas fa-save"></i> Save Settings
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer>
         <div class="footer-content">
@@ -1169,10 +1224,10 @@
                 <h3>The Definitive Word</h3>
                 <p>Your Destiny Has Been Written. We are dedicated to helping you discover and walk in your God-given purpose through prophetic teaching and life coaching.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#" onclick="shareOnFacebook()"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" onclick="shareOnTwitter()"><i class="fab fa-twitter"></i></a>
+                    <a href="#" onclick="shareOnLinkedIn()"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" onclick="shareOnWhatsApp()"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             
@@ -1225,6 +1280,24 @@
         </div>
     </div>
 
+    <!-- Wishlist Sidebar -->
+    <div class="wishlist-sidebar" id="wishlistSidebar">
+        <div class="wishlist-header">
+            <h3><i class="fas fa-heart"></i> Your Wishlist</h3>
+            <button class="close-wishlist" onclick="toggleWishlist()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="wishlist-items" id="wishlistItems">
+            <!-- Wishlist items will be dynamically added here -->
+        </div>
+        <div class="wishlist-footer">
+            <button class="checkout-btn" onclick="toggleWishlist()">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
     <!-- Auth Modal -->
     <div class="modal" id="authModal">
         <div class="modal-content">
@@ -1250,7 +1323,7 @@
                     <input type="password" id="loginPassword" required>
                 </div>
                 <div class="form-footer">
-                    <a href="#" class="forgot-password">Forgot Password?</a>
+                    <a href="#" class="forgot-password" onclick="openForgotPasswordModal(); return false;">Forgot Password?</a>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </div>
             </form>
@@ -1272,108 +1345,102 @@
                     <label for="registerConfirmPassword">Confirm Password</label>
                     <input type="password" id="registerConfirmPassword" required>
                 </div>
-                <div class="form-footer">
-                    <button type="submit" class="btn btn-primary">Create Account</button>
-                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Create Account</button>
             </form>
         </div>
     </div>
 
-    <!-- Product Modal (for admin) -->
-    <div class="modal" id="productModal">
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="productModalTitle">Add New Product</h3>
-                <button class="close-modal" onclick="closeProductModal()">
+                <h3>Reset Your Password</h3>
+                <button class="close-modal" onclick="closeForgotPasswordModal()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             
-            <form id="productForm">
+            <form id="forgotPasswordForm">
                 <div class="form-group">
-                    <label for="productName">Product Name</label>
-                    <input type="text" id="productName" required>
+                    <label for="resetEmail">Email Address</label>
+                    <input type="email" id="resetEmail" required placeholder="Enter your email address">
+                </div>
+                <p style="margin-bottom: 1rem; color: #6b7280; font-size: 0.9rem;">
+                    We'll send you a link to reset your password.
+                </p>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Send Reset Link
+                </button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="#" onclick="closeForgotPasswordModal(); openAuthModal(); return false;" style="color: var(--prophetic-blue); text-decoration: none;">
+                    Back to Login
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal" id="changePasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="close-modal" onclick="closeChangePasswordModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="changePasswordForm">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" required>
                 </div>
                 <div class="form-group">
-                    <label for="productDescription">Description</label>
-                    <textarea id="productDescription" required></textarea>
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" required>
                 </div>
                 <div class="form-group">
-                    <label for="productPrice">Price (ZAR)</label>
-                    <input type="number" id="productPrice" step="0.01" required>
+                    <label for="confirmNewPassword">Confirm New Password</label>
+                    <input type="password" id="confirmNewPassword" required>
                 </div>
-                <div class="form-group">
-                    <label for="productCategory">Category</label>
-                    <select id="productCategory" required>
-                        <option value="ebook">E-book</option>
-                        <option value="workshop">Workshop</option>
-                        <option value="coaching">Coaching</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="productImage">Image URL</label>
-                    <input type="text" id="productImage">
-                </div>
-                
-                <!-- Preview Section -->
-                <div class="preview-section">
-                    <h4>Preview</h4>
-                    <div class="preview-content" id="productPreview">
-                        <p><strong>Product Preview:</strong> Your product will appear here as you type.</p>
-                    </div>
-                </div>
-                
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Product</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Update Password
+                </button>
             </form>
         </div>
     </div>
 
-    <!-- Content Modal (for admin) -->
-    <div class="modal" id="contentModal">
+    <!-- Edit Profile Modal -->
+    <div class="modal" id="editProfileModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="contentModalTitle">Add New Content</h3>
-                <button class="close-modal" onclick="closeContentModal()">
+                <h3>Edit Profile</h3>
+                <button class="close-modal" onclick="closeEditProfileModal()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             
-            <form id="contentForm">
+            <form id="editProfileForm">
                 <div class="form-group">
-                    <label for="contentTitle">Title</label>
-                    <input type="text" id="contentTitle" required>
+                    <label for="editName">Full Name</label>
+                    <input type="text" id="editName" required>
                 </div>
                 <div class="form-group">
-                    <label for="contentDescription">Description</label>
-                    <textarea id="contentDescription" required></textarea>
+                    <label for="editEmail">Email Address</label>
+                    <input type="email" id="editEmail" required>
                 </div>
-                <div class="form-group" id="contentDateGroup">
-                    <label for="contentDate">Date</label>
-                    <input type="date" id="contentDate">
+                <div class="form-group">
+                    <label for="editPhone">Phone Number</label>
+                    <input type="tel" id="editPhone" placeholder="Optional">
                 </div>
-                <div class="form-group" id="contentPriceGroup">
-                    <label for="contentPrice">Price (ZAR)</label>
-                    <input type="number" id="contentPrice" step="0.01">
+                <div class="form-group">
+                    <label for="editBio">Bio</label>
+                    <textarea id="editBio" placeholder="Tell us about yourself..." rows="4"></textarea>
                 </div>
-                <div class="form-group" id="contentLocationGroup">
-                    <label for="contentLocation">Location</label>
-                    <input type="text" id="contentLocation">
-                </div>
-                <div class="form-group" id="contentTimeGroup">
-                    <label for="contentTime">Time</label>
-                    <input type="text" id="contentTime" placeholder="e.g., 9:00 AM - 4:00 PM">
-                </div>
-                
-                <!-- Preview Section -->
-                <div class="preview-section">
-                    <h4>Preview</h4>
-                    <div class="preview-content" id="contentPreview">
-                        <p><strong>Content Preview:</strong> Your content will appear here as you type.</p>
-                    </div>
-                </div>
-                
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Content</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Save Changes
+                </button>
             </form>
         </div>
     </div>
@@ -1394,27 +1461,25 @@
         </div>
     </div>
 
-    <!-- Preview Modal -->
-    <div class="modal" id="previewModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="previewModalTitle">Content Preview</h3>
-                <button class="close-modal" onclick="closePreviewModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div id="previewContent">
-                <!-- Preview content will be dynamically added here -->
-            </div>
-        </div>
-    </div>
-
     <script>
         // Application State
         const state = {
             user: null,
             cart: [],
+            wishlist: [],
+            orders: [],
+            users: [
+                {
+                    id: 1,
+                    name: "Admin User",
+                    email: "admin@definitiveword.org",
+                    password: "admin123",
+                    role: "admin",
+                    joinDate: "2025-01-01",
+                    phone: "+27 21 123 4567",
+                    bio: "Site administrator and ministry leader."
+                }
+            ],
             products: [
                 {
                     id: 1,
@@ -1422,7 +1487,9 @@
                     description: "A comprehensive guide to discovering and walking in your God-given purpose.",
                     price: 299.99,
                     category: "ebook",
-                    image: "📖"
+                    image: "📖",
+                    inventory: 100,
+                    sku: "EBK-001"
                 },
                 {
                     id: 2,
@@ -1430,23 +1497,29 @@
                     description: "Understanding the prophetic voice in the modern church and your personal life.",
                     price: 349.99,
                     category: "ebook",
-                    image: "🕊️"
+                    image: "🕊️",
+                    inventory: 50,
+                    sku: "EBK-002"
                 },
                 {
                     id: 3,
-                    name: "The Written Word",
-                    description: "Exploring the power of God's promises and declarations over your life.",
-                    price: 269.99,
+                    name: "Destiny Declarations",
+                    description: "Powerful declarations to speak over your life and activate your destiny.",
+                    price: 199.99,
                     category: "ebook",
-                    image: "✝️"
+                    image: "🗣️",
+                    inventory: 75,
+                    sku: "EBK-003"
                 },
                 {
                     id: 4,
-                    name: "Prayer & Fasting Guide",
-                    description: "A 21-day guide to deepening your prayer life through biblical fasting.",
-                    price: 199.99,
+                    name: "The Prophetic Journey",
+                    description: "A 30-day devotional to deepen your prophetic understanding and walk.",
+                    price: 249.99,
                     category: "ebook",
-                    image: "🙏"
+                    image: "🛤️",
+                    inventory: 60,
+                    sku: "EBK-004"
                 }
             ],
             blogPosts: [
@@ -1459,15 +1532,15 @@
                 },
                 {
                     id: 2,
-                    title: "The Power of Declared Destiny",
-                    description: "Understanding how God's written word over your life shapes your future...",
+                    title: "Understanding God's Timing",
+                    description: "Learning to trust in divine timing when pursuing your God-given destiny...",
                     date: "2025-11-15",
                     content: "Full blog post content would go here..."
                 },
                 {
                     id: 3,
-                    title: "Breaking Through Limitations",
-                    description: "Practical steps to overcome the barriers standing between you and your destiny...",
+                    title: "The Power of Prophetic Declaration",
+                    description: "How speaking God's promises can activate your destiny and transform your life...",
                     date: "2025-11-10",
                     content: "Full blog post content would go here..."
                 }
@@ -1476,316 +1549,126 @@
                 {
                     id: 1,
                     title: "Prophetic Activation Workshop",
-                    description: "A powerful one-day intensive designed to activate and strengthen your prophetic gifting. Learn to hear God's voice clearly and minister prophetically with confidence.",
+                    description: "A powerful one-day intensive designed to activate and strengthen your prophetic gifting.",
                     date: "2025-12-15",
                     price: 499.99,
                     location: "Virtual (Zoom)",
-                    time: "9:00 AM - 4:00 PM"
+                    time: "9:00 AM - 4:00 PM",
+                    inventory: 20
                 },
                 {
                     id: 2,
-                    title: "Destiny Mapping Masterclass",
-                    description: "Discover God's blueprint for your life and create a practical roadmap to walk in your divine purpose. Limited to 20 participants for personalized attention.",
-                    date: "2026-01-22",
+                    title: "Destiny Discovery Intensive",
+                    description: "A weekend workshop focused on uncovering your unique purpose and calling.",
+                    date: "2025-12-20",
                     price: 799.99,
                     location: "Cape Town, South Africa",
-                    time: "6:00 PM - 9:00 PM"
-                }
-            ],
-            ministryInfo: [
-                {
-                    id: 1,
-                    title: "Our Mission",
-                    description: "To help believers understand that their destiny has already been written by God and equip them to walk confidently in their divine calling."
+                    time: "9:00 AM - 5:00 PM",
+                    inventory: 15
                 },
                 {
-                    id: 2,
-                    title: "Our Vision",
-                    description: "To see every believer living out their God-given purpose through prophetic teaching, life coaching, and biblical resources."
+                    id: 3,
+                    title: "Prophetic Ministry Training",
+                    description: "Advanced training for those called to prophetic ministry and leadership.",
+                    date: "2026-01-10",
+                    price: 999.99,
+                    location: "Virtual (Zoom)",
+                    time: "10:00 AM - 3:00 PM",
+                    inventory: 25
                 }
-            ],
-            users: [
-                {
-                    id: 1,
-                    name: "Admin User",
-                    email: "admin@definitiveword.org",
-                    role: "admin",
-                    password: "admin123"
-                }
-            ],
-            orders: [],
-            settings: {
-                siteTitle: "The Definitive Word",
-                siteTagline: "Your Destiny Has Been Written",
-                primaryColor: "#1e3a8a",
-                secondaryColor: "#dc2626"
-            }
+            ]
         };
 
         // DOM Elements
         const elements = {
             cartSidebar: document.getElementById('cartSidebar'),
+            wishlistSidebar: document.getElementById('wishlistSidebar'),
             cartItems: document.getElementById('cartItems'),
+            wishlistItems: document.getElementById('wishlistItems'),
             cartTotal: document.getElementById('cartTotal'),
             cartCount: document.querySelector('.cart-count'),
+            wishlistCount: document.querySelector('.wishlist-count'),
             authModal: document.getElementById('authModal'),
-            productModal: document.getElementById('productModal'),
-            contentModal: document.getElementById('contentModal'),
+            forgotPasswordModal: document.getElementById('forgotPasswordModal'),
+            changePasswordModal: document.getElementById('changePasswordModal'),
+            editProfileModal: document.getElementById('editProfileModal'),
             paymentModal: document.getElementById('paymentModal'),
-            previewModal: document.getElementById('previewModal'),
-            productsGrid: document.querySelector('.products-grid'),
-            blogSection: document.getElementById('blog'),
-            workshopsSection: document.getElementById('workshops'),
-            adminSection: document.getElementById('admin'),
-            checkoutBtn: document.getElementById('checkoutBtn'),
-            navContainer: document.getElementById('navContainer')
+            authButtons: document.getElementById('authButtons'),
+            userProfile: document.getElementById('userProfile'),
+            productsGrid: document.getElementById('productsGrid'),
+            blogContainer: document.getElementById('blogContainer'),
+            workshopsContainer: document.getElementById('workshopsContainer'),
+            navContainer: document.getElementById('navContainer'),
+            searchInput: document.getElementById('searchInput'),
+            searchResults: document.getElementById('searchResults')
         };
 
         // Initialize the application
         function init() {
+            checkLoginStatus();
             renderProducts();
             renderBlogPosts();
             renderWorkshops();
             updateCartUI();
-            checkAuthState();
-            loadSettings();
+            updateWishlistUI();
+            checkCookieConsent();
             
             // Set up event listeners
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
             document.getElementById('registerForm').addEventListener('submit', handleRegister);
+            document.getElementById('forgotPasswordForm').addEventListener('submit', handleForgotPassword);
+            document.getElementById('changePasswordForm').addEventListener('submit', handleChangePassword);
+            document.getElementById('editProfileForm').addEventListener('submit', handleEditProfile);
             document.getElementById('contactForm').addEventListener('submit', handleContact);
-            document.getElementById('productForm').addEventListener('submit', handleProductSubmit);
-            document.getElementById('contentForm').addEventListener('submit', handleContentSubmit);
             
-            // Add preview functionality
-            document.getElementById('productName').addEventListener('input', updateProductPreview);
-            document.getElementById('productDescription').addEventListener('input', updateProductPreview);
-            document.getElementById('productPrice').addEventListener('input', updateProductPreview);
-            document.getElementById('productCategory').addEventListener('change', updateProductPreview);
-            
-            document.getElementById('contentTitle').addEventListener('input', updateContentPreview);
-            document.getElementById('contentDescription').addEventListener('input', updateContentPreview);
-            document.getElementById('contentDate').addEventListener('input', updateContentPreview);
-            document.getElementById('contentPrice').addEventListener('input', updateContentPreview);
-            document.getElementById('contentLocation').addEventListener('input', updateContentPreview);
-            document.getElementById('contentTime').addEventListener('input', updateContentPreview);
-            
-            // Check if user is admin
-            if (state.user && state.user.role === 'admin') {
-                showAdminPanel();
-                renderAdminData();
-            }
-        }
-
-        // Navigation Functions
-        function toggleMenu() {
-            elements.navContainer.classList.toggle('active');
-        }
-
-        function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-            toggleMenu(); // Close mobile menu after clicking
-        }
-
-        // Cart Functions
-        function toggleCart() {
-            elements.cartSidebar.classList.toggle('active');
-        }
-
-        function addToCart(name, price, category, id = null) {
-            const productId = id || Date.now();
-            const existingItem = state.cart.find(item => item.id === productId);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                state.cart.push({
-                    id: productId,
-                    name,
-                    price,
-                    category,
-                    quantity: 1
-                });
-            }
-            
-            updateCartUI();
-            showNotification(`${name} added to cart!`, 'success');
-            
-            // Auto-open cart for non-coaching items
-            if (category !== 'coaching') {
-                elements.cartSidebar.classList.add('active');
-            }
-        }
-
-        function removeFromCart(id) {
-            state.cart = state.cart.filter(item => item.id !== id);
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            // Update cart items
-            elements.cartItems.innerHTML = '';
-            
-            if (state.cart.length === 0) {
-                elements.cartItems.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
-                elements.checkoutBtn.disabled = true;
-            } else {
-                state.cart.forEach(item => {
-                    const cartItem = document.createElement('div');
-                    cartItem.className = 'cart-item';
-                    cartItem.innerHTML = `
-                        <div class="cart-item-image">${getProductIcon(item.category)}</div>
-                        <div class="cart-item-details">
-                            <h4>${item.name}</h4>
-                            <div class="price">R ${item.price.toFixed(2)}</div>
-                            <div class="cart-item-controls">
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                                <span class="quantity">${item.quantity}</span>
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                                <button class="remove-item" onclick="removeFromCart(${item.id})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    elements.cartItems.appendChild(cartItem);
-                });
-                elements.checkoutBtn.disabled = false;
-            }
-            
-            // Update cart total and count
-            const total = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const count = state.cart.reduce((sum, item) => sum + item.quantity, 0);
-            
-            elements.cartTotal.textContent = `R ${total.toFixed(2)}`;
-            elements.cartCount.textContent = count;
-        }
-
-        function updateQuantity(id, change) {
-            const item = state.cart.find(item => item.id === id);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    removeFromCart(id);
-                } else {
-                    updateCartUI();
+            // Search functionality
+            elements.searchInput.addEventListener('input', handleSearch);
+            document.addEventListener('click', function(e) {
+                if (!elements.searchResults.contains(e.target) && e.target !== elements.searchInput) {
+                    elements.searchResults.style.display = 'none';
                 }
-            }
-        }
-
-        function getProductIcon(category) {
-            switch(category) {
-                case 'ebook': return '📖';
-                case 'workshop': return '🎓';
-                case 'coaching': return '🎯';
-                default: return '📦';
-            }
-        }
-
-        // Product Functions
-        function renderProducts() {
-            elements.productsGrid.innerHTML = '';
-            
-            state.products.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.innerHTML = `
-                    <div class="product-image">${product.image}</div>
-                    <div class="product-content">
-                        <h3>${product.name}</h3>
-                        <p>${product.description}</p>
-                        <div class="product-footer">
-                            <div class="price">R ${product.price.toFixed(2)}</div>
-                            <button class="btn btn-primary" onclick="addToCart('${product.name}', ${product.price}, '${product.category}', ${product.id})">
-                                <i class="fas fa-cart-plus"></i> Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                `;
-                elements.productsGrid.appendChild(productCard);
             });
         }
 
-        // Blog Functions
-        function renderBlogPosts() {
-            const blogContainer = document.querySelector('#blog > div');
-            blogContainer.innerHTML = '';
-            
-            state.blogPosts.forEach(post => {
-                const blogPost = document.createElement('article');
-                blogPost.style.cssText = 'background: var(--light-gray); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--prophetic-blue);';
-                blogPost.innerHTML = `
-                    <h3 style="color: var(--prophetic-blue); margin-bottom: 0.5rem;">${post.title}</h3>
-                    <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">${formatDate(post.date)}</p>
-                    <p style="margin-bottom: 1rem;">${post.description}</p>
-                    <a href="#" style="color: var(--prophetic-blue); text-decoration: none; font-weight: bold;" onclick="readBlogPost(${post.id}); return false;">
-                        Read More <i class="fas fa-arrow-right"></i>
-                    </a>
-                `;
-                blogContainer.appendChild(blogPost);
-            });
-        }
-
-        function readBlogPost(id) {
-            const post = state.blogPosts.find(p => p.id === id);
-            if (post) {
-                alert(`Opening blog post: "${post.title}"\n\n${post.content || "Full content would be displayed here in a complete implementation."}`);
-            }
-        }
-
-        // Workshop Functions
-        function renderWorkshops() {
-            const workshopsContainer = document.querySelector('#workshops > div');
-            workshopsContainer.innerHTML = '';
-            
-            state.workshops.forEach(workshop => {
-                const workshopCard = document.createElement('div');
-                workshopCard.style.cssText = 'background: var(--white); border: 2px solid var(--prophetic-blue); padding: 2rem; border-radius: 10px; display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;';
-                workshopCard.innerHTML = `
-                    <div style="background: var(--prophetic-red); color: var(--white); padding: 2rem; text-align: center; border-radius: 10px;">
-                        <div style="font-size: 3rem; font-weight: bold;">${new Date(workshop.date).getDate()}</div>
-                        <div style="font-size: 1.2rem;">${new Date(workshop.date).toLocaleString('en-US', { month: 'short', year: 'numeric' }).toUpperCase()}</div>
-                    </div>
-                    <div>
-                        <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">${workshop.title}</h3>
-                        <p style="margin-bottom: 1rem;">${workshop.description}</p>
-                        <p><strong>Location:</strong> ${workshop.location}</p>
-                        <p><strong>Time:</strong> ${workshop.time}</p>
-                        <p><strong>Cost:</strong> R ${workshop.price.toFixed(2)}</p>
-                        <button class="btn btn-primary" onclick="addToCart('${workshop.title}', ${workshop.price}, 'workshop', ${workshop.id})">
-                            <i class="fas fa-ticket-alt"></i> Register Now
-                        </button>
-                    </div>
-                `;
-                workshopsContainer.appendChild(workshopCard);
-            });
-        }
-
-        // Auth Functions
-        function openAuthModal(tab = 'login') {
-            elements.authModal.classList.add('active');
-            switchAuthTab(tab);
-        }
-
-        function closeAuthModal() {
-            elements.authModal.classList.remove('active');
-        }
-
-        function switchAuthTab(tab) {
-            // Update tabs
-            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-            
-            // Activate selected tab
-            if (tab === 'login') {
-                document.querySelector('.auth-tab:nth-child(1)').classList.add('active');
-                document.getElementById('loginForm').classList.add('active');
-                document.getElementById('authModalTitle').textContent = 'Login to Your Account';
+        // Authentication Functions
+        function checkLoginStatus() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                state.user = JSON.parse(savedUser);
+                updateAuthUI();
             } else {
-                document.querySelector('.auth-tab:nth-child(2)').classList.add('active');
-                document.getElementById('registerForm').classList.add('active');
-                document.getElementById('authModalTitle').textContent = 'Create New Account';
+                showLoginButtons();
             }
+        }
+
+        function updateAuthUI() {
+            if (state.user) {
+                elements.authButtons.innerHTML = `
+                    <div class="user-welcome">
+                        <i class="fas fa-user"></i>
+                        <span>Hello, ${state.user.name}</span>
+                    </div>
+                    <button class="btn btn-outline" onclick="showUserProfile()">
+                        <i class="fas fa-user-circle"></i> My Account
+                    </button>
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                `;
+            } else {
+                showLoginButtons();
+            }
+        }
+
+        function showLoginButtons() {
+            elements.authButtons.innerHTML = `
+                <button class="btn btn-outline" onclick="openAuthModal()">
+                    <i class="fas fa-user"></i> Login
+                </button>
+                <button class="btn btn-primary" onclick="openAuthModal('register')">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </button>
+            `;
         }
 
         function handleLogin(e) {
@@ -1793,14 +1676,17 @@
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            // Simple authentication (in a real app, this would be server-side)
+            // Find user
             const user = state.users.find(u => u.email === email && u.password === password);
             
             if (user) {
-                state.user = { ...user };
-                localStorage.setItem('user', JSON.stringify(state.user));
+                // Remove password from user object before storing
+                const { password: _, ...userWithoutPassword } = user;
+                state.user = userWithoutPassword;
+                localStorage.setItem('currentUser', JSON.stringify(state.user));
+                
                 closeAuthModal();
-                checkAuthState();
+                updateAuthUI();
                 showNotification('Login successful!', 'success');
             } else {
                 showNotification('Invalid email or password', 'error');
@@ -1831,1000 +1717,656 @@
                 name,
                 email,
                 password,
-                role: 'customer'
+                role: 'customer',
+                joinDate: new Date().toISOString().split('T')[0],
+                phone: '',
+                bio: ''
             };
             
             state.users.push(newUser);
-            state.user = { ...newUser };
-            localStorage.setItem('user', JSON.stringify(state.user));
+            
+            // Remove password from user object before storing
+            const { password: _, ...userWithoutPassword } = newUser;
+            state.user = userWithoutPassword;
+            localStorage.setItem('currentUser', JSON.stringify(state.user));
             
             closeAuthModal();
-            checkAuthState();
+            updateAuthUI();
             showNotification('Account created successfully!', 'success');
+        }
+
+        function handleForgotPassword(e) {
+            e.preventDefault();
+            const email = document.getElementById('resetEmail').value;
+            
+            // Check if user exists
+            const user = state.users.find(u => u.email === email);
+            
+            if (user) {
+                closeForgotPasswordModal();
+                showNotification('Password reset link has been sent to your email', 'success');
+            } else {
+                showNotification('No account found with this email', 'error');
+            }
+        }
+
+        function handleChangePassword(e) {
+            e.preventDefault();
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+            
+            if (newPassword !== confirmNewPassword) {
+                showNotification('New passwords do not match', 'error');
+                return;
+            }
+            
+            // Find user and update password
+            const userIndex = state.users.findIndex(u => u.email === state.user.email);
+            if (userIndex !== -1 && state.users[userIndex].password === currentPassword) {
+                state.users[userIndex].password = newPassword;
+                closeChangePasswordModal();
+                showNotification('Password updated successfully', 'success');
+            } else {
+                showNotification('Current password is incorrect', 'error');
+            }
+        }
+
+        function handleEditProfile(e) {
+            e.preventDefault();
+            const name = document.getElementById('editName').value;
+            const email = document.getElementById('editEmail').value;
+            const phone = document.getElementById('editPhone').value;
+            const bio = document.getElementById('editBio').value;
+            
+            // Update user in state
+            const userIndex = state.users.findIndex(u => u.email === state.user.email);
+            if (userIndex !== -1) {
+                state.users[userIndex].name = name;
+                state.users[userIndex].email = email;
+                state.users[userIndex].phone = phone;
+                state.users[userIndex].bio = bio;
+                
+                // Update current user
+                state.user.name = name;
+                state.user.email = email;
+                state.user.phone = phone;
+                state.user.bio = bio;
+                
+                localStorage.setItem('currentUser', JSON.stringify(state.user));
+                
+                closeEditProfileModal();
+                updateAuthUI();
+                updateUserProfile();
+                showNotification('Profile updated successfully', 'success');
+            }
         }
 
         function logout() {
             state.user = null;
-            localStorage.removeItem('user');
-            checkAuthState();
+            localStorage.removeItem('currentUser');
+            updateAuthUI();
+            hideUserProfile();
             showNotification('Logged out successfully', 'success');
         }
 
-        function checkAuthState() {
-            // Check if user is stored in localStorage
-            const storedUser = localStorage.getItem('user');
-            if (storedUser) {
-                state.user = JSON.parse(storedUser);
-            }
-            
-            // Update UI based on auth state
-            const authButtons = document.querySelector('.auth-buttons');
-            
-            if (state.user) {
-                authButtons.innerHTML = `
-                    <span style="color: white; margin-right: 1rem;">
-                        <i class="fas fa-user"></i> Hello, ${state.user.name}
-                    </span>
-                    ${state.user.role === 'admin' ? 
-                        `<button class="btn btn-outline" onclick="toggleAdminPanel()">
-                            <i class="fas fa-cog"></i> Admin
-                        </button>` : ''}
-                    <button class="btn btn-outline" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
-                `;
-                
-                if (state.user.role === 'admin') {
-                    showAdminPanel();
-                    renderAdminData();
-                }
-            } else {
-                authButtons.innerHTML = `
-                    <button class="btn btn-outline" onclick="openAuthModal()">
-                        <i class="fas fa-user"></i> Login
-                    </button>
-                    <button class="btn btn-primary" onclick="openAuthModal('register')">
-                        <i class="fas fa-user-plus"></i> Sign Up
-                    </button>
-                `;
-                elements.adminSection.classList.add('hidden');
-            }
-        }
-
-        // Admin Functions
-        function showAdminPanel() {
-            elements.adminSection.classList.remove('hidden');
-        }
-
-        function toggleAdminPanel() {
-            elements.adminSection.classList.toggle('hidden');
-            if (!elements.adminSection.classList.contains('hidden')) {
-                scrollToSection('admin');
-            }
-        }
-
-        function switchAdminTab(tab) {
-            // Update tabs
-            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
-            
-            // Activate selected tab
-            document.getElementById(`admin-${tab}`).classList.add('active');
-            document.querySelector(`.admin-tab[onclick="switchAdminTab('${tab}')"]`).classList.add('active');
-        }
-
-        function renderAdminData() {
-            // Render products table
-            const productsTable = document.getElementById('admin-products-table');
-            productsTable.innerHTML = '';
-            
-            state.products.forEach(product => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${product.name}</td>
-                    <td>R ${product.price.toFixed(2)}</td>
-                    <td>${product.category}</td>
-                    <td>
-                        <button class="action-btn preview-btn" onclick="previewProduct(${product.id})">
-                            <i class="fas fa-eye"></i> Preview
-                        </button>
-                        <button class="action-btn edit-btn" onclick="editProduct(${product.id})">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" onclick="deleteProduct(${product.id})">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                `;
-                productsTable.appendChild(row);
+        // User Profile Functions
+        function showUserProfile() {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('hidden');
             });
             
-            // Render blog posts
-            const blogList = document.getElementById('admin-blog-list');
-            blogList.innerHTML = '';
+            // Show user profile section
+            elements.userProfile.classList.remove('hidden');
+            updateUserProfile();
+            scrollToSection('userProfile');
+        }
+
+        function hideUserProfile() {
+            elements.userProfile.classList.add('hidden');
+            document.getElementById('home').classList.remove('hidden');
+        }
+
+        function updateUserProfile() {
+            if (!state.user) return;
             
-            state.blogPosts.forEach(post => {
-                const blogItem = document.createElement('div');
-                blogItem.className = 'content-item';
-                blogItem.innerHTML = `
-                    <div>
-                        <h4>${post.title}</h4>
+            document.getElementById('userProfileName').textContent = state.user.name;
+            document.getElementById('userProfileEmail').textContent = state.user.email;
+            document.getElementById('userJoinDate').textContent = state.user.joinDate;
+            
+            // Update stats
+            const userOrders = state.orders.filter(order => order.customerEmail === state.user.email);
+            document.getElementById('ordersCount').textContent = userOrders.length;
+            document.getElementById('wishlistCount').textContent = state.wishlist.length;
+            
+            const coachingSessions = userOrders.filter(order => 
+                order.items.some(item => item.category === 'coaching')
+            ).length;
+            document.getElementById('coachingSessions').textContent = coachingSessions;
+            
+            // Update order history
+            const orderHistory = document.getElementById('orderHistory');
+            if (userOrders.length === 0) {
+                orderHistory.innerHTML = '<p>No orders yet. <a href="#products" onclick="scrollToSection(\'products\')">Start shopping!</a></p>';
+            } else {
+                orderHistory.innerHTML = userOrders.map(order => `
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div>
+                                <span class="order-id">Order #${order.id}</span>
+                                <div class="order-date">${new Date(order.date).toLocaleDateString()}</div>
+                            </div>
+                            <div class="order-status status-completed">Completed</div>
+                        </div>
+                        <div>
+                            ${order.items.map(item => `
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>${item.name} x${item.quantity}</span>
+                                    <span>R ${(item.price * item.quantity).toFixed(2)}</span>
+                                </div>
+                            `).join('')}
+                            <hr style="margin: 0.5rem 0;">
+                            <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                                <span>Total:</span>
+                                <span>R ${order.total.toFixed(2)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Populate edit form
+            document.getElementById('editName').value = state.user.name;
+            document.getElementById('editEmail').value = state.user.email;
+            document.getElementById('editPhone').value = state.user.phone || '';
+            document.getElementById('editBio').value = state.user.bio || '';
+        }
+
+        // Modal Functions
+        function openAuthModal(tab = 'login') {
+            elements.authModal.classList.add('active');
+            switchAuthTab(tab);
+        }
+
+        function closeAuthModal() {
+            elements.authModal.classList.remove('active');
+        }
+
+        function openForgotPasswordModal() {
+            closeAuthModal();
+            elements.forgotPasswordModal.classList.add('active');
+        }
+
+        function closeForgotPasswordModal() {
+            elements.forgotPasswordModal.classList.remove('active');
+        }
+
+        function openChangePasswordModal() {
+            elements.changePasswordModal.classList.add('active');
+        }
+
+        function closeChangePasswordModal() {
+            elements.changePasswordModal.classList.remove('active');
+        }
+
+        function openEditProfileModal() {
+            elements.editProfileModal.classList.add('active');
+        }
+
+        function closeEditProfileModal() {
+            elements.editProfileModal.classList.remove('active');
+        }
+
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                document.querySelector('.auth-tab:nth-child(1)').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+                document.getElementById('authModalTitle').textContent = 'Login to Your Account';
+            } else {
+                document.querySelector('.auth-tab:nth-child(2)').classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+                document.getElementById('authModalTitle').textContent = 'Create New Account';
+            }
+        }
+
+        // Product Functions
+        function renderProducts() {
+            if (!elements.productsGrid) return;
+            
+            elements.productsGrid.innerHTML = state.products.map(product => `
+                <div class="product-card">
+                    <div class="product-image">
+                        ${product.image}
+                    </div>
+                    <button class="wishlist-btn" onclick="toggleWishlistItem(${product.id})">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="product-content">
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <div class="product-footer">
+                            <div class="price">R ${product.price.toFixed(2)}</div>
+                            <div class="${product.inventory > 0 ? 'in-stock' : 'out-of-stock'}">
+                                ${product.inventory > 0 ? 'In Stock' : 'Out of Stock'}
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" 
+                                onclick="addToCart('${product.name}', ${product.price}, '${product.category}', ${product.id})"
+                                ${product.inventory === 0 ? 'disabled' : ''}>
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderBlogPosts() {
+            if (!elements.blogContainer) return;
+            
+            elements.blogContainer.innerHTML = state.blogPosts.map(post => `
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, #10b981, #3b82f6);">
+                        <i class="fas fa-blog"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>${post.title}</h3>
                         <p>${post.description}</p>
-                        <small>${formatDate(post.date)}</small>
-                    </div>
-                    <div class="content-item-actions">
-                        <button class="action-btn preview-btn" onclick="previewContent('blog', ${post.id})">
-                            <i class="fas fa-eye"></i> Preview
-                        </button>
-                        <button class="action-btn edit-btn" onclick="editContent('blog', ${post.id})">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" onclick="deleteContent('blog', ${post.id})">
-                            <i class="fas fa-trash"></i> Delete
+                        <div class="product-footer">
+                            <div style="color: #6b7280; font-size: 0.9rem;">
+                                <i class="fas fa-calendar"></i> ${new Date(post.date).toLocaleDateString()}
+                            </div>
+                        </div>
+                        <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-book-open"></i> Read More
                         </button>
                     </div>
-                `;
-                blogList.appendChild(blogItem);
-            });
-            
-            // Render workshops
-            const workshopsList = document.getElementById('admin-workshops-list');
-            workshopsList.innerHTML = '';
-            
-            state.workshops.forEach(workshop => {
-                const workshopItem = document.createElement('div');
-                workshopItem.className = 'content-item';
-                workshopItem.innerHTML = `
-                    <div>
-                        <h4>${workshop.title}</h4>
-                        <p>${workshop.description}</p>
-                        <small>${formatDate(workshop.date)} | ${workshop.location} | R ${workshop.price.toFixed(2)}</small>
-                    </div>
-                    <div class="content-item-actions">
-                        <button class="action-btn preview-btn" onclick="previewContent('workshop', ${workshop.id})">
-                            <i class="fas fa-eye"></i> Preview
-                        </button>
-                        <button class="action-btn edit-btn" onclick="editContent('workshop', ${workshop.id})">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" onclick="deleteContent('workshop', ${workshop.id})">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </div>
-                `;
-                workshopsList.appendChild(workshopItem);
-            });
-            
-            // Render ministry info
-            const ministryList = document.getElementById('admin-ministry-list');
-            ministryList.innerHTML = '';
-            
-            state.ministryInfo.forEach(info => {
-                const ministryItem = document.createElement('div');
-                ministryItem.className = 'content-item';
-                ministryItem.innerHTML = `
-                    <div>
-                        <h4>${info.title}</h4>
-                        <p>${info.description}</p>
-                    </div>
-                    <div class="content-item-actions">
-                        <button class="action-btn preview-btn" onclick="previewContent('ministry', ${info.id})">
-                            <i class="fas fa-eye"></i> Preview
-                        </button>
-                        <button class="action-btn edit-btn" onclick="editContent('ministry', ${info.id})">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" onclick="deleteContent('ministry', ${info.id})">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </div>
-                `;
-                ministryList.appendChild(ministryItem);
-            });
-            
-            // Render users table
-            const usersTable = document.getElementById('admin-users-table');
-            usersTable.innerHTML = '';
-            
-            state.users.forEach(user => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
-                    <td>${user.role}</td>
-                    <td>
-                        <button class="action-btn edit-btn" onclick="editUser(${user.id})">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        ${user.role !== 'admin' ? 
-                            `<button class="action-btn delete-btn" onclick="deleteUser(${user.id})">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>` : ''}
-                    </td>
-                `;
-                usersTable.appendChild(row);
-            });
-            
-            // Render orders table
-            const ordersTable = document.getElementById('admin-orders-table');
-            ordersTable.innerHTML = '';
-            
-            state.orders.forEach(order => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>#${order.id}</td>
-                    <td>${order.customerName}</td>
-                    <td>R ${order.total.toFixed(2)}</td>
-                    <td>${order.status}</td>
-                    <td>
-                        <button class="action-btn edit-btn" onclick="viewOrder(${order.id})">
-                            <i class="fas fa-eye"></i> View
-                        </button>
-                    </td>
-                `;
-                ordersTable.appendChild(row);
-            });
+                </div>
+            `).join('');
         }
 
-        function openProductModal(product = null) {
-            elements.productModal.classList.add('active');
+        function renderWorkshops() {
+            if (!elements.workshopsContainer) return;
             
-            if (product) {
-                document.getElementById('productModalTitle').textContent = 'Edit Product';
-                document.getElementById('productName').value = product.name;
-                document.getElementById('productDescription').value = product.description;
-                document.getElementById('productPrice').value = product.price;
-                document.getElementById('productCategory').value = product.category;
-                document.getElementById('productImage').value = product.image || '';
-                
-                // Store product ID for updating
-                document.getElementById('productForm').dataset.productId = product.id;
-            } else {
-                document.getElementById('productModalTitle').textContent = 'Add New Product';
-                document.getElementById('productForm').reset();
-                delete document.getElementById('productForm').dataset.productId;
+            elements.workshopsContainer.innerHTML = state.workshops.map(workshop => `
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, #f59e0b, #dc2626);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>${workshop.title}</h3>
+                        <p>${workshop.description}</p>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <i class="fas fa-calendar"></i>
+                                <span>${new Date(workshop.date).toLocaleDateString()}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <i class="fas fa-clock"></i>
+                                <span>${workshop.time}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>${workshop.location}</span>
+                            </div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price">R ${workshop.price.toFixed(2)}</div>
+                            <div class="${workshop.inventory > 0 ? 'in-stock' : 'out-of-stock'}">
+                                ${workshop.inventory > 0 ? `${workshop.inventory} spots left` : 'Sold Out'}
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" 
+                                onclick="addToCart('${workshop.title}', ${workshop.price}, 'workshop', ${workshop.id})"
+                                ${workshop.inventory === 0 ? 'disabled' : ''}>
+                            <i class="fas fa-ticket-alt"></i> Register Now
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cart Functions
+        function addToCart(name, price, category, id = null) {
+            if (!state.user) {
+                openAuthModal();
+                showNotification('Please log in to add items to your cart', 'warning');
+                return;
             }
             
-            // Update preview
-            updateProductPreview();
-        }
-
-        function closeProductModal() {
-            elements.productModal.classList.remove('active');
-        }
-
-        function handleProductSubmit(e) {
-            e.preventDefault();
+            const existingItem = state.cart.find(item => item.name === name);
             
-            const productId = document.getElementById('productForm').dataset.productId;
-            const name = document.getElementById('productName').value;
-            const description = document.getElementById('productDescription').value;
-            const price = parseFloat(document.getElementById('productPrice').value);
-            const category = document.getElementById('productCategory').value;
-            const image = document.getElementById('productImage').value;
-            
-            if (productId) {
-                // Update existing product
-                const index = state.products.findIndex(p => p.id === parseInt(productId));
-                if (index !== -1) {
-                    state.products[index] = {
-                        ...state.products[index],
-                        name,
-                        description,
-                        price,
-                        category,
-                        image: image || state.products[index].image
-                    };
-                }
+            if (existingItem) {
+                existingItem.quantity += 1;
             } else {
-                // Add new product
-                const newProduct = {
-                    id: Date.now(),
+                state.cart.push({
+                    id: id || Date.now(),
                     name,
-                    description,
                     price,
                     category,
-                    image: image || getProductIcon(category)
-                };
-                state.products.push(newProduct);
+                    quantity: 1
+                });
             }
             
-            closeProductModal();
-            renderProducts();
-            renderAdminData();
-            showNotification(`Product ${productId ? 'updated' : 'added'} successfully!`, 'success');
+            updateCartUI();
+            showNotification(`${name} added to cart`, 'success');
         }
 
-        function editProduct(id) {
-            const product = state.products.find(p => p.id === id);
-            if (product) {
-                openProductModal(product);
+        function removeFromCart(itemId) {
+            state.cart = state.cart.filter(item => item.id !== itemId);
+            updateCartUI();
+        }
+
+        function updateCartQuantity(itemId, change) {
+            const item = state.cart.find(item => item.id === itemId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(itemId);
+                } else {
+                    updateCartUI();
+                }
             }
         }
 
-        function deleteProduct(id) {
-            if (confirm('Are you sure you want to delete this product?')) {
-                state.products = state.products.filter(p => p.id !== id);
-                renderProducts();
-                renderAdminData();
-                showNotification('Product deleted successfully!', 'success');
+        function updateCartUI() {
+            // Update cart count
+            const totalItems = state.cart.reduce((sum, item) => sum + item.quantity, 0);
+            elements.cartCount.textContent = totalItems;
+            
+            // Update cart items
+            if (state.cart.length === 0) {
+                elements.cartItems.innerHTML = '<div class="empty-cart"><i class="fas fa-shopping-cart"></i><p>Your cart is empty</p></div>';
+                elements.cartTotal.textContent = 'R 0.00';
+                document.getElementById('checkoutBtn').disabled = true;
+            } else {
+                elements.cartItems.innerHTML = state.cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            ${getItemIcon(item.category)}
+                        </div>
+                        <div class="cart-item-details">
+                            <h4>${item.name}</h4>
+                            <div>R ${item.price.toFixed(2)}</div>
+                            <div class="cart-item-controls">
+                                <button class="quantity-btn" onclick="updateCartQuantity(${item.id}, -1)">-</button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateCartQuantity(${item.id}, 1)">+</button>
+                                <button class="remove-item" onclick="removeFromCart(${item.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                const total = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                elements.cartTotal.textContent = `R ${total.toFixed(2)}`;
+                document.getElementById('checkoutBtn').disabled = false;
             }
         }
 
-        function previewProduct(id) {
-            const product = state.products.find(p => p.id === id);
-            if (product) {
-                document.getElementById('previewModalTitle').textContent = 'Product Preview';
-                document.getElementById('previewContent').innerHTML = `
-                    <div class="product-card">
-                        <div class="product-image">${product.image}</div>
-                        <div class="product-content">
-                            <h3>${product.name}</h3>
-                            <p>${product.description}</p>
-                            <div class="product-footer">
-                                <div class="price">R ${product.price.toFixed(2)}</div>
-                                <button class="btn btn-primary">
+        function getItemIcon(category) {
+            switch(category) {
+                case 'ebook': return '📖';
+                case 'coaching': return '🎯';
+                case 'workshop': return '👥';
+                default: return '📦';
+            }
+        }
+
+        function toggleCart() {
+            elements.cartSidebar.classList.toggle('active');
+        }
+
+        // Wishlist Functions
+        function toggleWishlistItem(productId) {
+            if (!state.user) {
+                openAuthModal();
+                showNotification('Please log in to manage your wishlist', 'warning');
+                return;
+            }
+            
+            const existingIndex = state.wishlist.findIndex(item => item.id === productId);
+            
+            if (existingIndex !== -1) {
+                state.wishlist.splice(existingIndex, 1);
+                showNotification('Item removed from wishlist', 'success');
+            } else {
+                const product = state.products.find(p => p.id === productId);
+                if (product) {
+                    state.wishlist.push(product);
+                    showNotification('Item added to wishlist', 'success');
+                }
+            }
+            
+            updateWishlistUI();
+        }
+
+        function updateWishlistUI() {
+            // Update wishlist count
+            elements.wishlistCount.textContent = state.wishlist.length;
+            
+            // Update wishlist items
+            if (state.wishlist.length === 0) {
+                elements.wishlistItems.innerHTML = '<div class="empty-wishlist"><i class="fas fa-heart"></i><p>Your wishlist is empty</p></div>';
+            } else {
+                elements.wishlistItems.innerHTML = state.wishlist.map(item => `
+                    <div class="wishlist-item">
+                        <div class="wishlist-item-image">
+                            ${item.image}
+                        </div>
+                        <div class="wishlist-item-details">
+                            <h4>${item.name}</h4>
+                            <div>R ${item.price.toFixed(2)}</div>
+                            <div style="margin-top: 0.5rem;">
+                                <button class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;" 
+                                        onclick="addToCart('${item.name}', ${item.price}, '${item.category}', ${item.id})">
                                     <i class="fas fa-cart-plus"></i> Add to Cart
                                 </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="text-align: center; margin-top: 1rem;">
-                        <button class="btn btn-outline" onclick="closePreviewModal()">
-                            Close Preview
-                        </button>
-                    </div>
-                `;
-                elements.previewModal.classList.add('active');
-            }
-        }
-
-        // Content Management Functions
-        function openContentModal(type, content = null) {
-            elements.contentModal.classList.add('active');
-            
-            // Show/hide fields based on content type
-            document.getElementById('contentDateGroup').style.display = type === 'blog' || type === 'workshop' ? 'block' : 'none';
-            document.getElementById('contentPriceGroup').style.display = type === 'workshop' ? 'block' : 'none';
-            document.getElementById('contentLocationGroup').style.display = type === 'workshop' ? 'block' : 'none';
-            document.getElementById('contentTimeGroup').style.display = type === 'workshop' ? 'block' : 'none';
-            
-            if (content) {
-                document.getElementById('contentModalTitle').textContent = `Edit ${type === 'blog' ? 'Blog Post' : type === 'workshop' ? 'Workshop' : 'Ministry Info'}`;
-                document.getElementById('contentTitle').value = content.title;
-                document.getElementById('contentDescription').value = content.description;
-                
-                if (type === 'blog' || type === 'workshop') {
-                    document.getElementById('contentDate').value = content.date;
-                }
-                
-                if (type === 'workshop') {
-                    document.getElementById('contentPrice').value = content.price;
-                    document.getElementById('contentLocation').value = content.location;
-                    document.getElementById('contentTime').value = content.time;
-                }
-                
-                // Store content ID and type for updating
-                document.getElementById('contentForm').dataset.contentId = content.id;
-                document.getElementById('contentForm').dataset.contentType = type;
-            } else {
-                document.getElementById('contentModalTitle').textContent = `Add New ${type === 'blog' ? 'Blog Post' : type === 'workshop' ? 'Workshop' : 'Ministry Info'}`;
-                document.getElementById('contentForm').reset();
-                delete document.getElementById('contentForm').dataset.contentId;
-                document.getElementById('contentForm').dataset.contentType = type;
-            }
-            
-            // Update preview
-            updateContentPreview();
-        }
-
-        function closeContentModal() {
-            elements.contentModal.classList.remove('active');
-        }
-
-        function handleContentSubmit(e) {
-            e.preventDefault();
-            
-            const contentId = document.getElementById('contentForm').dataset.contentId;
-            const contentType = document.getElementById('contentForm').dataset.contentType;
-            const title = document.getElementById('contentTitle').value;
-            const description = document.getElementById('contentDescription').value;
-            const date = document.getElementById('contentDate').value;
-            const price = parseFloat(document.getElementById('contentPrice').value) || 0;
-            const location = document.getElementById('contentLocation').value;
-            const time = document.getElementById('contentTime').value;
-            
-            let contentArray, contentObject;
-            
-            switch(contentType) {
-                case 'blog':
-                    contentArray = state.blogPosts;
-                    contentObject = {
-                        id: contentId ? parseInt(contentId) : Date.now(),
-                        title,
-                        description,
-                        date,
-                        content: "Full content would be added here in a complete implementation."
-                    };
-                    break;
-                case 'workshop':
-                    contentArray = state.workshops;
-                    contentObject = {
-                        id: contentId ? parseInt(contentId) : Date.now(),
-                        title,
-                        description,
-                        date,
-                        price,
-                        location,
-                        time
-                    };
-                    break;
-                case 'ministry':
-                    contentArray = state.ministryInfo;
-                    contentObject = {
-                        id: contentId ? parseInt(contentId) : Date.now(),
-                        title,
-                        description
-                    };
-                    break;
-            }
-            
-            if (contentId) {
-                // Update existing content
-                const index = contentArray.findIndex(c => c.id === parseInt(contentId));
-                if (index !== -1) {
-                    contentArray[index] = {
-                        ...contentArray[index],
-                        ...contentObject
-                    };
-                }
-            } else {
-                // Add new content
-                contentArray.push(contentObject);
-            }
-            
-            closeContentModal();
-            
-            // Update the appropriate section
-            if (contentType === 'blog') {
-                renderBlogPosts();
-            } else if (contentType === 'workshop') {
-                renderWorkshops();
-            }
-            
-            renderAdminData();
-            showNotification(`${contentType === 'blog' ? 'Blog post' : contentType === 'workshop' ? 'Workshop' : 'Ministry info'} ${contentId ? 'updated' : 'added'} successfully!`, 'success');
-        }
-
-        function editContent(type, id) {
-            let content;
-            
-            switch(type) {
-                case 'blog':
-                    content = state.blogPosts.find(p => p.id === id);
-                    break;
-                case 'workshop':
-                    content = state.workshops.find(w => w.id === id);
-                    break;
-                case 'ministry':
-                    content = state.ministryInfo.find(m => m.id === id);
-                    break;
-            }
-            
-            if (content) {
-                openContentModal(type, content);
-            }
-        }
-
-        function deleteContent(type, id) {
-            if (confirm(`Are you sure you want to delete this ${type}?`)) {
-                let contentArray;
-                
-                switch(type) {
-                    case 'blog':
-                        contentArray = state.blogPosts;
-                        break;
-                    case 'workshop':
-                        contentArray = state.workshops;
-                        break;
-                    case 'ministry':
-                        contentArray = state.ministryInfo;
-                        break;
-                }
-                
-                if (contentArray) {
-                    contentArray = contentArray.filter(c => c.id !== id);
-                    
-                    // Update the state
-                    switch(type) {
-                        case 'blog':
-                            state.blogPosts = contentArray;
-                            renderBlogPosts();
-                            break;
-                        case 'workshop':
-                            state.workshops = contentArray;
-                            renderWorkshops();
-                            break;
-                        case 'ministry':
-                            state.ministryInfo = contentArray;
-                            break;
-                    }
-                    
-                    renderAdminData();
-                    showNotification(`${type} deleted successfully!`, 'success');
-                }
-            }
-        }
-
-        function previewContent(type, id) {
-            let content, previewHTML;
-            
-            switch(type) {
-                case 'blog':
-                    content = state.blogPosts.find(p => p.id === id);
-                    if (content) {
-                        previewHTML = `
-                            <article style="background: var(--light-gray); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--prophetic-blue);">
-                                <h3 style="color: var(--prophetic-blue); margin-bottom: 0.5rem;">${content.title}</h3>
-                                <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">${formatDate(content.date)}</p>
-                                <p style="margin-bottom: 1rem;">${content.description}</p>
-                                <a href="#" style="color: var(--prophetic-blue); text-decoration: none; font-weight: bold;">
-                                    Read More <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </article>
-                        `;
-                    }
-                    break;
-                case 'workshop':
-                    content = state.workshops.find(w => w.id === id);
-                    if (content) {
-                        previewHTML = `
-                            <div style="background: var(--white); border: 2px solid var(--prophetic-blue); padding: 2rem; border-radius: 10px; display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;">
-                                <div style="background: var(--prophetic-red); color: var(--white); padding: 2rem; text-align: center; border-radius: 10px;">
-                                    <div style="font-size: 3rem; font-weight: bold;">${new Date(content.date).getDate()}</div>
-                                    <div style="font-size: 1.2rem;">${new Date(content.date).toLocaleString('en-US', { month: 'short', year: 'numeric' }).toUpperCase()}</div>
-                                </div>
-                                <div>
-                                    <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">${content.title}</h3>
-                                    <p style="margin-bottom: 1rem;">${content.description}</p>
-                                    <p><strong>Location:</strong> ${content.location}</p>
-                                    <p><strong>Time:</strong> ${content.time}</p>
-                                    <p><strong>Cost:</strong> R ${content.price.toFixed(2)}</p>
-                                    <button class="btn btn-primary">
-                                        <i class="fas fa-ticket-alt"></i> Register Now
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                    }
-                    break;
-                case 'ministry':
-                    content = state.ministryInfo.find(m => m.id === id);
-                    if (content) {
-                        previewHTML = `
-                            <div style="background: var(--light-gray); padding: 2rem; border-radius: 10px;">
-                                <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">${content.title}</h3>
-                                <p>${content.description}</p>
-                            </div>
-                        `;
-                    }
-                    break;
-            }
-            
-            if (content) {
-                document.getElementById('previewModalTitle').textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Preview`;
-                document.getElementById('previewContent').innerHTML = previewHTML + `
-                    <div style="text-align: center; margin-top: 1rem;">
-                        <button class="btn btn-outline" onclick="closePreviewModal()">
-                            Close Preview
-                        </button>
-                    </div>
-                `;
-                elements.previewModal.classList.add('active');
-            }
-        }
-
-        function closePreviewModal() {
-            elements.previewModal.classList.remove('active');
-        }
-
-        // Preview Functions
-        function updateProductPreview() {
-            const name = document.getElementById('productName').value || 'Product Name';
-            const description = document.getElementById('productDescription').value || 'Product description will appear here.';
-            const price = document.getElementById('productPrice').value || '0';
-            const category = document.getElementById('productCategory').value || 'ebook';
-            const image = document.getElementById('productImage').value || getProductIcon(category);
-            
-            document.getElementById('productPreview').innerHTML = `
-                <div class="product-card">
-                    <div class="product-image">${image}</div>
-                    <div class="product-content">
-                        <h3>${name}</h3>
-                        <p>${description}</p>
-                        <div class="product-footer">
-                            <div class="price">R ${parseFloat(price).toFixed(2)}</div>
-                            <button class="btn btn-primary">
-                                <i class="fas fa-cart-plus"></i> Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function updateContentPreview() {
-            const contentType = document.getElementById('contentForm').dataset.contentType;
-            const title = document.getElementById('contentTitle').value || 'Content Title';
-            const description = document.getElementById('contentDescription').value || 'Content description will appear here.';
-            const date = document.getElementById('contentDate').value;
-            const price = document.getElementById('contentPrice').value || '0';
-            const location = document.getElementById('contentLocation').value || 'Location';
-            const time = document.getElementById('contentTime').value || 'Time';
-            
-            let previewHTML = '';
-            
-            switch(contentType) {
-                case 'blog':
-                    previewHTML = `
-                        <article style="background: var(--light-gray); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--prophetic-blue);">
-                            <h3 style="color: var(--prophetic-blue); margin-bottom: 0.5rem;">${title}</h3>
-                            <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">${date ? formatDate(date) : 'Date will appear here'}</p>
-                            <p style="margin-bottom: 1rem;">${description}</p>
-                            <a href="#" style="color: var(--prophetic-blue); text-decoration: none; font-weight: bold;">
-                                Read More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </article>
-                    `;
-                    break;
-                case 'workshop':
-                    previewHTML = `
-                        <div style="background: var(--white); border: 2px solid var(--prophetic-blue); padding: 2rem; border-radius: 10px; display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;">
-                            <div style="background: var(--prophetic-red); color: var(--white); padding: 2rem; text-align: center; border-radius: 10px;">
-                                <div style="font-size: 3rem; font-weight: bold;">${date ? new Date(date).getDate() : 'DD'}</div>
-                                <div style="font-size: 1.2rem;">${date ? new Date(date).toLocaleString('en-US', { month: 'short', year: 'numeric' }).toUpperCase() : 'MON YYYY'}</div>
-                            </div>
-                            <div>
-                                <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">${title}</h3>
-                                <p style="margin-bottom: 1rem;">${description}</p>
-                                <p><strong>Location:</strong> ${location}</p>
-                                <p><strong>Time:</strong> ${time}</p>
-                                <p><strong>Cost:</strong> R ${parseFloat(price).toFixed(2)}</p>
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-ticket-alt"></i> Register Now
+                                <button class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.8rem; margin-left: 0.5rem;" 
+                                        onclick="toggleWishlistItem(${item.id})">
+                                    <i class="fas fa-trash"></i> Remove
                                 </button>
                             </div>
                         </div>
-                    `;
-                    break;
-                case 'ministry':
-                    previewHTML = `
-                        <div style="background: var(--light-gray); padding: 2rem; border-radius: 10px;">
-                            <h3 style="color: var(--prophetic-blue); margin-bottom: 1rem;">${title}</h3>
-                            <p>${description}</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleWishlist() {
+            elements.wishlistSidebar.classList.toggle('active');
+        }
+
+        // Search Functions
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase().trim();
+            
+            if (query.length < 2) {
+                elements.searchResults.style.display = 'none';
+                return;
+            }
+            
+            // Search across products, blog posts, and workshops
+            const results = [];
+            
+            // Search products
+            state.products.forEach(product => {
+                if (product.name.toLowerCase().includes(query) || 
+                    product.description.toLowerCase().includes(query)) {
+                    results.push({
+                        type: 'product',
+                        icon: '📦',
+                        title: product.name,
+                        description: product.description,
+                        action: () => {
+                            scrollToSection('products');
+                            elements.searchInput.value = '';
+                            elements.searchResults.style.display = 'none';
+                        }
+                    });
+                }
+            });
+            
+            // Search blog posts
+            state.blogPosts.forEach(post => {
+                if (post.title.toLowerCase().includes(query) || 
+                    post.description.toLowerCase().includes(query)) {
+                    results.push({
+                        type: 'blog',
+                        icon: '📝',
+                        title: post.title,
+                        description: post.description,
+                        action: () => {
+                            scrollToSection('blog');
+                            elements.searchInput.value = '';
+                            elements.searchResults.style.display = 'none';
+                        }
+                    });
+                }
+            });
+            
+            // Search workshops
+            state.workshops.forEach(workshop => {
+                if (workshop.title.toLowerCase().includes(query) || 
+                    workshop.description.toLowerCase().includes(query)) {
+                    results.push({
+                        type: 'workshop',
+                        icon: '👥',
+                        title: workshop.title,
+                        description: workshop.description,
+                        action: () => {
+                            scrollToSection('workshops');
+                            elements.searchInput.value = '';
+                            elements.searchResults.style.display = 'none';
+                        }
+                    });
+                }
+            });
+            
+            // Display results
+            if (results.length > 0) {
+                elements.searchResults.innerHTML = results.map(result => `
+                    <div class="search-result-item" onclick="${result.action}">
+                        <div class="search-result-icon">${result.icon}</div>
+                        <div>
+                            <div style="font-weight: bold;">${result.title}</div>
+                            <div style="font-size: 0.9rem; color: #6b7280;">${result.description}</div>
                         </div>
-                    `;
-                    break;
-            }
-            
-            document.getElementById('contentPreview').innerHTML = previewHTML;
-        }
-
-        function editUser(id) {
-            // In a real app, this would open a user edit form
-            alert('User edit functionality would be implemented here');
-        }
-
-        function deleteUser(id) {
-            if (confirm('Are you sure you want to delete this user?')) {
-                state.users = state.users.filter(u => u.id !== id);
-                renderAdminData();
-                showNotification('User deleted successfully!', 'success');
-            }
-        }
-
-        function viewOrder(id) {
-            // In a real app, this would show order details
-            alert('Order details would be shown here');
-        }
-
-        // Settings Functions
-        function loadSettings() {
-            const storedSettings = localStorage.getItem('siteSettings');
-            if (storedSettings) {
-                state.settings = JSON.parse(storedSettings);
-            }
-            
-            document.getElementById('siteTitle').value = state.settings.siteTitle;
-            document.getElementById('siteTagline').value = state.settings.siteTagline;
-            document.getElementById('primaryColor').value = state.settings.primaryColor;
-            document.getElementById('secondaryColor').value = state.settings.secondaryColor;
-            
-            applySettings();
-        }
-
-        function saveSettings() {
-            state.settings.siteTitle = document.getElementById('siteTitle').value;
-            state.settings.siteTagline = document.getElementById('siteTagline').value;
-            state.settings.primaryColor = document.getElementById('primaryColor').value;
-            state.settings.secondaryColor = document.getElementById('secondaryColor').value;
-            
-            localStorage.setItem('siteSettings', JSON.stringify(state.settings));
-            applySettings();
-            showNotification('Settings saved successfully!', 'success');
-        }
-
-        function applySettings() {
-            document.documentElement.style.setProperty('--prophetic-blue', state.settings.primaryColor);
-            document.documentElement.style.setProperty('--prophetic-red', state.settings.secondaryColor);
-            
-            document.querySelector('.logo h1').textContent = state.settings.siteTitle;
-            document.querySelector('.logo p').textContent = state.settings.siteTagline;
-        }
-
-        // Checkout and Payment Functions
-        function checkout() {
-            if (!state.user) {
-                showNotification('Please log in to complete your purchase', 'error');
-                openAuthModal();
-                return;
-            }
-            
-            if (state.cart.length === 0) {
-                showNotification('Your cart is empty', 'error');
-                return;
-            }
-            
-            // Check if cart contains coaching session (free item)
-            const hasCoaching = state.cart.some(item => item.category === 'coaching');
-            const total = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            if (hasCoaching && total === 0) {
-                // Handle free coaching session booking
-                completeFreeOrder();
+                    </div>
+                `).join('');
+                elements.searchResults.style.display = 'block';
             } else {
-                // Show payment options for paid items
-                showPaymentOptions();
+                elements.searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
+                elements.searchResults.style.display = 'block';
             }
         }
 
-        function showPaymentOptions() {
-            elements.paymentModal.classList.add('active');
+        // Checkout Functions
+        function checkout() {
+            if (state.cart.length === 0) {
+                showNotification('Your cart is empty', 'warning');
+                return;
+            }
             
-            const total = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            if (!state.user) {
+                openAuthModal();
+                showNotification('Please log in to checkout', 'warning');
+                return;
+            }
             
-            elements.paymentContent.innerHTML = `
-                <h4>Order Summary</h4>
-                <div style="margin: 1rem 0;">
-                    ${state.cart.map(item => `
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                            <span>${item.name} x${item.quantity}</span>
-                            <span>R ${(item.price * item.quantity).toFixed(2)}</span>
-                        </div>
-                    `).join('')}
-                    <hr style="margin: 1rem 0;">
-                    <div style="display: flex; justify-content: space-between; font-weight: bold;">
-                        <span>Total:</span>
-                        <span>R ${total.toFixed(2)}</span>
-                    </div>
-                </div>
-                
-                <h4>Select Payment Method</h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
-                    <button class="btn btn-primary" onclick="processStripePayment()" style="display: flex; flex-direction: column; align-items: center; padding: 1rem;">
-                        <i class="fab fa-cc-stripe" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
-                        <span>Credit/Debit Card</span>
-                    </button>
-                    <button class="btn btn-outline" onclick="processPayPalPayment()" style="display: flex; flex-direction: column; align-items: center; padding: 1rem; border-color: var(--prophetic-blue); color: var(--prophetic-blue);">
-                        <i class="fab fa-paypal" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
-                        <span>PayPal</span>
-                    </button>
-                </div>
-                
-                <div style="margin-top: 1rem; text-align: center;">
-                    <button class="btn" onclick="closePaymentModal()" style="background: #6b7280; color: white; width: 100%;">
-                        Cancel
-                    </button>
-                </div>
-            `;
-        }
-
-        function closePaymentModal() {
-            elements.paymentModal.classList.remove('active');
-        }
-
-        function processStripePayment() {
-            // In a real implementation, this would integrate with Stripe
-            // For demo purposes, we'll simulate a successful payment
-            
-            const total = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            elements.paymentContent.innerHTML = `
-                <div style="text-align: center; padding: 2rem;">
-                    <div style="font-size: 3rem; color: var(--prophetic-blue); margin-bottom: 1rem;">
-                        <i class="fas fa-credit-card"></i>
-                    </div>
-                    <h4>Processing Payment...</h4>
-                    <p>Please wait while we process your payment</p>
-                    <div style="margin: 2rem 0;">
-                        <div class="spinner" style="border: 4px solid #f3f3f3; border-top: 4px solid var(--prophetic-blue); border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 0 auto;"></div>
-                    </div>
-                </div>
-            `;
-            
-            // Simulate payment processing
-            setTimeout(() => {
-                completePaidOrder();
-            }, 2000);
-        }
-
-        function processPayPalPayment() {
-            // In a real implementation, this would integrate with PayPal
-            alert('PayPal integration would be implemented here. For demo purposes, we will complete the order.');
-            completePaidOrder();
-        }
-
-        function completeFreeOrder() {
-            // Create order record
+            // Create order
             const order = {
                 id: Date.now(),
-                customerName: state.user.name,
+                date: new Date().toISOString(),
                 customerEmail: state.user.email,
                 items: [...state.cart],
-                total: 0,
-                status: 'completed',
-                date: new Date().toISOString()
+                total: state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
             };
             
             state.orders.push(order);
-            
-            // Show success message
-            showNotification('Your coaching session has been booked! We will contact you shortly.', 'success');
-            
-            // Clear cart
             state.cart = [];
             updateCartUI();
             toggleCart();
             
-            // Show confirmation
-            elements.paymentContent.innerHTML = `
-                <div style="text-align: center; padding: 2rem;">
-                    <div style="font-size: 4rem; color: var(--success); margin-bottom: 1rem;">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <h4>Booking Confirmed!</h4>
-                    <p>Your free coaching session has been scheduled.</p>
-                    <p>We will contact you at <strong>${state.user.email}</strong> to confirm the details.</p>
-                    <button class="btn btn-primary" onclick="closePaymentModal()" style="margin-top: 1rem;">
-                        Continue Shopping
-                    </button>
-                </div>
-            `;
-            
-            elements.paymentModal.classList.add('active');
+            showNotification('Order placed successfully!', 'success');
         }
 
-        function completePaidOrder() {
-            const total = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            // Create order record
-            const order = {
-                id: Date.now(),
-                customerName: state.user.name,
-                customerEmail: state.user.email,
-                items: [...state.cart],
-                total: total,
-                status: 'completed',
-                date: new Date().toISOString()
-            };
-            
-            state.orders.push(order);
-            
-            // Show success message
-            elements.paymentContent.innerHTML = `
-                <div style="text-align: center; padding: 2rem;">
-                    <div style="font-size: 4rem; color: var(--success); margin-bottom: 1rem;">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <h4>Payment Successful!</h4>
-                    <p>Thank you for your purchase. Your order has been confirmed.</p>
-                    <p>Order ID: <strong>#${order.id}</strong></p>
-                    <p>Total: <strong>R ${total.toFixed(2)}</strong></p>
-                    <p>A confirmation email has been sent to <strong>${state.user.email}</strong></p>
-                    <button class="btn btn-primary" onclick="closePaymentModal()" style="margin-top: 1rem;">
-                        Continue Shopping
-                    </button>
-                </div>
-            `;
-            
-            // Clear cart
-            state.cart = [];
-            updateCartUI();
-            
-            // Update admin orders if user is admin
-            if (state.user && state.user.role === 'admin') {
-                renderAdminData();
-            }
-        }
-
-        // Contact Form Handler
+        // Contact Form
         function handleContact(e) {
             e.preventDefault();
-            const formData = new FormData(e.target);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const subject = formData.get('subject');
-            const message = formData.get('message');
-            
-            // In a real app, this would send the data to a server
-            console.log('Contact form submitted:', { name, email, subject, message });
-            
-            showNotification('Thank you for your message! We will get back to you soon.', 'success');
-            e.target.reset();
+            showNotification('Message sent successfully! We will get back to you soon.', 'success');
+            document.getElementById('contactForm').reset();
         }
 
         // Utility Functions
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('en-US', options);
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleMenu() {
+            elements.navContainer.classList.toggle('active');
         }
 
         function showNotification(message, type = 'info') {
             // Create notification element
             const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
+            notification.className = `notification notification-${type}`;
             notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-                    <span>${message}</span>
+                <div style="position: fixed; top: 100px; right: 20px; background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : type === 'warning' ? '#f59e0b' : '#3b82f6'}; color: white; padding: 1rem; border-radius: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 2000; max-width: 300px;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
                 </div>
-                <button onclick="this.parentElement.remove()" style="background: none; border: none; cursor: pointer;">
-                    <i class="fas fa-times"></i>
-                </button>
-            `;
-            
-            // Style the notification
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 5px;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                z-index: 1300;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                min-width: 300px;
-                max-width: 500px;
-                animation: slideIn 0.3s ease;
             `;
             
             document.body.appendChild(notification);
             
-            // Auto-remove after 5 seconds
+            // Remove after 3 seconds
             setTimeout(() => {
-                if (notification.parentElement) {
-                    notification.remove();
-                }
-            }, 5000);
+                notification.remove();
+            }, 3000);
         }
 
-        // Add CSS for spinner animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
+        function checkCookieConsent() {
+            if (!localStorage.getItem('cookieConsent')) {
+                document.getElementById('cookieConsent').style.display = 'block';
             }
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-        `;
-        document.head.appendChild(style);
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'true');
+            document.getElementById('cookieConsent').style.display = 'none';
+        }
+
+        // Social Sharing
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Check out The Definitive Word Ministry - Your Destiny Has Been Written');
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+        }
+
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Check out The Definitive Word Ministry - Your Destiny Has Been Written');
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+        }
+
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+        }
+
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Check out The Definitive Word Ministry - Your Destiny Has Been Written');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
 
         // Initialize the application when DOM is loaded
         document.addEventListener('DOMContentLoaded', init);
